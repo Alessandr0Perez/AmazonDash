@@ -1,11 +1,9 @@
-# AmazonDash
-AmazonDash
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataManager Pro - Sistema de Gerenciamento</title>
+    <title>AmazonDash Pro - Sistema de Gerenciamento</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -260,6 +258,12 @@ AmazonDash
             color: var(--secondary);
         }
 
+        .logo-img {
+            max-height: 40px;
+            max-width: 150px;
+            margin-right: 10px;
+        }
+
         .nav-menu {
             list-style: none;
             margin-top: 20px;
@@ -314,6 +318,11 @@ AmazonDash
 
         .header h1 {
             color: var(--primary);
+        }
+
+        .header-logo {
+            max-height: 50px;
+            max-width: 200px;
         }
 
         .user-info {
@@ -373,6 +382,88 @@ AmazonDash
             display: block;
         }
 
+        /* FILTROS DO DASHBOARD */
+        .filtros-dashboard {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .filtros-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .filtro-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filtro-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .filtro-label i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+
+        .filtro-input {
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+
+        .filtro-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .filtros-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .filtro-tag {
+            display: inline-flex;
+            align-items: center;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0 5px 5px 0;
+        }
+
+        .filtro-tag i {
+            margin-left: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .filtro-tag i:hover {
+            opacity: 0.8;
+        }
+
+        .filtros-ativos {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            min-height: 30px;
+        }
+
         /* DASHBOARD */
         .dashboard-welcome {
             text-align: center;
@@ -381,6 +472,18 @@ AmazonDash
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             border-radius: 10px;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-welcome-logo {
+            max-height: 80px;
+            max-width: 200px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
         }
 
         .dashboard-welcome h2 {
@@ -876,9 +979,57 @@ AmazonDash
             max-width: 800px;
         }
 
+        /* UPLOAD DE LOGO */
+        .logo-upload-area {
+            border: 2px dashed var(--secondary);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .logo-upload-area:hover {
+            background: #e9ecef;
+            border-color: var(--primary);
+        }
+
+        .logo-preview {
+            max-width: 200px;
+            max-height: 100px;
+            margin: 10px auto;
+            display: block;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background: white;
+        }
+
+        .logo-preview-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-remove-logo {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        .btn-remove-logo:hover {
+            background: #c0392b;
+        }
+
         /* RELATÓRIO PARA IMPRESSÃO */
         @media print {
-            .sidebar, .header, .btn, .tabs, .nav-menu, .form-container {
+            .sidebar, .header, .btn, .tabs, .nav-menu, .form-container, .filtros-dashboard {
                 display: none !important;
             }
             
@@ -900,6 +1051,11 @@ AmazonDash
                 box-shadow: none;
                 page-break-inside: avoid;
             }
+
+            .relatorio-header img {
+                max-width: 200px;
+                margin-bottom: 10px;
+            }
         }
 
         .relatorio-impressao {
@@ -912,6 +1068,12 @@ AmazonDash
             margin-bottom: 30px;
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
+        }
+
+        .relatorio-header img {
+            max-width: 150px;
+            max-height: 80px;
+            margin-bottom: 10px;
         }
 
         .relatorio-footer {
@@ -1029,6 +1191,41 @@ AmazonDash
         .bg-success { background-color: #28a745 !important; }
         .bg-warning { background-color: #ffc107 !important; }
         .bg-danger { background-color: #dc3545 !important; }
+
+        /* ACESSO RESTRITO */
+        .restricted-access {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .restricted-access i {
+            font-size: 4rem;
+            color: var(--danger);
+            margin-bottom: 20px;
+        }
+
+        .restricted-access h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .restricted-access p {
+            color: #666;
+        }
+
+        /* SPINNER PEQUENO */
+        .spinner-small {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--secondary);
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -1044,7 +1241,7 @@ AmazonDash
         <div class="login-container">
             <div class="login-logo">
                 <i class="fas fa-chart-bar"></i>
-                <h2>DataManager Pro</h2>
+                <h2>AmazonDash Pro</h2>
                 <p>Sistema de Gerenciamento de Dados</p>
             </div>
             
@@ -1086,7 +1283,7 @@ AmazonDash
                     <strong>Credenciais de teste:</strong>
                 </div>
                 <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; font-size: 0.9rem;">
-                    <div><strong>Administrador:</strong> admin@datamanager.com / admin123</div>
+                    <div><strong>Administrador:</strong> admin@AmazonDash.com / admin123</div>
                     <div><strong>Gerente:</strong> gerente@empresa.com / senha123</div>
                     <div><strong>Usuário:</strong> usuario@empresa.com / senha123</div>
                 </div>
@@ -1100,9 +1297,10 @@ AmazonDash
             <!-- Sidebar -->
             <aside class="sidebar">
                 <div class="sidebar-header">
-                    <div class="logo">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>DataManager</span>
+                    <div class="logo" id="sidebar-logo-container">
+                        <i class="fas fa-chart-bar" id="sidebar-default-logo"></i>
+                        <img id="sidebar-logo-img" class="logo-img" style="display: none;">
+                        <span id="sidebar-logo-text">AmazonDash</span>
                     </div>
                 </div>
                 <ul class="nav-menu" id="nav-menu">
@@ -1114,7 +1312,10 @@ AmazonDash
             <main class="main-content">
                 <!-- Header -->
                 <div class="header">
-                    <h1 id="page-title">Dashboard</h1>
+                    <div class="d-flex align-center">
+                        <img id="header-logo-img" class="header-logo" style="display: none; margin-right: 15px;">
+                        <h1 id="page-title">Dashboard</h1>
+                    </div>
                     <div class="user-info">
                         <div class="user-avatar" id="user-avatar">AD</div>
                         <div class="user-details">
@@ -1246,6 +1447,34 @@ AmazonDash
         </div>
     </div>
 
+    <!-- Modal para Upload de Logo -->
+    <div id="logo-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 class="form-title">Gerenciar Logomarca</h3>
+            
+            <div class="logo-upload-area" id="logo-drop-area">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h4>Arraste sua logo aqui ou clique para selecionar</h4>
+                <p>Formatos aceitos: JPG, PNG, GIF (máx. 2MB)</p>
+                <input type="file" id="logo-file-input" accept="image/*" style="display: none;">
+            </div>
+            
+            <div id="logo-preview-container" class="logo-preview-container" style="display: none;">
+                <h4>Logo atual:</h4>
+                <img id="logo-preview" class="logo-preview">
+                <button class="btn-remove-logo" id="remove-logo-btn">
+                    <i class="fas fa-trash"></i> Remover Logo
+                </button>
+            </div>
+            
+            <div class="d-flex justify-between mt-3">
+                <button type="button" id="cancel-logo" class="btn">Fechar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal para Imprimir Relatório -->
     <div id="relatorio-modal" class="modal" style="display: none;">
         <div class="modal-content modal-lg">
@@ -1269,10 +1498,10 @@ AmazonDash
                 { 
                     id: 1, 
                     name: "Administrador", 
-                    email: "admin@datamanager.com", 
+                    email: "admin@AmazonDash.com", 
                     password: "admin123", 
                     role: "Administrador", 
-                    centroCusto: "ADM", // Vinculado a um único centro de custo
+                    centroCusto: "Igapó",
                     lastLogin: new Date().toISOString(), 
                     status: "Ativo" 
                 },
@@ -1282,7 +1511,7 @@ AmazonDash
                     email: "gerente@empresa.com", 
                     password: "senha123", 
                     role: "Gerente", 
-                    centroCusto: "VENDAS",
+                    centroCusto: "Humaitá",
                     lastLogin: "2026-01-21T10:30:00", 
                     status: "Ativo" 
                 },
@@ -1292,48 +1521,48 @@ AmazonDash
                     email: "usuario@empresa.com", 
                     password: "senha123", 
                     role: "Usuário", 
-                    centroCusto: "VENDAS",
+                    centroCusto: "Humaitá",
                     lastLogin: "2026-01-20T14:15:00", 
                     status: "Ativo" 
                 }
             ],
             
             centrosCusto: [
-                { codigo: "ADM", nome: "Administrativo", responsavel: "Administrador", orcamento: 50000, gasto: 32500, status: "Ativo" },
-                { codigo: "VENDAS", nome: "Vendas", responsavel: "Carlos Gerente", orcamento: 80000, gasto: 45200, status: "Ativo" },
-                { codigo: "PROD", nome: "Produção", responsavel: "João Produção", orcamento: 120000, gasto: 98750, status: "Ativo" },
-                { codigo: "TI", nome: "Tecnologia da Informação", responsavel: "Maria TI", orcamento: 75000, gasto: 42000, status: "Ativo" },
-                { codigo: "RH", nome: "Recursos Humanos", responsavel: "Pedro RH", orcamento: 45000, gasto: 28000, status: "Ativo" },
-                { codigo: "MARK", nome: "Marketing", responsavel: "Beatriz Marketing", orcamento: 60000, gasto: 38500, status: "Ativo" }
+                { codigo: "Igapó", nome: "Igapó", responsavel: "João Assis", orcamento: 50000, gasto: 32500, status: "Ativo" },
+                { codigo: "Humaitá", nome: "Humaitá", responsavel: "Cleber", orcamento: 80000, gasto: 45200, status: "Ativo" },
+                { codigo: "Mucuim", nome: "Mucuim", responsavel: "Diego", orcamento: 120000, gasto: 98750, status: "Ativo" },
+                { codigo: "Candeias", nome: "Candeias", responsavel: "Luciana", orcamento: 75000, gasto: 42000, status: "Ativo" },
+                { codigo: "Samuel", nome: "Samuel", responsavel: "Delamare", orcamento: 45000, gasto: 28000, status: "Ativo" },
+                { codigo: "Machadinho", nome: "Machadinho", responsavel: "Geovane", orcamento: 60000, gasto: 38500, status: "Ativo" }
             ],
             
             convenios: [
                 {
                     id: 1,
-                    nome: "Convênio Saúde",
+                    nome: "AMATUR",
                     documento: "12.345.678/0001-90",
                     tipo: "CNPJ",
-                    centroCusto: "VENDAS",
+                    centroCusto: "Humaitá",
                     status: "Ativo",
                     createdAt: "2026-01-15T10:00:00",
                     createdBy: 1
                 },
                 {
                     id: 2,
-                    nome: "Convênio Educação",
+                    nome: "POLICIA FEDERAL",
                     documento: "98.765.432/0001-10",
                     tipo: "CNPJ",
-                    centroCusto: "MARK",
+                    centroCusto: "Machadinho",
                     status: "Ativo",
                     createdAt: "2026-01-16T14:30:00",
                     createdBy: 1
                 },
                 {
                     id: 3,
-                    nome: "Convênio Individual",
+                    nome: "LCM",
                     documento: "123.456.789-00",
                     tipo: "CPF",
-                    centroCusto: "VENDAS",
+                    centroCusto: "Humaitá",
                     status: "Ativo",
                     createdAt: "2026-01-17T09:15:00",
                     createdBy: 2
@@ -1343,7 +1572,7 @@ AmazonDash
             bancos: [
                 {
                     id: 1,
-                    nome: "Banco do Brasil",
+                    nome: "STONE",
                     agencia: "1234-5",
                     conta: "98765-4",
                     status: "Ativo",
@@ -1353,20 +1582,11 @@ AmazonDash
                 {
                     id: 2,
                     nome: "Itaú",
-                    agencia: "5678-9",
-                    conta: "54321-0",
+                    agencia: "1234",
+                    conta: "56789-0",
                     status: "Ativo",
-                    createdAt: "2026-01-16T14:30:00",
+                    createdAt: "2026-01-15T10:00:00",
                     createdBy: 1
-                },
-                {
-                    id: 3,
-                    nome: "Bradesco",
-                    agencia: "9012-3",
-                    conta: "13579-2",
-                    status: "Ativo",
-                    createdAt: "2026-01-17T09:15:00",
-                    createdBy: 2
                 }
             ],
             
@@ -1386,45 +1606,70 @@ AmazonDash
                     id: 1,
                     data: "2026-01-22",
                     responsavel: "Carlos Gerente",
-                    centroCusto: "VENDAS",
+                    centroCusto: "Humaitá",
                     dinheiro: 9220.00,
                     pix: 2450.00,
                     outrosFaturamentos: 0.00,
-                    taxasBancarias: [ // Agora é um array de lançamentos individuais
-                        { id: 1, bancoId: 1, bancoNome: "Banco do Brasil", valor: 45.50 },
-                        { id: 2, bancoId: 1, bancoNome: "Banco do Brasil", valor: 32.80 },
-                        { id: 3, bancoId: 2, bancoNome: "Itaú", valor: 28.90 }
+                    taxasBancarias: [
+                        { id: 1, bancoId: 1, bancoNome: "STONE", valor: 45.50 },
+                        { id: 2, bancoId: 1, bancoNome: "STONE", valor: 32.80 }
                     ],
-                    despesas: [ // Nova estrutura para despesas do dia
+                    despesas: [
                         { id: 1, tipo: "Abastecimento", descricao: "Posto Shell", valor: 250.00 },
                         { id: 2, tipo: "Vale Adiantamento", descricao: "João - transporte", valor: 100.00 },
                         { id: 3, tipo: "Despesa Avulsa", descricao: "Material escritório", valor: 85.50 }
                     ],
                     convenios: [
-                        { convenioId: 1, nome: "Convênio Saúde", valor: 1500.00 },
-                        { convenioId: 3, nome: "Convênio Individual", valor: 850.00 }
+                        { id: 1, convenioId: 1, nome: "AMATUR", valor: 1500.00 },
+                        { id: 2, convenioId: 3, nome: "LCM", valor: 850.00 }
                     ],
                     totalFaturamentos: 14020.00,
-                    totalDespesas: 542.70,
-                    totalTaxas: 107.20,
-                    totalDiaria: 13370.10,
+                    totalDespesas: 435.50,
+                    totalTaxas: 78.30,
+                    totalDiaria: 13506.20,
                     status: "Fechado",
                     createdAt: "2026-01-22T18:30:00",
                     createdBy: 2
+                },
+                {
+                    id: 2,
+                    data: "2026-01-23",
+                    responsavel: "Ana Usuário",
+                    centroCusto: "Igapó",
+                    dinheiro: 5000.00,
+                    pix: 3000.00,
+                    outrosFaturamentos: 500.00,
+                    taxasBancarias: [
+                        { id: 3, bancoId: 2, bancoNome: "Itaú", valor: 25.50 }
+                    ],
+                    despesas: [
+                        { id: 4, tipo: "Alimentação", descricao: "Almoço equipe", valor: 180.00 }
+                    ],
+                    convenios: [
+                        { id: 3, convenioId: 2, nome: "POLICIA FEDERAL", valor: 2000.00 }
+                    ],
+                    totalFaturamentos: 10500.00,
+                    totalDespesas: 180.00,
+                    totalTaxas: 25.50,
+                    totalDiaria: 10294.50,
+                    status: "Fechado",
+                    createdAt: "2026-01-23T19:00:00",
+                    createdBy: 3
                 }
             ],
             
             lancamentos: [
-                { id: 1, data: "2026-01-22", descricao: "Compra de materiais", centroCusto: "ADM", valor: 1250.50, categoria: "Despesa", createdBy: 1 }
+                { id: 1, data: "2026-01-22", descricao: "Compra de materiais", centroCusto: "Igapó", valor: 1250.50, categoria: "Despesa", createdBy: 1 }
             ],
             
             settings: {
-                systemName: "DataManager Pro",
+                systemName: "AmazonDash Pro",
                 currency: "BRL",
                 dateFormat: "dd/mm/yyyy",
                 sessionTimeout: 30,
                 emailNotifications: true,
-                backupAutomatico: true
+                backupAutomatico: true,
+                logo: null // Armazenará a logo em base64
             }
         };
 
@@ -1434,6 +1679,12 @@ AmazonDash
         let sessionTimer = null;
         let isSystemLocked = true;
         let charts = {};
+        let dashboardFiltros = {
+            dataInicio: '',
+            dataFim: '',
+            centroCusto: '',
+            tipo: 'todos'
+        };
         
         // Estado para fechamento diário
         let selectedConvenios = [];
@@ -1443,50 +1694,259 @@ AmazonDash
 
         // ============== INICIALIZAÇÃO ==============
         document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar loading por 1.5 segundos e depois mostrar login
             setTimeout(() => {
-                document.getElementById('loading-screen').style.display = 'none';
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.display = 'none';
+                }
                 showLoginModal();
             }, 1500);
             
             setupLogin();
             
-            document.getElementById('logout-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                logoutUser();
-            });
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logoutUser();
+                });
+            }
             
             // Configurar modais
-            document.getElementById('cancel-convenio').addEventListener('click', function() {
-                document.getElementById('convenio-modal').style.display = 'none';
-            });
+            const cancelConvenio = document.getElementById('cancel-convenio');
+            if (cancelConvenio) {
+                cancelConvenio.addEventListener('click', function() {
+                    document.getElementById('convenio-modal').style.display = 'none';
+                });
+            }
             
-            document.getElementById('convenio-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                saveConvenio();
-            });
+            const convenioForm = document.getElementById('convenio-form');
+            if (convenioForm) {
+                convenioForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    saveConvenio();
+                });
+            }
             
-            document.getElementById('cancel-usuario').addEventListener('click', function() {
-                document.getElementById('usuario-modal').style.display = 'none';
-            });
+            const cancelUsuario = document.getElementById('cancel-usuario');
+            if (cancelUsuario) {
+                cancelUsuario.addEventListener('click', function() {
+                    document.getElementById('usuario-modal').style.display = 'none';
+                });
+            }
             
-            document.getElementById('usuario-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                saveUsuario();
-            });
+            const usuarioForm = document.getElementById('usuario-form');
+            if (usuarioForm) {
+                usuarioForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    saveUsuario();
+                });
+            }
             
-            document.getElementById('fechar-relatorio').addEventListener('click', function() {
-                document.getElementById('relatorio-modal').style.display = 'none';
-            });
+            const fecharRelatorio = document.getElementById('fechar-relatorio');
+            if (fecharRelatorio) {
+                fecharRelatorio.addEventListener('click', function() {
+                    document.getElementById('relatorio-modal').style.display = 'none';
+                });
+            }
             
-            document.getElementById('imprimir-relatorio').addEventListener('click', function() {
-                window.print();
-            });
+            const imprimirRelatorio = document.getElementById('imprimir-relatorio');
+            if (imprimirRelatorio) {
+                imprimirRelatorio.addEventListener('click', function() {
+                    window.print();
+                });
+            }
+
+            // Configurar upload de logo
+            setupLogoUpload();
         });
+
+        // ============== SISTEMA DE LOGO ==============
+        function setupLogoUpload() {
+            const logoModal = document.getElementById('logo-modal');
+            const logoDropArea = document.getElementById('logo-drop-area');
+            const logoFileInput = document.getElementById('logo-file-input');
+            const cancelLogo = document.getElementById('cancel-logo');
+            const removeLogoBtn = document.getElementById('remove-logo-btn');
+
+            if (logoDropArea) {
+                logoDropArea.addEventListener('click', function() {
+                    logoFileInput.click();
+                });
+
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    logoDropArea.addEventListener(eventName, preventDefaults, false);
+                });
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    logoDropArea.addEventListener(eventName, highlight, false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    logoDropArea.addEventListener(eventName, unhighlight, false);
+                });
+
+                logoDropArea.addEventListener('drop', handleDrop, false);
+
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+
+                function highlight() {
+                    logoDropArea.style.borderColor = 'var(--primary)';
+                    logoDropArea.style.backgroundColor = '#e9ecef';
+                }
+
+                function unhighlight() {
+                    logoDropArea.style.borderColor = 'var(--secondary)';
+                    logoDropArea.style.backgroundColor = '#f8f9fa';
+                }
+
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    
+                    if (files.length) {
+                        handleLogoFile(files[0]);
+                    }
+                }
+            }
+
+            if (logoFileInput) {
+                logoFileInput.addEventListener('change', function(e) {
+                    if (this.files.length) {
+                        handleLogoFile(this.files[0]);
+                    }
+                });
+            }
+
+            if (cancelLogo) {
+                cancelLogo.addEventListener('click', function() {
+                    logoModal.style.display = 'none';
+                });
+            }
+
+            if (removeLogoBtn) {
+                removeLogoBtn.addEventListener('click', function() {
+                    removeLogo();
+                });
+            }
+
+            // Adicionar item de menu para configurações de logo (apenas para admin)
+            const navMenu = document.getElementById('nav-menu');
+            if (navMenu && currentUser && currentUser.role === 'Administrador') {
+                const logoMenuItem = document.createElement('li');
+                logoMenuItem.className = 'nav-item';
+                logoMenuItem.innerHTML = `
+                    <a class="nav-link" id="nav-logo">
+                        <i class="fas fa-image"></i>
+                        <span class="nav-text">Logomarca</span>
+                    </a>
+                `;
+                navMenu.appendChild(logoMenuItem);
+
+                document.getElementById('nav-logo').addEventListener('click', function() {
+                    showLogoModal();
+                });
+            }
+        }
+
+        function handleLogoFile(file) {
+            if (!file.type.match('image.*')) {
+                showAlert('Por favor, selecione apenas arquivos de imagem.', 'warning');
+                return;
+            }
+
+            if (file.size > 2 * 1024 * 1024) {
+                showAlert('A imagem não pode ter mais que 2MB.', 'warning');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                database.settings.logo = e.target.result;
+                updateLogoDisplay();
+                
+                const previewContainer = document.getElementById('logo-preview-container');
+                const preview = document.getElementById('logo-preview');
+                if (previewContainer && preview) {
+                    preview.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                
+                showAlert('Logo atualizada com sucesso!', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeLogo() {
+            if (confirm('Tem certeza que deseja remover a logomarca?')) {
+                database.settings.logo = null;
+                updateLogoDisplay();
+                
+                const previewContainer = document.getElementById('logo-preview-container');
+                if (previewContainer) {
+                    previewContainer.style.display = 'none';
+                }
+                
+                showAlert('Logo removida com sucesso!', 'success');
+            }
+        }
+
+        function updateLogoDisplay() {
+            const sidebarLogoImg = document.getElementById('sidebar-logo-img');
+            const sidebarDefaultLogo = document.getElementById('sidebar-default-logo');
+            const sidebarLogoText = document.getElementById('sidebar-logo-text');
+            const headerLogoImg = document.getElementById('header-logo-img');
+
+            if (database.settings.logo) {
+                // Sidebar
+                if (sidebarLogoImg) {
+                    sidebarLogoImg.src = database.settings.logo;
+                    sidebarLogoImg.style.display = 'inline-block';
+                }
+                if (sidebarDefaultLogo) sidebarDefaultLogo.style.display = 'none';
+                if (sidebarLogoText) sidebarLogoText.style.display = 'none';
+
+                // Header
+                if (headerLogoImg) {
+                    headerLogoImg.src = database.settings.logo;
+                    headerLogoImg.style.display = 'inline-block';
+                }
+            } else {
+                // Sidebar
+                if (sidebarLogoImg) sidebarLogoImg.style.display = 'none';
+                if (sidebarDefaultLogo) sidebarDefaultLogo.style.display = 'inline-block';
+                if (sidebarLogoText) sidebarLogoText.style.display = 'inline-block';
+
+                // Header
+                if (headerLogoImg) headerLogoImg.style.display = 'none';
+            }
+        }
+
+        function showLogoModal() {
+            const modal = document.getElementById('logo-modal');
+            const previewContainer = document.getElementById('logo-preview-container');
+            const preview = document.getElementById('logo-preview');
+
+            if (database.settings.logo) {
+                preview.src = database.settings.logo;
+                previewContainer.style.display = 'block';
+            } else {
+                previewContainer.style.display = 'none';
+            }
+
+            modal.style.display = 'flex';
+        }
 
         // ============== SISTEMA DE LOGIN ==============
         function setupLogin() {
             const loginForm = document.getElementById('login-form');
             const loginAlert = document.getElementById('login-alert');
+            
+            if (!loginForm) return;
             
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -1511,16 +1971,28 @@ AmazonDash
                 }
             });
             
-            ['login-email', 'login-password'].forEach(id => {
-                document.getElementById(id).addEventListener('input', function() {
-                    loginAlert.style.display = 'none';
+            const emailInput = document.getElementById('login-email');
+            const passwordInput = document.getElementById('login-password');
+            
+            if (emailInput) {
+                emailInput.addEventListener('input', function() {
+                    if (loginAlert) loginAlert.style.display = 'none';
                 });
-            });
+            }
+            
+            if (passwordInput) {
+                passwordInput.addEventListener('input', function() {
+                    if (loginAlert) loginAlert.style.display = 'none';
+                });
+            }
         }
         
         function showLoginError(message) {
             const loginAlert = document.getElementById('login-alert');
-            loginAlert.querySelector('span').textContent = message;
+            if (!loginAlert) return;
+            
+            const span = loginAlert.querySelector('span');
+            if (span) span.textContent = message;
             loginAlert.style.display = 'block';
         }
         
@@ -1528,12 +2000,16 @@ AmazonDash
             currentUser = user;
             isSystemLocked = false;
             
-            document.getElementById('login-modal').style.display = 'none';
-            document.getElementById('main-system').style.display = 'flex';
+            const loginModal = document.getElementById('login-modal');
+            const mainSystem = document.getElementById('main-system');
+            
+            if (loginModal) loginModal.style.display = 'none';
+            if (mainSystem) mainSystem.style.display = 'flex';
             
             updateUserInfo();
             buildNavigation();
             startSessionTimer();
+            updateLogoDisplay();
             
             // Carregar página inicial
             showPage('dashboard');
@@ -1551,31 +2027,47 @@ AmazonDash
                 currentUser = null;
                 isSystemLocked = true;
                 
-                document.getElementById('main-system').style.display = 'none';
+                const mainSystem = document.getElementById('main-system');
+                if (mainSystem) mainSystem.style.display = 'none';
+                
                 showLoginModal();
-                document.getElementById('login-form').reset();
-                document.getElementById('login-alert').style.display = 'none';
+                
+                const loginForm = document.getElementById('login-form');
+                if (loginForm) loginForm.reset();
+                
+                const loginAlert = document.getElementById('login-alert');
+                if (loginAlert) loginAlert.style.display = 'none';
                 
                 showAlert('Você saiu do sistema com sucesso.', 'info');
             }
         }
         
         function showLoginModal() {
-            document.getElementById('login-modal').style.display = 'flex';
+            const loginModal = document.getElementById('login-modal');
+            if (loginModal) {
+                loginModal.style.display = 'flex';
+            }
         }
         
         function updateUserInfo() {
             if (!currentUser) return;
             
-            document.getElementById('user-name').textContent = currentUser.name;
-            document.getElementById('user-role').textContent = currentUser.role;
-            document.getElementById('user-avatar').textContent = 
-                currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2);
+            const userName = document.getElementById('user-name');
+            const userRole = document.getElementById('user-role');
+            const userAvatar = document.getElementById('user-avatar');
+            const userCentro = document.getElementById('user-centro');
+            
+            if (userName) userName.textContent = currentUser.name;
+            if (userRole) userRole.textContent = currentUser.role;
+            if (userAvatar) {
+                userAvatar.textContent = currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            }
             
             // Mostrar centro de custo vinculado
             const centro = database.centrosCusto.find(c => c.codigo === currentUser.centroCusto);
-            document.getElementById('user-centro').textContent = centro ? 
-                `${centro.codigo} - ${centro.nome}` : 'Sem centro vinculado';
+            if (userCentro) {
+                userCentro.textContent = centro ? `${centro.codigo} - ${centro.nome}` : 'Sem centro vinculado';
+            }
         }
         
         function startSessionTimer() {
@@ -1590,15 +2082,18 @@ AmazonDash
                 showSessionExpired();
             }, timeoutMs);
             
+            const resetTimer = () => {
+                if (sessionTimer) {
+                    clearTimeout(sessionTimer);
+                    sessionTimer = setTimeout(() => {
+                        showSessionExpired();
+                    }, timeoutMs);
+                }
+            };
+            
             ['click', 'mousemove', 'keypress'].forEach(event => {
-                document.addEventListener(event, () => {
-                    if (sessionTimer) {
-                        clearTimeout(sessionTimer);
-                        sessionTimer = setTimeout(() => {
-                            showSessionExpired();
-                        }, timeoutMs);
-                    }
-                });
+                document.removeEventListener(event, resetTimer);
+                document.addEventListener(event, resetTimer);
             });
         }
         
@@ -1618,10 +2113,15 @@ AmazonDash
             
             document.body.appendChild(overlay);
             
-            document.getElementById('reload-session').addEventListener('click', function() {
-                document.body.removeChild(overlay);
-                logoutUser();
-            });
+            const reloadBtn = document.getElementById('reload-session');
+            if (reloadBtn) {
+                reloadBtn.addEventListener('click', function() {
+                    if (overlay.parentNode) {
+                        document.body.removeChild(overlay);
+                    }
+                    logoutUser();
+                });
+            }
             
             setTimeout(() => {
                 if (overlay.parentNode) {
@@ -1634,6 +2134,7 @@ AmazonDash
         // ============== CONSTRUÇÃO DA NAVEGAÇÃO ==============
         function buildNavigation() {
             const navMenu = document.getElementById('nav-menu');
+            if (!navMenu || !currentUser) return;
             
             // Definir itens de menu baseados no perfil
             const menuItems = [
@@ -1657,33 +2158,55 @@ AmazonDash
             allowedItems.forEach(item => {
                 html += `
                     <li class="nav-item">
-                        <a class="nav-link" data-page="${item.page}">
+                        <a class="nav-link ${item.page === currentPage ? 'active' : ''}" data-page="${item.page}">
                             <i class="fas ${item.icon}"></i>
                             <span class="nav-text">${item.text}</span>
                         </a>
                     </li>
                 `;
             });
+
+            // Adicionar item de logo para administradores
+            if (currentUser.role === 'Administrador') {
+                html += `
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav-logo">
+                            <i class="fas fa-image"></i>
+                            <span class="nav-text">Logomarca</span>
+                        </a>
+                    </li>
+                `;
+            }
             
             navMenu.innerHTML = html;
             
             // Adicionar eventos de clique
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const pageId = this.getAttribute('data-page');
-                    
-                    document.querySelectorAll('.nav-link').forEach(item => {
-                        item.classList.remove('active');
+                if (link.id === 'nav-logo') {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        showLogoModal();
                     });
-                    this.classList.add('active');
-                    
-                    showPage(pageId);
-                    
-                    document.getElementById('page-title').textContent = 
-                        this.querySelector('.nav-text').textContent;
-                });
+                } else {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        const pageId = this.getAttribute('data-page');
+                        
+                        document.querySelectorAll('.nav-link').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                        
+                        showPage(pageId);
+                        
+                        const pageTitle = document.getElementById('page-title');
+                        const navText = this.querySelector('.nav-text');
+                        if (pageTitle && navText) {
+                            pageTitle.textContent = navText.textContent;
+                        }
+                    });
+                }
             });
         }
         
@@ -1736,6 +2259,8 @@ AmazonDash
 
         // ============== FUNÇÕES UTILITÁRIAS ==============
         function getCentrosCustoOptions() {
+            if (!currentUser) return '';
+            
             let centros = database.centrosCusto;
             
             // Se não for admin, mostrar apenas centros permitidos
@@ -1747,6 +2272,8 @@ AmazonDash
         }
         
         function getCentrosCustoForUser() {
+            if (!currentUser) return [];
+            
             if (currentUser.role === "Administrador") {
                 return database.centrosCusto;
             } else {
@@ -1755,11 +2282,174 @@ AmazonDash
         }
         
         function filterByUserCentro(items, centroField = 'centroCusto') {
+            if (!currentUser) return items;
+            
             if (currentUser.role === "Administrador") {
                 return items;
             } else {
                 return items.filter(item => item[centroField] === currentUser.centroCusto);
             }
+        }
+        
+        function filterDataByDateRange(items, dataInicio, dataFim) {
+            if (!dataInicio && !dataFim) return items;
+            
+            return items.filter(item => {
+                const itemDate = new Date(item.data);
+                
+                if (dataInicio && dataFim) {
+                    return itemDate >= new Date(dataInicio) && itemDate <= new Date(dataFim);
+                } else if (dataInicio) {
+                    return itemDate >= new Date(dataInicio);
+                } else if (dataFim) {
+                    return itemDate <= new Date(dataFim);
+                }
+                
+                return true;
+            });
+        }
+        
+        function filterDataByTipo(items, tipo) {
+            if (!tipo || tipo === 'todos') return items;
+            
+            switch(tipo) {
+                case 'fechamentos':
+                    return items.filter(item => item.totalDiaria !== undefined);
+                case 'convenios':
+                    return items.filter(item => item.convenios && item.convenios.length > 0);
+                case 'despesas':
+                    return items.filter(item => item.despesas && item.despesas.length > 0);
+                case 'taxas':
+                    return items.filter(item => item.taxasBancarias && item.taxasBancarias.length > 0);
+                default:
+                    return items;
+            }
+        }
+        
+        function aplicarFiltrosDashboard() {
+            if (!dashboardFiltros) return;
+            
+            // Obter valores dos filtros
+            const dataInicio = document.getElementById('filtro-data-inicio')?.value || dashboardFiltros.dataInicio;
+            const dataFim = document.getElementById('filtro-data-fim')?.value || dashboardFiltros.dataFim;
+            const centroCusto = document.getElementById('filtro-centro-custo')?.value || dashboardFiltros.centroCusto;
+            const tipo = document.getElementById('filtro-tipo')?.value || dashboardFiltros.tipo;
+            
+            // Atualizar objeto de filtros
+            dashboardFiltros = {
+                dataInicio,
+                dataFim,
+                centroCusto,
+                tipo
+            };
+            
+            // Atualizar UI dos filtros ativos
+            atualizarFiltrosAtivos();
+            
+            // Atualizar dashboard
+            atualizarDashboardComFiltros();
+        }
+        
+        function limparFiltrosDashboard() {
+            // Resetar campos
+            const dataInicio = document.getElementById('filtro-data-inicio');
+            const dataFim = document.getElementById('filtro-data-fim');
+            const centroCusto = document.getElementById('filtro-centro-custo');
+            const tipo = document.getElementById('filtro-tipo');
+            
+            if (dataInicio) dataInicio.value = '';
+            if (dataFim) dataFim.value = '';
+            if (centroCusto) centroCusto.value = '';
+            if (tipo) tipo.value = 'todos';
+            
+            // Resetar objeto de filtros
+            dashboardFiltros = {
+                dataInicio: '',
+                dataFim: '',
+                centroCusto: '',
+                tipo: 'todos'
+            };
+            
+            // Atualizar UI
+            atualizarFiltrosAtivos();
+            
+            // Atualizar dashboard
+            atualizarDashboardComFiltros();
+        }
+        
+        function removerFiltro(tipo) {
+            switch(tipo) {
+                case 'data':
+                    const dataInicio = document.getElementById('filtro-data-inicio');
+                    const dataFim = document.getElementById('filtro-data-fim');
+                    if (dataInicio) dataInicio.value = '';
+                    if (dataFim) dataFim.value = '';
+                    dashboardFiltros.dataInicio = '';
+                    dashboardFiltros.dataFim = '';
+                    break;
+                case 'centro':
+                    const centroCusto = document.getElementById('filtro-centro-custo');
+                    if (centroCusto) centroCusto.value = '';
+                    dashboardFiltros.centroCusto = '';
+                    break;
+                case 'tipo':
+                    const tipo = document.getElementById('filtro-tipo');
+                    if (tipo) tipo.value = 'todos';
+                    dashboardFiltros.tipo = 'todos';
+                    break;
+            }
+            
+            atualizarFiltrosAtivos();
+            atualizarDashboardComFiltros();
+        }
+        
+        function atualizarFiltrosAtivos() {
+            const container = document.getElementById('filtros-ativos');
+            if (!container) return;
+            
+            let html = '';
+            
+            if (dashboardFiltros.dataInicio || dashboardFiltros.dataFim) {
+                let periodoText = 'Período: ';
+                if (dashboardFiltros.dataInicio) periodoText += formatDate(dashboardFiltros.dataInicio);
+                if (dashboardFiltros.dataInicio && dashboardFiltros.dataFim) periodoText += ' até ';
+                if (dashboardFiltros.dataFim) periodoText += formatDate(dashboardFiltros.dataFim);
+                
+                html += `
+                    <span class="filtro-tag">
+                        ${periodoText}
+                        <i class="fas fa-times" onclick="window.removerFiltro('data')"></i>
+                    </span>
+                `;
+            }
+            
+            if (dashboardFiltros.centroCusto) {
+                const centro = database.centrosCusto.find(c => c.codigo === dashboardFiltros.centroCusto);
+                html += `
+                    <span class="filtro-tag">
+                        Centro: ${centro ? centro.nome : dashboardFiltros.centroCusto}
+                        <i class="fas fa-times" onclick="window.removerFiltro('centro')"></i>
+                    </span>
+                `;
+            }
+            
+            if (dashboardFiltros.tipo && dashboardFiltros.tipo !== 'todos') {
+                const tipoText = {
+                    'fechamentos': 'Fechamentos',
+                    'convenios': 'Convênios',
+                    'despesas': 'Despesas',
+                    'taxas': 'Taxas'
+                }[dashboardFiltros.tipo] || 'Todos';
+                
+                html += `
+                    <span class="filtro-tag">
+                        Tipo: ${tipoText}
+                        <i class="fas fa-times" onclick="window.removerFiltro('tipo')"></i>
+                    </span>
+                `;
+            }
+            
+            container.innerHTML = html || '<span class="text-muted">Nenhum filtro aplicado</span>';
         }
         
         function formatDate(dateString) {
@@ -1804,9 +2494,12 @@ AmazonDash
             if (mainContent) {
                 mainContent.insertBefore(alert, mainContent.firstChild);
                 
-                alert.querySelector('.close-alert').addEventListener('click', function() {
-                    alert.remove();
-                });
+                const closeBtn = alert.querySelector('.close-alert');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function() {
+                        alert.remove();
+                    });
+                }
                 
                 setTimeout(() => {
                     if (alert.parentNode) {
@@ -1816,16 +2509,83 @@ AmazonDash
             }
         }
 
-        // ============== DASHBOARD ==============
+        // ============== DASHBOARD COM FILTROS ==============
         function loadDashboardContent() {
             const dashboardPage = document.getElementById('dashboard');
+            if (!dashboardPage || !currentUser) return;
             
+            const logoHTML = database.settings.logo ? 
+                `<img src="${database.settings.logo}" class="dashboard-welcome-logo">` : '';
+
             dashboardPage.innerHTML = `
                 <div class="dashboard-welcome">
-                    <h2>Bem-vindo ao DataManager Pro</h2>
+                    ${logoHTML}
+                    <h2>Bem-vindo ao ${database.settings.systemName}</h2>
                     <p>Olá, ${currentUser ? currentUser.name : 'Usuário'}! Aqui está o resumo do seu sistema.</p>
                 </div>
                 
+                <!-- FILTROS DO DASHBOARD -->
+                <div class="filtros-dashboard">
+                    <h3 style="margin-bottom: 15px; color: var(--primary);">
+                        <i class="fas fa-filter"></i> Filtros
+                    </h3>
+                    
+                    <div class="filtros-grid">
+                        <div class="filtro-group">
+                            <label class="filtro-label">
+                                <i class="fas fa-calendar-alt"></i> Data Início
+                            </label>
+                            <input type="date" class="filtro-input" id="filtro-data-inicio" 
+                                   value="${dashboardFiltros.dataInicio}">
+                        </div>
+                        
+                        <div class="filtro-group">
+                            <label class="filtro-label">
+                                <i class="fas fa-calendar-alt"></i> Data Fim
+                            </label>
+                            <input type="date" class="filtro-input" id="filtro-data-fim" 
+                                   value="${dashboardFiltros.dataFim}">
+                        </div>
+                        
+                        <div class="filtro-group">
+                            <label class="filtro-label">
+                                <i class="fas fa-tags"></i> Centro de Custo
+                            </label>
+                            <select class="filtro-input" id="filtro-centro-custo">
+                                <option value="">Todos</option>
+                                ${getCentrosCustoOptions()}
+                            </select>
+                        </div>
+                        
+                        <div class="filtro-group">
+                            <label class="filtro-label">
+                                <i class="fas fa-chart-pie"></i> Tipo
+                            </label>
+                            <select class="filtro-input" id="filtro-tipo">
+                                <option value="todos">Todos</option>
+                                <option value="fechamentos">Fechamentos</option>
+                                <option value="convenios">Convênios</option>
+                                <option value="despesas">Despesas</option>
+                                <option value="taxas">Taxas</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="filtros-actions">
+                        <button class="btn btn-sm" onclick="window.limparFiltrosDashboard()">
+                            <i class="fas fa-eraser"></i> Limpar
+                        </button>
+                        <button class="btn btn-sm btn-primary" onclick="window.aplicarFiltrosDashboard()">
+                            <i class="fas fa-search"></i> Aplicar Filtros
+                        </button>
+                    </div>
+                    
+                    <div class="filtros-ativos" id="filtros-ativos">
+                        <!-- Filtros ativos serão carregados aqui -->
+                    </div>
+                </div>
+                
+                <!-- CARDS -->
                 <div class="cards-container">
                     <div class="card">
                         <div class="card-title">Fechamentos do Mês</div>
@@ -1903,25 +2663,130 @@ AmazonDash
             `;
             
             // Configurar eventos
-            document.getElementById('ver-todos-fechamentos').addEventListener('click', function() {
-                showPage('fechamento-diario');
-            });
+            const verTodosFechamentos = document.getElementById('ver-todos-fechamentos');
+            if (verTodosFechamentos) {
+                verTodosFechamentos.addEventListener('click', function() {
+                    showPage('fechamento-diario');
+                });
+            }
             
-            document.getElementById('ver-todos-convenios').addEventListener('click', function() {
-                showPage('convenios');
-            });
+            const verTodosConvenios = document.getElementById('ver-todos-convenios');
+            if (verTodosConvenios) {
+                verTodosConvenios.addEventListener('click', function() {
+                    showPage('convenios');
+                });
+            }
             
-            updateDashboardData();
-            setupDashboardCharts();
+            // Atualizar filtros ativos
+            atualizarFiltrosAtivos();
+            
+            // Atualizar dashboard
+            atualizarDashboardComFiltros();
         }
         
-        function setupDashboardCharts() {
-            // Destruir gráficos existentes
-            if (charts.faturamentoChart) charts.faturamentoChart.destroy();
-            if (charts.conveniosChart) charts.conveniosChart.destroy();
+        function atualizarDashboardComFiltros() {
+            // Mostrar indicador de carregamento nos cards
+            const cards = document.querySelectorAll('.card-value');
+            cards.forEach(card => {
+                if (card.id !== 'convenios-ativos' && card.id !== 'fechamentos-info' && 
+                    card.id !== 'despesas-info' && card.id !== 'taxas-info') {
+                    card.innerHTML = '<div class="spinner-small"></div>';
+                }
+            });
             
-            // Filtrar dados por centro de custo
-            const fechamentos = filterByUserCentro(database.fechamentosDiarios);
+            setTimeout(() => {
+                // Filtrar dados
+                let fechamentosFiltrados = filterByUserCentro(database.fechamentosDiarios);
+                
+                // Aplicar filtro de centro de custo
+                if (dashboardFiltros.centroCusto) {
+                    fechamentosFiltrados = fechamentosFiltrados.filter(f => f.centroCusto === dashboardFiltros.centroCusto);
+                }
+                
+                // Aplicar filtro de data
+                fechamentosFiltrados = filterDataByDateRange(fechamentosFiltrados, dashboardFiltros.dataInicio, dashboardFiltros.dataFim);
+                
+                // Aplicar filtro de tipo
+                fechamentosFiltrados = filterDataByTipo(fechamentosFiltrados, dashboardFiltros.tipo);
+                
+                // Calcular métricas
+                const metricas = calcularMetricas(fechamentosFiltrados);
+                
+                // Atualizar cards
+                atualizarCardsDashboard(metricas);
+                
+                // Atualizar gráficos
+                setupDashboardCharts(fechamentosFiltrados);
+                
+                // Atualizar listas
+                atualizarListasDashboard(fechamentosFiltrados);
+            }, 300);
+        }
+        
+        function calcularMetricas(fechamentos) {
+            const hoje = new Date();
+            const mesAtual = hoje.getMonth() + 1;
+            const anoAtual = hoje.getFullYear();
+            
+            let totalFechamentos = fechamentos.length;
+            let totalConvenios = 0;
+            let totalDespesas = 0;
+            let totalTaxas = 0;
+            
+            fechamentos.forEach(f => {
+                if (f.convenios) {
+                    totalConvenios += f.convenios.reduce((sum, c) => sum + c.valor, 0);
+                }
+                if (f.despesas) {
+                    totalDespesas += f.despesas.reduce((sum, d) => sum + d.valor, 0);
+                }
+                if (f.taxasBancarias) {
+                    totalTaxas += f.taxasBancarias.reduce((sum, t) => sum + t.valor, 0);
+                }
+            });
+            
+            const fechamentosMesAtual = fechamentos.filter(f => {
+                const data = new Date(f.data);
+                return data.getMonth() + 1 === mesAtual && data.getFullYear() === anoAtual;
+            });
+            
+            const totalFechamentosMes = fechamentosMesAtual.length;
+            const conveniosAtivos = filterByUserCentro(database.convenios.filter(c => c.status === 'Ativo')).length;
+            
+            return {
+                totalFechamentosMes,
+                totalConvenios,
+                totalDespesas,
+                totalTaxas,
+                conveniosAtivos,
+                totalFechamentos
+            };
+        }
+        
+        function atualizarCardsDashboard(metricas) {
+            const totalFechamentos = document.getElementById('total-fechamentos');
+            const totalConvenios = document.getElementById('total-convenios');
+            const totalDespesas = document.getElementById('total-despesas');
+            const totalTaxas = document.getElementById('total-taxas');
+            const conveniosAtivos = document.getElementById('convenios-ativos');
+            
+            if (totalFechamentos) totalFechamentos.textContent = metricas.totalFechamentosMes;
+            if (totalConvenios) totalConvenios.textContent = formatCurrency(metricas.totalConvenios);
+            if (totalDespesas) totalDespesas.textContent = formatCurrency(metricas.totalDespesas);
+            if (totalTaxas) totalTaxas.textContent = formatCurrency(metricas.totalTaxas);
+            if (conveniosAtivos) conveniosAtivos.textContent = metricas.conveniosAtivos;
+        }
+        
+        function setupDashboardCharts(fechamentos) {
+            // Destruir gráficos existentes
+            if (charts.faturamentoChart) {
+                charts.faturamentoChart.destroy();
+                charts.faturamentoChart = null;
+            }
+            if (charts.conveniosChart) {
+                charts.conveniosChart.destroy();
+                charts.conveniosChart = null;
+            }
             
             // Calcular totais
             let totalDinheiro = 0, totalPix = 0, totalConvenios = 0, totalOutros = 0;
@@ -1939,112 +2804,77 @@ AmazonDash
             // Gráfico de faturamento
             const faturamentoCtx = document.getElementById('faturamentoChart');
             if (faturamentoCtx) {
-                charts.faturamentoChart = new Chart(faturamentoCtx.getContext('2d'), {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Dinheiro', 'PIX', 'Convênios', 'Outros'],
-                        datasets: [{
-                            data: [totalDinheiro, totalPix, totalConvenios, totalOutros],
-                            backgroundColor: [
-                                'rgba(39, 174, 96, 0.8)',
-                                'rgba(52, 152, 219, 0.8)',
-                                'rgba(155, 89, 182, 0.8)',
-                                'rgba(241, 196, 15, 0.8)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
+                try {
+                    charts.faturamentoChart = new Chart(faturamentoCtx.getContext('2d'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Dinheiro', 'PIX', 'Convênios', 'Outros'],
+                            datasets: [{
+                                data: [totalDinheiro, totalPix, totalConvenios, totalOutros],
+                                backgroundColor: [
+                                    'rgba(39, 174, 96, 0.8)',
+                                    'rgba(52, 152, 219, 0.8)',
+                                    'rgba(155, 89, 182, 0.8)',
+                                    'rgba(241, 196, 15, 0.8)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                } catch (e) {
+                    console.log('Erro ao criar gráfico de faturamento:', e);
+                }
             }
             
-            // Gráfico de convênios - agora mostra NOME em vez de documento
+            // Gráfico de convênios
             const conveniosAtivos = filterByUserCentro(database.convenios.filter(c => c.status === 'Ativo'));
             const conveniosNomes = conveniosAtivos.map(c => c.nome);
-            const conveniosValores = conveniosAtivos.map(c => Math.random() * 2000 + 500); // Simulado
+            const conveniosValores = conveniosAtivos.map(() => Math.random() * 2000 + 500);
             
             const conveniosCtx = document.getElementById('conveniosChart');
             if (conveniosCtx) {
-                charts.conveniosChart = new Chart(conveniosCtx.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: conveniosNomes,
-                        datasets: [{
-                            label: 'Valor (R$)',
-                            data: conveniosValores,
-                            backgroundColor: 'rgba(155, 89, 182, 0.7)',
-                            borderColor: 'rgba(155, 89, 182, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value) {
-                                        return 'R$ ' + value.toLocaleString('pt-BR');
+                try {
+                    charts.conveniosChart = new Chart(conveniosCtx.getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: conveniosNomes,
+                            datasets: [{
+                                label: 'Valor (R$)',
+                                data: conveniosValores,
+                                backgroundColor: 'rgba(155, 89, 182, 0.7)',
+                                borderColor: 'rgba(155, 89, 182, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return 'R$ ' + value.toLocaleString('pt-BR');
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                } catch (e) {
+                    console.log('Erro ao criar gráfico de convênios:', e);
+                }
             }
         }
         
-        function updateDashboardData() {
-            if (!currentUser) return;
-            
-            // Filtrar fechamentos por centro de custo
-            const fechamentos = filterByUserCentro(database.fechamentosDiarios);
-            
-            const hoje = new Date();
-            const mesAtual = hoje.getMonth() + 1;
-            const anoAtual = hoje.getFullYear();
-            
-            const fechamentosMesAtual = fechamentos.filter(f => {
-                const data = new Date(f.data);
-                return data.getMonth() + 1 === mesAtual && data.getFullYear() === anoAtual;
-            });
-            
-            // Calcular totais
-            const totalFechamentos = fechamentosMesAtual.length;
-            
-            let totalConvenios = 0;
-            let totalDespesas = 0;
-            let totalTaxas = 0;
-            
-            fechamentosMesAtual.forEach(f => {
-                if (f.convenios) {
-                    totalConvenios += f.convenios.reduce((sum, c) => sum + c.valor, 0);
-                }
-                if (f.despesas) {
-                    totalDespesas += f.despesas.reduce((sum, d) => sum + d.valor, 0);
-                }
-                if (f.taxasBancarias) {
-                    totalTaxas += f.taxasBancarias.reduce((sum, t) => sum + t.valor, 0);
-                }
-            });
-            
-            // Atualizar cards
-            document.getElementById('total-fechamentos').textContent = totalFechamentos;
-            document.getElementById('total-convenios').textContent = formatCurrency(totalConvenios);
-            document.getElementById('total-despesas').textContent = formatCurrency(totalDespesas);
-            document.getElementById('total-taxas').textContent = formatCurrency(totalTaxas);
-            
-            // Informações adicionais
-            const conveniosAtivos = filterByUserCentro(database.convenios.filter(c => c.status === 'Ativo')).length;
-            document.getElementById('convenios-ativos').textContent = conveniosAtivos;
-            
+        function atualizarListasDashboard(fechamentos) {
             // Últimos fechamentos
             const ultimosFechamentos = fechamentos
                 .sort((a, b) => new Date(b.data) - new Date(a.data))
@@ -2063,10 +2893,13 @@ AmazonDash
                 `;
             }).join('');
             
-            document.getElementById('ultimos-fechamentos').innerHTML = fechamentosHTML || 
-                '<div class="text-center">Nenhum fechamento encontrado</div>';
+            const ultimosFechamentosEl = document.getElementById('ultimos-fechamentos');
+            if (ultimosFechamentosEl) {
+                ultimosFechamentosEl.innerHTML = fechamentosHTML || 
+                    '<div class="text-center">Nenhum fechamento encontrado</div>';
+            }
             
-            // Últimos convênios - agora mostrando NOME
+            // Últimos convênios
             const ultimosConvenios = filterByUserCentro(database.convenios)
                 .filter(c => c.status === 'Ativo')
                 .slice(0, 3);
@@ -2078,13 +2911,143 @@ AmazonDash
                 </div>
             `).join('');
             
-            document.getElementById('ultimos-convenios').innerHTML = conveniosHTML || 
-                '<div class="text-center">Nenhum convênio encontrado</div>';
+            const ultimosConveniosEl = document.getElementById('ultimos-convenios');
+            if (ultimosConveniosEl) {
+                ultimosConveniosEl.innerHTML = conveniosHTML || 
+                    '<div class="text-center">Nenhum convênio encontrado</div>';
+            }
         }
 
-        // ============== FECHAMENTO DIÁRIO COM MÚLTIPLOS LANÇAMENTOS ==============
+        // ============== FUNÇÃO DE IMPRESSÃO DO RELATÓRIO (MODIFICADA) ==============
+        function imprimirRelatorioFechamento(fechamento) {
+            const centro = database.centrosCusto.find(c => c.codigo === fechamento.centroCusto);
+            
+            const logoHTML = database.settings.logo ? 
+                `<img src="${database.settings.logo}" style="max-width: 150px; max-height: 80px; margin-bottom: 10px;">` : '';
+
+            let conveniosHTML = '';
+            if (fechamento.convenios && fechamento.convenios.length > 0) {
+                fechamento.convenios.forEach(c => {
+                    conveniosHTML += `
+                        <tr>
+                            <td>${c.nome}</td>
+                            <td class="text-right">${formatCurrency(c.valor)}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                conveniosHTML = '<tr><td colspan="2" class="text-center">Nenhum convênio</td></tr>';
+            }
+            
+            let despesasHTML = '';
+            if (fechamento.despesas && fechamento.despesas.length > 0) {
+                fechamento.despesas.forEach(d => {
+                    despesasHTML += `
+                        <tr>
+                            <td>${d.tipo}</td>
+                            <td>${d.descricao}</td>
+                            <td class="text-right">${formatCurrency(d.valor)}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                despesasHTML = '<tr><td colspan="3" class="text-center">Nenhuma despesa</td></tr>';
+            }
+            
+            const relatorioHTML = `
+                <div class="relatorio-header">
+                    ${logoHTML}
+                    <h2>${database.settings.systemName}</h2>
+                    <h3>Relatório de Fechamento Diário</h3>
+                    <p>Data do fechamento: ${formatDate(fechamento.data)}</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Responsável:</strong> ${fechamento.responsavel}</p>
+                    <p><strong>Centro de Custo:</strong> ${centro ? centro.nome : fechamento.centroCusto}</p>
+                    <p><strong>Data de emissão:</strong> ${new Date().toLocaleString('pt-BR')}</p>
+                </div>
+                
+                <h4>Faturamento</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="text-align: left;">Tipo</th>
+                        <th style="text-align: right;">Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Dinheiro</td>
+                        <td class="text-right">${formatCurrency(fechamento.dinheiro)}</td>
+                    </tr>
+                    <tr>
+                        <td>PIX</td>
+                        <td class="text-right">${formatCurrency(fechamento.pix)}</td>
+                    </tr>
+                    <tr>
+                        <td>Outros Faturamentos</td>
+                        <td class="text-right">${formatCurrency(fechamento.outrosFaturamentos || 0)}</td>
+                    </tr>
+                    ${conveniosHTML}
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td>Total Faturamentos</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalFaturamentos)}</td>
+                    </tr>
+                </table>
+                
+                <h4>Despesas do Dia</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="text-align: left;">Tipo</th>
+                        <th style="text-align: left;">Descrição</th>
+                        <th style="text-align: right;">Valor</th>
+                    </tr>
+                    ${despesasHTML}
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td colspan="2">Total Despesas</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalDespesas)}</td>
+                    </tr>
+                </table>
+                
+                <h4>Taxas Bancárias</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="text-align: left;">Total de Taxas</th>
+                        <th style="text-align: right;">Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Total Taxas Bancárias</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalTaxas)}</td>
+                    </tr>
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td>Total Taxas</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalTaxas)}</td>
+                    </tr>
+                </table>
+                
+                <div style="border-top: 3px solid #333; padding: 15px; text-align: right; font-size: 1.2rem;">
+                    <strong>Total Líquido do Dia: ${formatCurrency(fechamento.totalDiaria)}</strong>
+                </div>
+                
+                <div class="relatorio-footer">
+                    <p>Documento gerado em ${new Date().toLocaleString('pt-BR')}</p>
+                    <p>${database.settings.systemName} - Sistema de Gerenciamento</p>
+                </div>
+            `;
+            
+            const relatorioConteudo = document.getElementById('relatorio-conteudo');
+            if (relatorioConteudo) {
+                relatorioConteudo.innerHTML = relatorioHTML;
+            }
+            
+            const relatorioModal = document.getElementById('relatorio-modal');
+            if (relatorioModal) {
+                relatorioModal.style.display = 'flex';
+            }
+        }
+
+        // ============== FECHAMENTO DIÁRIO (MANTIDO IGUAL) ==============
         function loadFechamentoDiarioContent() {
             const page = document.getElementById('fechamento-diario');
+            if (!page) return;
             
             page.innerHTML = `
                 <div class="d-flex justify-between mb-3">
@@ -2206,24 +3169,40 @@ AmazonDash
                             <div class="tab-content" id="tab-convenios">
                                 <div class="mb-3">
                                     <div class="d-flex justify-between">
-                                        <h4>Selecionar Convênios</h4>
+                                        <h4>Lançamento de Convênios</h4>
                                         ${currentUser.role !== 'Usuário' ? `
                                         <button type="button" class="btn btn-sm btn-primary" id="add-convenio-fechamento">
                                             <i class="fas fa-plus"></i> Novo Convênio
                                         </button>
                                         ` : ''}
                                     </div>
-                                    <p class="text-muted">Selecione os convênios que fazem parte deste fechamento:</p>
+                                    <p class="text-muted">Adicione múltiplos convênios:</p>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Selecione o Convênio</label>
+                                        <select class="form-control" id="convenio-select">
+                                            <option value="">Selecione um convênio...</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="fechamento-form">
+                                        <div class="fechamento-group">
+                                            <label class="fechamento-label">Valor do Convênio (R$)</label>
+                                            <input type="number" step="0.01" class="fechamento-input" id="convenio-valor" placeholder="0,00">
+                                        </div>
+                                        <div class="fechamento-group">
+                                            <label class="fechamento-label">&nbsp;</label>
+                                            <button type="button" class="btn btn-primary" id="adicionar-convenio">
+                                                <i class="fas fa-plus"></i> Adicionar Convênio
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div id="convenios-selecao">
-                                    <!-- Convênios serão carregados aqui -->
-                                </div>
-                                
-                                <div class="mt-3" id="convenios-selecionados-container" style="display: none;">
-                                    <h5>Convênios Selecionados</h5>
+                                <div class="mt-3" id="convenios-selecionados-container">
+                                    <h5>Convênios Lançados</h5>
                                     <div id="convenios-selecionados-lista" class="lancamentos-lista">
-                                        <!-- Convênios selecionados aparecerão aqui -->
+                                        <!-- Convênios lançados aparecerão aqui -->
                                     </div>
                                     <div class="mt-2 text-right">
                                         <strong>Total Convênios:</strong> 
@@ -2241,7 +3220,7 @@ AmazonDash
                                 </div>
                             </div>
                             
-                            <!-- Tab 3: Taxas Bancárias (Múltiplos Lançamentos) -->
+                            <!-- Tab 3: Taxas Bancárias -->
                             <div class="tab-content" id="tab-taxas-bancarias">
                                 <div class="mb-3">
                                     <div class="d-flex justify-between">
@@ -2296,7 +3275,7 @@ AmazonDash
                                 </div>
                             </div>
                             
-                            <!-- Tab 4: Despesas do Dia (Múltiplos Lançamentos) -->
+                            <!-- Tab 4: Despesas do Dia -->
                             <div class="tab-content" id="tab-despesas">
                                 <div class="mb-3">
                                     <div class="d-flex justify-between">
@@ -2417,130 +3396,222 @@ AmazonDash
         }
         
         function setupFechamentoEvents() {
+            if (!currentUser) return;
+            
             // Novo fechamento
-            document.getElementById('add-fechamento').addEventListener('click', function() {
-                // Verificar permissão
-                if (currentUser.role === 'Usuário') {
-                    showAlert('Usuários não podem criar novos fechamentos.', 'warning');
-                    return;
-                }
-                
-                document.getElementById('fechamento-form-container').style.display = 'block';
-                resetFechamentoForm();
-                
-                // Preencher valores padrão
-                document.getElementById('fechamento-data').valueAsDate = new Date();
-                document.getElementById('fechamento-responsavel').value = currentUser.name;
-                
-                // Pré-selecionar centro de custo do usuário
-                if (currentUser.role !== 'Administrador') {
-                    document.getElementById('fechamento-centro-custo').value = currentUser.centroCusto;
-                }
-                
-                // Carregar convênios e bancos
-                loadConveniosForSelection();
-                loadBancosForSelection();
-            });
+            const addFechamento = document.getElementById('add-fechamento');
+            if (addFechamento) {
+                addFechamento.addEventListener('click', function() {
+                    if (currentUser.role === 'Usuário') {
+                        showAlert('Usuários não podem criar novos fechamentos.', 'warning');
+                        return;
+                    }
+                    
+                    const formContainer = document.getElementById('fechamento-form-container');
+                    if (formContainer) {
+                        formContainer.style.display = 'block';
+                    }
+                    
+                    resetFechamentoForm();
+                    
+                    const dataInput = document.getElementById('fechamento-data');
+                    if (dataInput) dataInput.valueAsDate = new Date();
+                    
+                    const responsavelInput = document.getElementById('fechamento-responsavel');
+                    if (responsavelInput) responsavelInput.value = currentUser.name;
+                    
+                    if (currentUser.role !== 'Administrador') {
+                        const centroSelect = document.getElementById('fechamento-centro-custo');
+                        if (centroSelect) centroSelect.value = currentUser.centroCusto;
+                    }
+                    
+                    loadConveniosForSelection();
+                    loadBancosForSelection();
+                });
+            }
             
             // Cancelar fechamento
-            document.getElementById('cancel-fechamento').addEventListener('click', function() {
-                document.getElementById('fechamento-form-container').style.display = 'none';
-                resetFechamentoForm();
-            });
+            const cancelFechamento = document.getElementById('cancel-fechamento');
+            if (cancelFechamento) {
+                cancelFechamento.addEventListener('click', function() {
+                    const formContainer = document.getElementById('fechamento-form-container');
+                    if (formContainer) formContainer.style.display = 'none';
+                    resetFechamentoForm();
+                });
+            }
             
             // Aplicar filtro
-            document.getElementById('aplicar-filtro').addEventListener('click', function() {
-                updateFechamentosTable();
-            });
+            const aplicarFiltro = document.getElementById('aplicar-filtro');
+            if (aplicarFiltro) {
+                aplicarFiltro.addEventListener('click', function() {
+                    updateFechamentosTable();
+                });
+            }
             
             // Navegação entre tabs
-            document.getElementById('proximo-convenios').addEventListener('click', function() {
-                showTab('convenios');
-            });
+            const proximoConvenios = document.getElementById('proximo-convenios');
+            if (proximoConvenios) {
+                proximoConvenios.addEventListener('click', function() {
+                    showTab('convenios');
+                });
+            }
             
-            document.getElementById('voltar-basico').addEventListener('click', function() {
-                showTab('basico');
-            });
+            const voltarBasico = document.getElementById('voltar-basico');
+            if (voltarBasico) {
+                voltarBasico.addEventListener('click', function() {
+                    showTab('basico');
+                });
+            }
             
-            document.getElementById('proximo-taxas').addEventListener('click', function() {
-                showTab('taxas-bancarias');
-            });
+            const proximoTaxas = document.getElementById('proximo-taxas');
+            if (proximoTaxas) {
+                proximoTaxas.addEventListener('click', function() {
+                    showTab('taxas-bancarias');
+                });
+            }
             
-            document.getElementById('voltar-convenios-taxas').addEventListener('click', function() {
-                showTab('convenios');
-            });
+            const voltarConveniosTaxas = document.getElementById('voltar-convenios-taxas');
+            if (voltarConveniosTaxas) {
+                voltarConveniosTaxas.addEventListener('click', function() {
+                    showTab('convenios');
+                });
+            }
             
-            document.getElementById('proximo-despesas').addEventListener('click', function() {
-                showTab('despesas');
-            });
+            const proximoDespesas = document.getElementById('proximo-despesas');
+            if (proximoDespesas) {
+                proximoDespesas.addEventListener('click', function() {
+                    showTab('despesas');
+                });
+            }
             
-            document.getElementById('voltar-taxas-despesas').addEventListener('click', function() {
-                showTab('taxas-bancarias');
-            });
+            const voltarTaxasDespesas = document.getElementById('voltar-taxas-despesas');
+            if (voltarTaxasDespesas) {
+                voltarTaxasDespesas.addEventListener('click', function() {
+                    showTab('taxas-bancarias');
+                });
+            }
             
-            document.getElementById('proximo-resumo').addEventListener('click', function() {
-                showTab('resumo');
-            });
+            const proximoResumo = document.getElementById('proximo-resumo');
+            if (proximoResumo) {
+                proximoResumo.addEventListener('click', function() {
+                    showTab('resumo');
+                });
+            }
             
-            document.getElementById('voltar-despesas').addEventListener('click', function() {
-                showTab('despesas');
-            });
+            const voltarDespesas = document.getElementById('voltar-despesas');
+            if (voltarDespesas) {
+                voltarDespesas.addEventListener('click', function() {
+                    showTab('despesas');
+                });
+            }
             
-            // Adicionar taxa bancária (múltiplos lançamentos)
-            document.getElementById('adicionar-taxa').addEventListener('click', function() {
-                adicionarTaxaBancaria();
-            });
+            // Adicionar convênio
+            const adicionarConvenio = document.getElementById('adicionar-convenio');
+            if (adicionarConvenio) {
+                adicionarConvenio.addEventListener('click', function() {
+                    adicionarConvenioFechamento();
+                });
+            }
+            
+            // Adicionar taxa bancária
+            const adicionarTaxa = document.getElementById('adicionar-taxa');
+            if (adicionarTaxa) {
+                adicionarTaxa.addEventListener('click', function() {
+                    adicionarTaxaBancaria();
+                });
+            }
             
             // Adicionar despesa
-            document.getElementById('adicionar-despesa').addEventListener('click', function() {
-                adicionarDespesa();
-            });
-            
-            // Enter para adicionar taxa
-            document.getElementById('taxa-valor').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    adicionarTaxaBancaria();
-                }
-            });
-            
-            // Enter para adicionar despesa
-            document.getElementById('despesa-valor').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    adicionarDespesa();
-                }
-            });
+            const adicionarDespesa = document.getElementById('adicionar-despesa');
+            if (adicionarDespesa) {
+                adicionarDespesa.addEventListener('click', function() {
+                    adicionarDespesaFechamento();
+                });
+            }
             
             // Adicionar novo banco
-            document.getElementById('add-banco-fechamento').addEventListener('click', function() {
-                showBancoModal();
-            });
+            const addBancoFechamento = document.getElementById('add-banco-fechamento');
+            if (addBancoFechamento) {
+                addBancoFechamento.addEventListener('click', function() {
+                    showBancoModal();
+                });
+            }
 
             // Adicionar novo tipo de despesa
-            document.getElementById('add-tipo-despesa').addEventListener('click', function() {
-                showTipoDespesaModal();
-            });
+            const addTipoDespesa = document.getElementById('add-tipo-despesa');
+            if (addTipoDespesa) {
+                addTipoDespesa.addEventListener('click', function() {
+                    showTipoDespesaModal();
+                });
+            }
 
             // Salvar fechamento
-            document.getElementById('salvar-fechamento').addEventListener('click', function() {
-                saveFechamento();
-            });
+            const salvarFechamento = document.getElementById('salvar-fechamento');
+            if (salvarFechamento) {
+                salvarFechamento.addEventListener('click', function() {
+                    saveFechamento();
+                });
+            }
             
             // Adicionar novo convênio
-            document.getElementById('add-convenio-fechamento').addEventListener('click', function() {
-                showConvenioModal();
-            });
+            const addConvenioFechamento = document.getElementById('add-convenio-fechamento');
+            if (addConvenioFechamento) {
+                addConvenioFechamento.addEventListener('click', function() {
+                    showConvenioModal();
+                });
+            }
             
             // Atualizar cálculo quando valores mudarem
             ['fechamento-dinheiro', 'fechamento-pix', 'fechamento-outros'].forEach(id => {
-                document.getElementById(id).addEventListener('input', updateResumoFechamento);
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', updateResumoFechamento);
+                }
             });
+        }
+        
+        function adicionarConvenioFechamento() {
+            const convenioSelect = document.getElementById('convenio-select');
+            const valorInput = document.getElementById('convenio-valor');
+            
+            if (!convenioSelect || !valorInput) return;
+            
+            const convenioId = parseInt(convenioSelect.value);
+            const valor = parseFloat(valorInput.value) || 0;
+            
+            if (!convenioId) {
+                showAlert('Selecione um convênio.', 'warning');
+                return;
+            }
+            
+            if (valor <= 0) {
+                showAlert('Informe um valor válido para o convênio.', 'warning');
+                return;
+            }
+            
+            const convenio = database.convenios.find(c => c.id === convenioId);
+            if (!convenio) return;
+            
+            selectedConvenios.push({
+                id: nextLancamentoId++,
+                convenioId: convenioId,
+                nome: convenio.nome,
+                valor: valor
+            });
+            
+            atualizarListaConvenios();
+            
+            valorInput.value = '';
+            convenioSelect.focus();
+            
+            updateResumoFechamento();
         }
         
         function adicionarTaxaBancaria() {
             const bancoSelect = document.getElementById('taxa-banco-select');
             const valorInput = document.getElementById('taxa-valor');
+            
+            if (!bancoSelect || !valorInput) return;
             
             const bancoId = parseInt(bancoSelect.value);
             const valor = parseFloat(valorInput.value) || 0;
@@ -2556,8 +3627,8 @@ AmazonDash
             }
             
             const banco = database.bancos.find(b => b.id === bancoId);
+            if (!banco) return;
             
-            // Adicionar à lista
             selectedTaxasBancarias.push({
                 id: nextLancamentoId++,
                 bancoId: bancoId,
@@ -2565,21 +3636,20 @@ AmazonDash
                 valor: valor
             });
             
-            // Atualizar UI
             atualizarListaTaxas();
             
-            // Limpar campos
             valorInput.value = '';
             bancoSelect.focus();
             
-            // Atualizar resumo
             updateResumoFechamento();
         }
         
-        function adicionarDespesa() {
+        function adicionarDespesaFechamento() {
             const tipoSelect = document.getElementById('despesa-tipo-select');
             const descricaoInput = document.getElementById('despesa-descricao');
             const valorInput = document.getElementById('despesa-valor');
+            
+            if (!tipoSelect || !descricaoInput || !valorInput) return;
             
             const tipoId = parseInt(tipoSelect.value);
             const descricao = descricaoInput.value.trim();
@@ -2601,8 +3671,8 @@ AmazonDash
             }
             
             const tipo = database.tiposDespesa.find(t => t.id === tipoId);
+            if (!tipo) return;
             
-            // Adicionar à lista
             selectedDespesas.push({
                 id: nextLancamentoId++,
                 tipoId: tipoId,
@@ -2611,16 +3681,22 @@ AmazonDash
                 valor: valor
             });
             
-            // Atualizar UI
             atualizarListaDespesas();
             
-            // Limpar campos
             descricaoInput.value = '';
             valorInput.value = '';
             tipoSelect.focus();
             
-            // Atualizar resumo
             updateResumoFechamento();
+        }
+        
+        function removerConvenio(id) {
+            const index = selectedConvenios.findIndex(c => c.id === id);
+            if (index !== -1) {
+                selectedConvenios.splice(index, 1);
+                atualizarListaConvenios();
+                updateResumoFechamento();
+            }
         }
         
         function removerTaxa(id) {
@@ -2641,9 +3717,46 @@ AmazonDash
             }
         }
         
+        function atualizarListaConvenios() {
+            const lista = document.getElementById('convenios-selecionados-lista');
+            const totalSpan = document.getElementById('total-convenios-selecionados');
+            
+            if (!lista || !totalSpan) return;
+            
+            if (selectedConvenios.length === 0) {
+                lista.innerHTML = '<div class="text-center p-3">Nenhum convênio lançado</div>';
+                totalSpan.textContent = formatCurrency(0);
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            selectedConvenios.forEach(convenio => {
+                total += convenio.valor;
+                html += `
+                    <div class="lancamento-item">
+                        <div class="lancamento-info">
+                            <span class="lancamento-tipo">${convenio.nome}</span>
+                            <div class="lancamento-descricao">Convênio</div>
+                        </div>
+                        <span class="lancamento-valor">${formatCurrency(convenio.valor)}</span>
+                        <button class="btn-remove-lancamento" onclick="window.removerConvenio(${convenio.id})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            lista.innerHTML = html;
+            totalSpan.textContent = formatCurrency(total);
+        }
+        
         function atualizarListaTaxas() {
             const lista = document.getElementById('taxas-selecionadas-lista');
             const totalSpan = document.getElementById('total-taxas-selecionadas');
+            
+            if (!lista || !totalSpan) return;
             
             if (selectedTaxasBancarias.length === 0) {
                 lista.innerHTML = '<div class="text-center p-3">Nenhuma taxa lançada</div>';
@@ -2663,7 +3776,7 @@ AmazonDash
                             <div class="lancamento-descricao">Taxa bancária</div>
                         </div>
                         <span class="lancamento-valor">${formatCurrency(taxa.valor)}</span>
-                        <button class="btn-remove-lancamento" onclick="removerTaxa(${taxa.id})">
+                        <button class="btn-remove-lancamento" onclick="window.removerTaxa(${taxa.id})">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -2677,6 +3790,8 @@ AmazonDash
         function atualizarListaDespesas() {
             const lista = document.getElementById('despesas-selecionadas-lista');
             const totalSpan = document.getElementById('total-despesas-selecionadas');
+            
+            if (!lista || !totalSpan) return;
             
             if (selectedDespesas.length === 0) {
                 lista.innerHTML = '<div class="text-center p-3">Nenhuma despesa lançada</div>';
@@ -2696,7 +3811,7 @@ AmazonDash
                             <div class="lancamento-descricao">${despesa.descricao}</div>
                         </div>
                         <span class="lancamento-valor">${formatCurrency(despesa.valor)}</span>
-                        <button class="btn-remove-lancamento" onclick="removerDespesa(${despesa.id})">
+                        <button class="btn-remove-lancamento" onclick="window.removerDespesa(${despesa.id})">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -2716,20 +3831,23 @@ AmazonDash
                 tab.classList.remove('active');
             });
             
-            document.getElementById(`tab-${tabName}`).classList.add('active');
-            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
+            const tabContent = document.getElementById(`tab-${tabName}`);
+            if (tabContent) tabContent.classList.add('active');
+            
+            const tabButton = document.querySelector(`.tab[data-tab="${tabName}"]`);
+            if (tabButton) tabButton.classList.add('active');
         }
         
         function resetFechamentoForm() {
-            document.getElementById('fechamento-form-basico').reset();
+            const form = document.getElementById('fechamento-form-basico');
+            if (form) form.reset();
             
             selectedConvenios = [];
             selectedTaxasBancarias = [];
             selectedDespesas = [];
             nextLancamentoId = 1;
             
-            document.getElementById('convenios-selecionados-container').style.display = 'none';
-            
+            atualizarListaConvenios();
             atualizarListaTaxas();
             atualizarListaDespesas();
             
@@ -2737,65 +3855,18 @@ AmazonDash
         }
         
         function loadConveniosForSelection() {
-            const container = document.getElementById('convenios-selecao');
-            if (!container) return;
+            const select = document.getElementById('convenio-select');
+            if (!select) return;
             
             let conveniosAtivos = database.convenios.filter(c => c.status === 'Ativo');
             conveniosAtivos = filterByUserCentro(conveniosAtivos);
             
-            if (conveniosAtivos.length === 0) {
-                container.innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="fas fa-info-circle"></i> Nenhum convênio ativo cadastrado para este centro.
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '<div class="items-grid">';
-            
+            let options = '<option value="">Selecione um convênio...</option>';
             conveniosAtivos.forEach(convenio => {
-                const isSelected = selectedConvenios.some(c => c.id === convenio.id);
-                
-                html += `
-                    <div class="item-card ${isSelected ? 'selected' : ''}" data-id="${convenio.id}">
-                        <div class="item-nome">${convenio.nome}</div>
-                        <div class="item-documento">${convenio.documento}</div>
-                        <div class="item-valor-input">
-                            <input type="number" step="0.01" 
-                                   class="item-valor-input-field" 
-                                   data-id="${convenio.id}"
-                                   placeholder="Valor (R$)"
-                                   value="${isSelected ? selectedConvenios.find(c => c.id === convenio.id).valor || '' : ''}">
-                        </div>
-                    </div>
-                `;
+                options += `<option value="${convenio.id}">${convenio.nome} - ${convenio.documento}</option>`;
             });
             
-            html += '</div>';
-            container.innerHTML = html;
-            
-            // Configurar eventos dos cards
-            document.querySelectorAll('#convenios-selecao .item-card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    if (e.target.classList.contains('item-valor-input-field')) return;
-                    
-                    const convenioId = parseInt(this.getAttribute('data-id'));
-                    toggleConvenioSelection(convenioId);
-                });
-            });
-            
-            // Configurar eventos dos inputs de valor
-            document.querySelectorAll('#convenios-selecao .item-valor-input-field').forEach(input => {
-                input.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-                
-                input.addEventListener('input', function() {
-                    const convenioId = parseInt(this.getAttribute('data-id'));
-                    updateConvenioValor(convenioId, parseFloat(this.value) || 0);
-                });
-            });
+            select.innerHTML = options;
         }
         
         function loadBancosForSelection() {
@@ -2812,83 +3883,10 @@ AmazonDash
             select.innerHTML = options;
         }
         
-        function toggleConvenioSelection(convenioId) {
-            const convenio = database.convenios.find(c => c.id === convenioId);
-            if (!convenio) return;
-            
-            const index = selectedConvenios.findIndex(c => c.id === convenioId);
-            
-            if (index === -1) {
-                selectedConvenios.push({
-                    id: convenioId,
-                    nome: convenio.nome,
-                    valor: 0,
-                    documento: convenio.documento
-                });
-            } else {
-                selectedConvenios.splice(index, 1);
-            }
-            
-            updateConveniosSelectionUI();
-            updateResumoFechamento();
-        }
-        
-        function updateConvenioValor(convenioId, valor) {
-            const convenioIndex = selectedConvenios.findIndex(c => c.id === convenioId);
-            if (convenioIndex !== -1) {
-                selectedConvenios[convenioIndex].valor = valor;
-                updateConveniosSelectionUI();
-                updateResumoFechamento();
-            }
-        }
-        
-        function updateConveniosSelectionUI() {
-            document.querySelectorAll('#convenios-selecao .item-card').forEach(card => {
-                const convenioId = parseInt(card.getAttribute('data-id'));
-                const isSelected = selectedConvenios.some(c => c.id === convenioId);
-                
-                if (isSelected) {
-                    card.classList.add('selected');
-                } else {
-                    card.classList.remove('selected');
-                }
-            });
-            
-            const container = document.getElementById('convenios-selecionados-container');
-            const lista = document.getElementById('convenios-selecionados-lista');
-            const totalSpan = document.getElementById('total-convenios-selecionados');
-            
-            if (selectedConvenios.length === 0) {
-                container.style.display = 'none';
-                return;
-            }
-            
-            container.style.display = 'block';
-            
-            let html = '';
-            let total = 0;
-            
-            selectedConvenios.forEach(convenio => {
-                total += convenio.valor;
-                html += `
-                    <div class="lancamento-item">
-                        <div class="lancamento-info">
-                            <span class="lancamento-tipo">${convenio.nome}</span>
-                            <div class="lancamento-descricao">Convênio</div>
-                        </div>
-                        <span class="lancamento-valor">${formatCurrency(convenio.valor)}</span>
-                    </div>
-                `;
-            });
-            
-            lista.innerHTML = html;
-            totalSpan.textContent = formatCurrency(total);
-        }
-        
         function updateResumoFechamento() {
-            const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro').value) || 0;
-            const pix = parseFloat(document.getElementById('fechamento-pix').value) || 0;
-            const outros = parseFloat(document.getElementById('fechamento-outros').value) || 0;
+            const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro')?.value) || 0;
+            const pix = parseFloat(document.getElementById('fechamento-pix')?.value) || 0;
+            const outros = parseFloat(document.getElementById('fechamento-outros')?.value) || 0;
             
             const totalConvenios = selectedConvenios.reduce((sum, c) => sum + c.valor, 0);
             const totalTaxas = selectedTaxasBancarias.reduce((sum, t) => sum + t.valor, 0);
@@ -2897,28 +3895,35 @@ AmazonDash
             const totalFaturamentos = dinheiro + pix + outros + totalConvenios;
             const totalLiquido = totalFaturamentos - totalDespesas - totalTaxas;
             
-            document.getElementById('resumo-dinheiro').textContent = formatCurrency(dinheiro);
-            document.getElementById('resumo-pix').textContent = formatCurrency(pix);
-            document.getElementById('resumo-outros').textContent = formatCurrency(outros);
-            document.getElementById('resumo-convenios').textContent = formatCurrency(totalConvenios);
-            document.getElementById('resumo-total-faturamentos').textContent = formatCurrency(totalFaturamentos);
-            document.getElementById('resumo-despesas').textContent = formatCurrency(totalDespesas);
-            document.getElementById('resumo-taxas').textContent = formatCurrency(totalTaxas);
-            document.getElementById('resumo-total-liquido').textContent = formatCurrency(totalLiquido);
+            const resumoDinheiro = document.getElementById('resumo-dinheiro');
+            const resumoPix = document.getElementById('resumo-pix');
+            const resumoOutros = document.getElementById('resumo-outros');
+            const resumoConvenios = document.getElementById('resumo-convenios');
+            const resumoTotalFaturamentos = document.getElementById('resumo-total-faturamentos');
+            const resumoDespesas = document.getElementById('resumo-despesas');
+            const resumoTaxas = document.getElementById('resumo-taxas');
+            const resumoTotalLiquido = document.getElementById('resumo-total-liquido');
+            
+            if (resumoDinheiro) resumoDinheiro.textContent = formatCurrency(dinheiro);
+            if (resumoPix) resumoPix.textContent = formatCurrency(pix);
+            if (resumoOutros) resumoOutros.textContent = formatCurrency(outros);
+            if (resumoConvenios) resumoConvenios.textContent = formatCurrency(totalConvenios);
+            if (resumoTotalFaturamentos) resumoTotalFaturamentos.textContent = formatCurrency(totalFaturamentos);
+            if (resumoDespesas) resumoDespesas.textContent = formatCurrency(totalDespesas);
+            if (resumoTaxas) resumoTaxas.textContent = formatCurrency(totalTaxas);
+            if (resumoTotalLiquido) resumoTotalLiquido.textContent = formatCurrency(totalLiquido);
         }
         
         function saveFechamento() {
-            // Verificar permissão
             if (currentUser.role === 'Usuário') {
                 showAlert('Usuários não podem salvar fechamentos.', 'warning');
                 return;
             }
             
-            const data = document.getElementById('fechamento-data').value;
-            const responsavel = document.getElementById('fechamento-responsavel').value;
-            let centroCusto = document.getElementById('fechamento-centro-custo').value;
+            const data = document.getElementById('fechamento-data')?.value;
+            const responsavel = document.getElementById('fechamento-responsavel')?.value;
+            let centroCusto = document.getElementById('fechamento-centro-custo')?.value;
             
-            // Se não for admin, usar centro do usuário
             if (currentUser.role !== 'Administrador') {
                 centroCusto = currentUser.centroCusto;
             }
@@ -2929,9 +3934,9 @@ AmazonDash
                 return;
             }
             
-            const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro').value) || 0;
-            const pix = parseFloat(document.getElementById('fechamento-pix').value) || 0;
-            const outros = parseFloat(document.getElementById('fechamento-outros').value) || 0;
+            const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro')?.value) || 0;
+            const pix = parseFloat(document.getElementById('fechamento-pix')?.value) || 0;
+            const outros = parseFloat(document.getElementById('fechamento-outros')?.value) || 0;
             
             const totalConvenios = selectedConvenios.reduce((sum, c) => sum + c.valor, 0);
             const totalTaxas = selectedTaxasBancarias.reduce((sum, t) => sum + t.valor, 0);
@@ -2949,7 +3954,8 @@ AmazonDash
                 pix: pix,
                 outrosFaturamentos: outros,
                 convenios: selectedConvenios.map(c => ({
-                    convenioId: c.id,
+                    id: c.id,
+                    convenioId: c.convenioId,
                     nome: c.nome,
                     valor: c.valor
                 })),
@@ -2976,146 +3982,22 @@ AmazonDash
             
             database.fechamentosDiarios.push(novoFechamento);
             
-            document.getElementById('fechamento-form-container').style.display = 'none';
+            const formContainer = document.getElementById('fechamento-form-container');
+            if (formContainer) formContainer.style.display = 'none';
+            
             updateFechamentosTable();
             
             if (currentPage === 'dashboard') {
-                updateDashboardData();
+                atualizarDashboardComFiltros();
             }
             
             showAlert('Fechamento salvo com sucesso!', 'success');
             
-            // Perguntar se quer imprimir
             if (confirm('Deseja imprimir o relatório deste fechamento?')) {
                 imprimirRelatorioFechamento(novoFechamento);
             }
             
             resetFechamentoForm();
-        }
-        
-        function imprimirRelatorioFechamento(fechamento) {
-            const centro = database.centrosCusto.find(c => c.codigo === fechamento.centroCusto);
-            
-            let conveniosHTML = '';
-            if (fechamento.convenios && fechamento.convenios.length > 0) {
-                fechamento.convenios.forEach(c => {
-                    conveniosHTML += `
-                        <tr>
-                            <td>${c.nome}</td>
-                            <td class="text-right">${formatCurrency(c.valor)}</td>
-                        </tr>
-                    `;
-                });
-            } else {
-                conveniosHTML = '<tr><td colspan="2" class="text-center">Nenhum convênio</td></tr>';
-            }
-            
-            let taxasHTML = '';
-            if (fechamento.taxasBancarias && fechamento.taxasBancarias.length > 0) {
-                fechamento.taxasBancarias.forEach(t => {
-                    taxasHTML += `
-                        <tr>
-                            <td>${t.bancoNome}</td>
-                            <td class="text-right">${formatCurrency(t.valor)}</td>
-                        </tr>
-                    `;
-                });
-            } else {
-                taxasHTML = '<tr><td colspan="2" class="text-center">Nenhuma taxa</td></tr>';
-            }
-            
-            let despesasHTML = '';
-            if (fechamento.despesas && fechamento.despesas.length > 0) {
-                fechamento.despesas.forEach(d => {
-                    despesasHTML += `
-                        <tr>
-                            <td>${d.tipo}</td>
-                            <td>${d.descricao}</td>
-                            <td class="text-right">${formatCurrency(d.valor)}</td>
-                        </tr>
-                    `;
-                });
-            } else {
-                despesasHTML = '<tr><td colspan="3" class="text-center">Nenhuma despesa</td></tr>';
-            }
-            
-            const relatorioHTML = `
-                <div class="relatorio-header">
-                    <h2>${database.settings.systemName}</h2>
-                    <h3>Relatório de Fechamento Diário</h3>
-                    <p>Data do fechamento: ${formatDate(fechamento.data)}</p>
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <p><strong>Responsável:</strong> ${fechamento.responsavel}</p>
-                    <p><strong>Centro de Custo:</strong> ${centro ? centro.nome : fechamento.centroCusto}</p>
-                    <p><strong>Data de emissão:</strong> ${new Date().toLocaleString('pt-BR')}</p>
-                </div>
-                
-                <h4>Faturamento</h4>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                    <tr style="border-bottom: 1px solid #ddd;">
-                        <th style="text-align: left;">Tipo</th>
-                        <th style="text-align: right;">Valor</th>
-                    </tr>
-                    <tr>
-                        <td>Dinheiro</td>
-                        <td class="text-right">${formatCurrency(fechamento.dinheiro)}</td>
-                    </tr>
-                    <tr>
-                        <td>PIX</td>
-                        <td class="text-right">${formatCurrency(fechamento.pix)}</td>
-                    </tr>
-                    <tr>
-                        <td>Outros Faturamentos</td>
-                        <td class="text-right">${formatCurrency(fechamento.outrosFaturamentos || 0)}</td>
-                    </tr>
-                    ${conveniosHTML}
-                    <tr style="border-top: 2px solid #333; font-weight: bold;">
-                        <td>Total Faturamentos</td>
-                        <td class="text-right">${formatCurrency(fechamento.totalFaturamentos)}</td>
-                    </tr>
-                </table>
-                
-                <h4>Despesas do Dia</h4>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                    <tr style="border-bottom: 1px solid #ddd;">
-                        <th style="text-align: left;">Tipo</th>
-                        <th style="text-align: left;">Descrição</th>
-                        <th style="text-align: right;">Valor</th>
-                    </tr>
-                    ${despesasHTML}
-                    <tr style="border-top: 2px solid #333; font-weight: bold;">
-                        <td colspan="2">Total Despesas</td>
-                        <td class="text-right">${formatCurrency(fechamento.totalDespesas)}</td>
-                    </tr>
-                </table>
-                
-                <h4>Taxas Bancárias</h4>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                    <tr style="border-bottom: 1px solid #ddd;">
-                        <th style="text-align: left;">Banco</th>
-                        <th style="text-align: right;">Valor</th>
-                    </tr>
-                    ${taxasHTML}
-                    <tr style="border-top: 2px solid #333; font-weight: bold;">
-                        <td>Total Taxas</td>
-                        <td class="text-right">${formatCurrency(fechamento.totalTaxas)}</td>
-                    </tr>
-                </table>
-                
-                <div style="border-top: 3px solid #333; padding: 15px; text-align: right; font-size: 1.2rem;">
-                    <strong>Total Líquido do Dia: ${formatCurrency(fechamento.totalDiaria)}</strong>
-                </div>
-                
-                <div class="relatorio-footer">
-                    <p>Documento gerado em ${new Date().toLocaleString('pt-BR')}</p>
-                    <p>DataManager Pro - Sistema de Gerenciamento</p>
-                </div>
-            `;
-            
-            document.getElementById('relatorio-conteudo').innerHTML = relatorioHTML;
-            document.getElementById('relatorio-modal').style.display = 'flex';
         }
         
         function updateFechamentosTable() {
@@ -3127,7 +4009,6 @@ AmazonDash
             
             let fechamentos = database.fechamentosDiarios;
             
-            // Filtrar por centro de custo do usuário
             fechamentos = filterByUserCentro(fechamentos);
             
             if (filtroMes) {
@@ -3165,10 +4046,10 @@ AmazonDash
                         <td>${formatCurrency(totalDespesas)}</td>
                         <td><strong>${formatCurrency(f.totalDiaria)}</strong></td>
                         <td>
-                            <button class="btn-icon view-fechamento" onclick="visualizarFechamento(${f.id})" title="Visualizar">
+                            <button class="btn-icon" onclick="window.visualizarFechamento(${f.id})" title="Visualizar">
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button class="btn-icon print-fechamento" onclick="imprimirFechamento(${f.id})" title="Imprimir">
+                            <button class="btn-icon" onclick="window.imprimirFechamento(${f.id})" title="Imprimir">
                                 <i class="fas fa-print"></i>
                             </button>
                         </td>
@@ -3194,6 +4075,10 @@ AmazonDash
         }
         
         function showBancoModal() {
+            if (document.getElementById('banco-modal')) {
+                document.getElementById('banco-modal').remove();
+            }
+            
             const modalHTML = `
                 <div id="banco-modal" class="modal" style="display: flex;">
                     <div class="modal-content">
@@ -3233,28 +4118,32 @@ AmazonDash
                 </div>
             `;
             
-            const existingModal = document.getElementById('banco-modal');
-            if (existingModal) {
-                existingModal.remove();
-            }
-            
             document.body.insertAdjacentHTML('beforeend', modalHTML);
             
-            document.getElementById('cancel-banco').addEventListener('click', function() {
-                document.getElementById('banco-modal').remove();
-            });
+            const cancelBanco = document.getElementById('cancel-banco');
+            if (cancelBanco) {
+                cancelBanco.addEventListener('click', function() {
+                    const modal = document.getElementById('banco-modal');
+                    if (modal) modal.remove();
+                });
+            }
             
-            document.getElementById('banco-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                saveBanco();
-            });
+            const bancoForm = document.getElementById('banco-form');
+            if (bancoForm) {
+                bancoForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    saveBanco();
+                });
+            }
         }
         
         function saveBanco() {
-            const nome = document.getElementById('banco-nome').value;
-            const agencia = document.getElementById('banco-agencia').value;
-            const conta = document.getElementById('banco-conta').value;
-            const status = document.getElementById('banco-status').value;
+            const nome = document.getElementById('banco-nome')?.value;
+            const agencia = document.getElementById('banco-agencia')?.value;
+            const conta = document.getElementById('banco-conta')?.value;
+            const status = document.getElementById('banco-status')?.value;
+            
+            if (!nome || !agencia || !conta || !status) return;
             
             const novoBanco = {
                 id: database.bancos.length + 1,
@@ -3268,7 +4157,8 @@ AmazonDash
             
             database.bancos.push(novoBanco);
             
-            document.getElementById('banco-modal').remove();
+            const modal = document.getElementById('banco-modal');
+            if (modal) modal.remove();
             
             if (currentPage === 'fechamento-diario') {
                 loadBancosForSelection();
@@ -3288,7 +4178,6 @@ AmazonDash
                 
                 database.tiposDespesa.push(novoTipo);
                 
-                // Atualizar select
                 const select = document.getElementById('despesa-tipo-select');
                 if (select) {
                     const option = document.createElement('option');
@@ -3304,8 +4193,8 @@ AmazonDash
         // ============== SISTEMA DE CONVÊNIOS ==============
         function loadConveniosContent() {
             const page = document.getElementById('convenios');
+            if (!page) return;
             
-            // Verificar permissão
             if (currentUser.role === 'Usuário') {
                 page.innerHTML = `
                     <div class="restricted-access">
@@ -3380,19 +4269,28 @@ AmazonDash
         }
         
         function setupConveniosEvents() {
-            document.getElementById('add-convenio').addEventListener('click', function() {
-                showConvenioModal();
-            });
+            const addConvenio = document.getElementById('add-convenio');
+            if (addConvenio) {
+                addConvenio.addEventListener('click', function() {
+                    showConvenioModal();
+                });
+            }
             
-            document.getElementById('aplicar-filtro-convenios').addEventListener('click', function() {
-                updateConveniosTable();
-            });
+            const aplicarFiltro = document.getElementById('aplicar-filtro-convenios');
+            if (aplicarFiltro) {
+                aplicarFiltro.addEventListener('click', function() {
+                    updateConveniosTable();
+                });
+            }
         }
         
         function showConvenioModal() {
-            document.getElementById('convenio-form').reset();
+            const convenioForm = document.getElementById('convenio-form');
+            if (convenioForm) convenioForm.reset();
             
             const select = document.getElementById('convenio-centro-custo');
+            if (!select) return;
+            
             select.innerHTML = '<option value="">Nenhum</option>';
             
             let centros = database.centrosCusto;
@@ -3407,15 +4305,23 @@ AmazonDash
                 select.appendChild(option);
             });
             
-            document.getElementById('convenio-modal').style.display = 'flex';
+            const convenioModal = document.getElementById('convenio-modal');
+            if (convenioModal) {
+                convenioModal.style.display = 'flex';
+            }
         }
         
         function saveConvenio() {
-            const nome = document.getElementById('convenio-nome').value;
-            const documento = document.getElementById('convenio-documento').value;
-            const tipo = document.getElementById('convenio-tipo').value;
-            const centroCusto = document.getElementById('convenio-centro-custo').value;
-            const status = document.getElementById('convenio-status').value;
+            const nome = document.getElementById('convenio-nome')?.value;
+            const documento = document.getElementById('convenio-documento')?.value;
+            const tipo = document.getElementById('convenio-tipo')?.value;
+            const centroCusto = document.getElementById('convenio-centro-custo')?.value;
+            const status = document.getElementById('convenio-status')?.value;
+            
+            if (!nome || !documento || !tipo || !status) {
+                showAlert('Preencha todos os campos obrigatórios.', 'warning');
+                return;
+            }
             
             if (!validarDocumento(documento, tipo)) {
                 showAlert('Documento inválido para o tipo selecionado.', 'danger');
@@ -3435,7 +4341,8 @@ AmazonDash
             
             database.convenios.push(novoConvenio);
             
-            document.getElementById('convenio-modal').style.display = 'none';
+            const convenioModal = document.getElementById('convenio-modal');
+            if (convenioModal) convenioModal.style.display = 'none';
             
             updateConveniosTable();
             
@@ -3467,7 +4374,6 @@ AmazonDash
             
             let convenios = database.convenios;
             
-            // Filtrar por centro de custo do usuário
             convenios = filterByUserCentro(convenios);
             
             if (filtroStatus) {
@@ -3498,11 +4404,10 @@ AmazonDash
                         <td><span class="badge ${c.status === 'Ativo' ? 'badge-success' : 'badge-danger'}">${c.status}</span></td>
                         <td>${formatDate(c.createdAt)}</td>
                         <td>
-                            <button class="btn-icon edit-convenio" onclick="editConvenio(${c.id})" title="Editar">
+                            <button class="btn-icon" onclick="window.editConvenio(${c.id})" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn-icon ${c.status === 'Ativo' ? 'deactivate-convenio' : 'activate-convenio'}" 
-                                    onclick="toggleConvenioStatus(${c.id})" title="${c.status === 'Ativo' ? 'Desativar' : 'Ativar'}">
+                            <button class="btn-icon" onclick="window.toggleConvenioStatus(${c.id})" title="${c.status === 'Ativo' ? 'Desativar' : 'Ativar'}">
                                 <i class="fas ${c.status === 'Ativo' ? 'fa-ban' : 'fa-check'}"></i>
                             </button>
                         </td>
@@ -3517,44 +4422,56 @@ AmazonDash
             const convenio = database.convenios.find(c => c.id === id);
             if (!convenio) return;
             
-            document.getElementById('convenio-nome').value = convenio.nome;
-            document.getElementById('convenio-documento').value = convenio.documento;
-            document.getElementById('convenio-tipo').value = convenio.tipo;
-            document.getElementById('convenio-status').value = convenio.status;
+            const nomeInput = document.getElementById('convenio-nome');
+            const documentoInput = document.getElementById('convenio-documento');
+            const tipoSelect = document.getElementById('convenio-tipo');
+            const statusSelect = document.getElementById('convenio-status');
+            
+            if (nomeInput) nomeInput.value = convenio.nome;
+            if (documentoInput) documentoInput.value = convenio.documento;
+            if (tipoSelect) tipoSelect.value = convenio.tipo;
+            if (statusSelect) statusSelect.value = convenio.status;
             
             const select = document.getElementById('convenio-centro-custo');
-            select.innerHTML = '<option value="">Nenhum</option>';
-            
-            let centros = database.centrosCusto;
-            if (currentUser.role !== 'Administrador') {
-                centros = centros.filter(c => c.codigo === currentUser.centroCusto);
+            if (select) {
+                select.innerHTML = '<option value="">Nenhum</option>';
+                
+                let centros = database.centrosCusto;
+                if (currentUser.role !== 'Administrador') {
+                    centros = centros.filter(c => c.codigo === currentUser.centroCusto);
+                }
+                
+                centros.forEach(centro => {
+                    const option = document.createElement('option');
+                    option.value = centro.codigo;
+                    option.textContent = `${centro.codigo} - ${centro.nome}`;
+                    if (centro.codigo === convenio.centroCusto) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                });
             }
             
-            centros.forEach(centro => {
-                const option = document.createElement('option');
-                option.value = centro.codigo;
-                option.textContent = `${centro.codigo} - ${centro.nome}`;
-                if (centro.codigo === convenio.centroCusto) {
-                    option.selected = true;
-                }
-                select.appendChild(option);
-            });
-            
-            document.getElementById('convenio-modal').style.display = 'flex';
+            const convenioModal = document.getElementById('convenio-modal');
+            if (convenioModal) {
+                convenioModal.style.display = 'flex';
+            }
             
             const form = document.getElementById('convenio-form');
+            if (!form) return;
+            
             const originalSubmit = form.onsubmit;
             
             form.onsubmit = function(e) {
                 e.preventDefault();
                 
-                convenio.nome = document.getElementById('convenio-nome').value;
-                convenio.documento = document.getElementById('convenio-documento').value;
-                convenio.tipo = document.getElementById('convenio-tipo').value;
-                convenio.centroCusto = document.getElementById('convenio-centro-custo').value;
-                convenio.status = document.getElementById('convenio-status').value;
+                convenio.nome = document.getElementById('convenio-nome')?.value || convenio.nome;
+                convenio.documento = document.getElementById('convenio-documento')?.value || convenio.documento;
+                convenio.tipo = document.getElementById('convenio-tipo')?.value || convenio.tipo;
+                convenio.centroCusto = document.getElementById('convenio-centro-custo')?.value || convenio.centroCusto;
+                convenio.status = document.getElementById('convenio-status')?.value || convenio.status;
                 
-                document.getElementById('convenio-modal').style.display = 'none';
+                if (convenioModal) convenioModal.style.display = 'none';
                 
                 updateConveniosTable();
                 
@@ -3580,6 +4497,7 @@ AmazonDash
         // ============== SISTEMA DE USUÁRIOS ==============
         function loadUsuariosContent() {
             const page = document.getElementById('usuarios');
+            if (!page) return;
             
             if (currentUser.role !== "Administrador") {
                 page.innerHTML = `
@@ -3628,9 +4546,12 @@ AmazonDash
         }
         
         function setupUsuariosEvents() {
-            document.getElementById('add-usuario-btn').addEventListener('click', function() {
-                showUsuarioModal();
-            });
+            const addUsuarioBtn = document.getElementById('add-usuario-btn');
+            if (addUsuarioBtn) {
+                addUsuarioBtn.addEventListener('click', function() {
+                    showUsuarioModal();
+                });
+            }
         }
         
         function showUsuarioModal(usuario = null) {
@@ -3638,44 +4559,53 @@ AmazonDash
             const title = document.getElementById('usuario-modal-title');
             const form = document.getElementById('usuario-form');
             
+            if (!modal || !title || !form) return;
+            
             if (usuario) {
                 title.textContent = 'Editar Usuário';
-                document.getElementById('usuario-id').value = usuario.id;
-                document.getElementById('usuario-nome').value = usuario.name;
-                document.getElementById('usuario-email').value = usuario.email;
-                document.getElementById('usuario-perfil').value = usuario.role;
-                document.getElementById('usuario-status').value = usuario.status;
+                const usuarioId = document.getElementById('usuario-id');
+                const usuarioNome = document.getElementById('usuario-nome');
+                const usuarioEmail = document.getElementById('usuario-email');
+                const usuarioPerfil = document.getElementById('usuario-perfil');
+                const usuarioStatus = document.getElementById('usuario-status');
                 
-                // Pré-selecionar centro de custo
+                if (usuarioId) usuarioId.value = usuario.id;
+                if (usuarioNome) usuarioNome.value = usuario.name;
+                if (usuarioEmail) usuarioEmail.value = usuario.email;
+                if (usuarioPerfil) usuarioPerfil.value = usuario.role;
+                if (usuarioStatus) usuarioStatus.value = usuario.status;
+                
                 const centroSelect = document.getElementById('usuario-centro-custo');
-                centroSelect.value = usuario.centroCusto || '';
+                if (centroSelect) centroSelect.value = usuario.centroCusto || '';
             } else {
                 title.textContent = 'Novo Usuário';
                 form.reset();
-                document.getElementById('usuario-id').value = '';
+                const usuarioId = document.getElementById('usuario-id');
+                if (usuarioId) usuarioId.value = '';
             }
             
-            // Carregar centros de custo
             const centroSelect = document.getElementById('usuario-centro-custo');
-            centroSelect.innerHTML = '<option value="">Selecione...</option>';
-            database.centrosCusto.forEach(centro => {
-                const option = document.createElement('option');
-                option.value = centro.codigo;
-                option.textContent = `${centro.codigo} - ${centro.nome}`;
-                centroSelect.appendChild(option);
-            });
+            if (centroSelect) {
+                centroSelect.innerHTML = '<option value="">Selecione...</option>';
+                database.centrosCusto.forEach(centro => {
+                    const option = document.createElement('option');
+                    option.value = centro.codigo;
+                    option.textContent = `${centro.codigo} - ${centro.nome}`;
+                    centroSelect.appendChild(option);
+                });
+            }
             
             modal.style.display = 'flex';
         }
         
         function saveUsuario() {
-            const id = document.getElementById('usuario-id').value;
-            const nome = document.getElementById('usuario-nome').value;
-            const email = document.getElementById('usuario-email').value;
-            const senha = document.getElementById('usuario-senha').value;
-            const perfil = document.getElementById('usuario-perfil').value;
-            const centroCusto = document.getElementById('usuario-centro-custo').value;
-            const status = document.getElementById('usuario-status').value;
+            const id = document.getElementById('usuario-id')?.value;
+            const nome = document.getElementById('usuario-nome')?.value;
+            const email = document.getElementById('usuario-email')?.value;
+            const senha = document.getElementById('usuario-senha')?.value;
+            const perfil = document.getElementById('usuario-perfil')?.value;
+            const centroCusto = document.getElementById('usuario-centro-custo')?.value;
+            const status = document.getElementById('usuario-status')?.value;
             
             if (!nome || !email || !perfil || !centroCusto) {
                 showAlert('Preencha todos os campos obrigatórios.', 'warning');
@@ -3683,7 +4613,6 @@ AmazonDash
             }
             
             if (id) {
-                // Editar
                 const usuario = database.users.find(u => u.id === parseInt(id));
                 if (usuario) {
                     usuario.name = nome;
@@ -3696,7 +4625,6 @@ AmazonDash
                     showAlert('Usuário atualizado com sucesso!', 'success');
                 }
             } else {
-                // Novo
                 if (!senha) {
                     showAlert('Informe uma senha para o novo usuário.', 'warning');
                     return;
@@ -3717,7 +4645,9 @@ AmazonDash
                 showAlert('Usuário cadastrado com sucesso!', 'success');
             }
             
-            document.getElementById('usuario-modal').style.display = 'none';
+            const usuarioModal = document.getElementById('usuario-modal');
+            if (usuarioModal) usuarioModal.style.display = 'none';
+            
             updateUsuariosTable();
         }
         
@@ -3740,11 +4670,11 @@ AmazonDash
                         <td>${formatDate(user.lastLogin)}</td>
                         <td><span class="badge ${user.status === 'Ativo' ? 'badge-success' : 'badge-danger'}">${user.status}</span></td>
                         <td>
-                            <button class="btn-icon edit-usuario" onclick="editUsuario(${user.id})" title="Editar">
+                            <button class="btn-icon" onclick="window.editUsuario(${user.id})" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </button>
                             ${user.id !== currentUser.id ? `
-                            <button class="btn-icon toggle-usuario" onclick="toggleUsuarioStatus(${user.id})" 
+                            <button class="btn-icon" onclick="window.toggleUsuarioStatus(${user.id})" 
                                     title="${user.status === 'Ativo' ? 'Desativar' : 'Ativar'}">
                                 <i class="fas ${user.status === 'Ativo' ? 'fa-user-slash' : 'fa-user-check'}"></i>
                             </button>
@@ -3780,6 +4710,7 @@ AmazonDash
         // ============== DEMAIS FUNÇÕES ==============
         function loadLancamentosContent() {
             const page = document.getElementById('lancamentos');
+            if (!page) return;
             
             page.innerHTML = `
                 <div class="d-flex justify-between mb-3">
@@ -3834,7 +4765,7 @@ AmazonDash
                         <td>${formatCurrency(l.valor)}</td>
                         <td><span class="badge ${getCategoriaClass(l.categoria)}">${l.categoria}</span></td>
                         <td>
-                            <button class="btn-icon view-lancamento" onclick="visualizarLancamento(${l.id})" title="Visualizar">
+                            <button class="btn-icon" onclick="window.visualizarLancamento(${l.id})" title="Visualizar">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </td>
@@ -3854,6 +4785,7 @@ AmazonDash
         
         function loadCentroCustoContent() {
             const page = document.getElementById('centro-custo');
+            if (!page) return;
             
             if (currentUser.role === 'Usuário') {
                 page.innerHTML = `
@@ -3925,6 +4857,7 @@ AmazonDash
         
         function loadUploadExcelContent() {
             const page = document.getElementById('upload-excel');
+            if (!page) return;
             
             if (currentUser.role === 'Usuário') {
                 page.innerHTML = `
@@ -4039,18 +4972,26 @@ AmazonDash
                 return;
             }
             
-            document.getElementById('selected-file-name').textContent = 
-                file.name + ' (' + (file.size / 1024).toFixed(2) + ' KB)';
-            document.getElementById('file-info').style.display = 'block';
+            const selectedFileName = document.getElementById('selected-file-name');
+            if (selectedFileName) {
+                selectedFileName.textContent = file.name + ' (' + (file.size / 1024).toFixed(2) + ' KB)';
+            }
+            
+            const fileInfo = document.getElementById('file-info');
+            if (fileInfo) {
+                fileInfo.style.display = 'block';
+            }
         }
         
         function simulateExcelImport() {
             showAlert('Importação simulada: 15 registros importados com sucesso!', 'success');
-            document.getElementById('file-info').style.display = 'none';
+            const fileInfo = document.getElementById('file-info');
+            if (fileInfo) fileInfo.style.display = 'none';
         }
         
         function loadRelatoriosContent() {
             const page = document.getElementById('relatorios');
+            if (!page) return;
             
             if (currentUser.role === 'Usuário') {
                 page.innerHTML = `
@@ -4114,15 +5055,20 @@ AmazonDash
         }
         
         function setupReportEvents() {
-            document.getElementById('generate-report-btn').addEventListener('click', function() {
-                generateReport();
-            });
+            const generateReportBtn = document.getElementById('generate-report-btn');
+            if (generateReportBtn) {
+                generateReportBtn.addEventListener('click', function() {
+                    generateReport();
+                });
+            }
         }
         
         function generateReport() {
-            const tipo = document.getElementById('report-type').value;
-            const mes = document.getElementById('report-month').value;
-            const centro = document.getElementById('report-centro').value;
+            const tipo = document.getElementById('report-type')?.value;
+            const mes = document.getElementById('report-month')?.value;
+            const centro = document.getElementById('report-centro')?.value;
+            
+            if (!tipo) return;
             
             let dados = [];
             let titulo = '';
@@ -4221,6 +5167,7 @@ AmazonDash
         
         function mostrarRelatorio(titulo, headers, dados, tipo) {
             const container = document.getElementById('report-result');
+            if (!container) return;
             
             if (dados.length === 0) {
                 container.innerHTML = '<div class="alert alert-warning">Nenhum dado encontrado para os filtros selecionados.</div>';
@@ -4297,7 +5244,7 @@ AmazonDash
                     </tbody>
                 </table>
                 <div class="mt-3 text-right">
-                    <button class="btn btn-primary" onclick="imprimirRelatorio()">
+                    <button class="btn btn-primary" onclick="window.imprimirRelatorio()">
                         <i class="fas fa-print"></i> Imprimir Relatório
                     </button>
                 </div>
@@ -4312,6 +5259,7 @@ AmazonDash
         
         function loadConfiguracoesContent() {
             const page = document.getElementById('configuracoes');
+            if (!page) return;
             
             if (currentUser.role !== "Administrador") {
                 page.innerHTML = `
@@ -4355,22 +5303,43 @@ AmazonDash
                         </div>
                     </div>
                     
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="manage-logo-btn" style="width: 100%;">
+                            <i class="fas fa-image"></i> Gerenciar Logomarca
+                        </button>
+                    </div>
+                    
                     <button class="btn btn-primary btn-block" id="save-settings">
                         <i class="fas fa-save"></i> Salvar Configurações
                     </button>
                 </div>
             `;
             
-            document.getElementById('save-settings').addEventListener('click', function() {
-                saveSettings();
-            });
+            const saveSettings = document.getElementById('save-settings');
+            if (saveSettings) {
+                saveSettings.addEventListener('click', function() {
+                    saveSettingsFunc();
+                });
+            }
+            
+            const manageLogoBtn = document.getElementById('manage-logo-btn');
+            if (manageLogoBtn) {
+                manageLogoBtn.addEventListener('click', function() {
+                    showLogoModal();
+                });
+            }
         }
         
-        function saveSettings() {
-            database.settings.systemName = document.getElementById('system-name').value;
-            database.settings.sessionTimeout = parseInt(document.getElementById('session-timeout').value);
-            database.settings.emailNotifications = document.getElementById('email-notifications').checked;
-            database.settings.backupAutomatico = document.getElementById('backup-automatico').checked;
+        function saveSettingsFunc() {
+            const systemName = document.getElementById('system-name')?.value;
+            const sessionTimeout = parseInt(document.getElementById('session-timeout')?.value);
+            const emailNotifications = document.getElementById('email-notifications')?.checked;
+            const backupAutomatico = document.getElementById('backup-automatico')?.checked;
+            
+            if (systemName) database.settings.systemName = systemName;
+            if (sessionTimeout) database.settings.sessionTimeout = sessionTimeout;
+            if (emailNotifications !== undefined) database.settings.emailNotifications = emailNotifications;
+            if (backupAutomatico !== undefined) database.settings.backupAutomatico = backupAutomatico;
             
             if (sessionTimer) {
                 clearTimeout(sessionTimer);
@@ -4393,6 +5362,7 @@ AmazonDash
         }
 
         // Tornar funções globais para uso em eventos onclick
+        window.removerConvenio = removerConvenio;
         window.removerTaxa = removerTaxa;
         window.removerDespesa = removerDespesa;
         window.editConvenio = editConvenio;
@@ -4403,6 +5373,11 @@ AmazonDash
         window.imprimirFechamento = imprimirFechamento;
         window.visualizarLancamento = visualizarLancamento;
         window.imprimirRelatorio = imprimirRelatorio;
+        
+        // Funções de filtro do dashboard
+        window.aplicarFiltrosDashboard = aplicarFiltrosDashboard;
+        window.limparFiltrosDashboard = limparFiltrosDashboard;
+        window.removerFiltro = removerFiltro;
     </script>
 </body>
 </html>
