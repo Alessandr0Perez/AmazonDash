@@ -5,7 +5,7 @@ AmazonDash
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gerenciamento de Dados</title>
+    <title>DataManager Pro - Sistema de Gerenciamento</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -18,6 +18,7 @@ AmazonDash
             --danger: #e74c3c;
             --light: #ecf0f1;
             --dark: #2c3e50;
+            --info: #17a2b8;
         }
 
         /* ESTILOS GERAIS */
@@ -170,10 +171,11 @@ AmazonDash
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
         }
 
         .btn i {
-            margin-right: 8px;
+            font-size: 1rem;
         }
 
         .btn-primary {
@@ -197,6 +199,31 @@ AmazonDash
             transform: translateY(-2px);
         }
 
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
         .btn-block {
             width: 100%;
         }
@@ -213,6 +240,7 @@ AmazonDash
             background-color: var(--primary);
             color: white;
             padding: 20px 0;
+            transition: all 0.3s;
         }
 
         .sidebar-header {
@@ -248,6 +276,7 @@ AmazonDash
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         .nav-link:hover, .nav-link.active {
@@ -259,6 +288,12 @@ AmazonDash
             margin-right: 10px;
             width: 20px;
             text-align: center;
+        }
+
+        .nav-link.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: not-allowed;
         }
 
         /* CONTEÚDO PRINCIPAL */
@@ -300,6 +335,10 @@ AmazonDash
             font-size: 1.2rem;
         }
 
+        .user-details {
+            text-align: right;
+        }
+
         .user-name {
             font-weight: 600;
             color: var(--primary);
@@ -308,6 +347,12 @@ AmazonDash
         .user-role {
             font-size: 0.9rem;
             color: #666;
+        }
+
+        .user-centro {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: 600;
         }
 
         .access-badge {
@@ -390,6 +435,10 @@ AmazonDash
 
         .danger-text {
             color: var(--danger);
+        }
+
+        .info-text {
+            color: var(--info);
         }
 
         .dashboard-container {
@@ -499,6 +548,21 @@ AmazonDash
             color: #721c24;
         }
 
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .badge-primary {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
         /* ALERTAS */
         .alert {
             padding: 15px;
@@ -506,6 +570,7 @@ AmazonDash
             margin-bottom: 20px;
             display: flex;
             align-items: center;
+            position: relative;
         }
 
         .alert-success {
@@ -534,6 +599,16 @@ AmazonDash
 
         .alert i {
             margin-right: 10px;
+        }
+
+        .close-alert {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: inherit;
         }
 
         /* FORMULÁRIOS ESPECÍFICOS */
@@ -588,6 +663,7 @@ AmazonDash
             display: flex;
             border-bottom: 2px solid #e0e0e0;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .tab {
@@ -619,15 +695,15 @@ AmazonDash
             display: block;
         }
 
-        /* GRID DE CONVÊNIOS */
-        .convenios-grid {
+        /* GRID DE CONVÊNIOS E ITENS */
+        .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
 
-        .convenio-card {
+        .item-card {
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             padding: 15px;
@@ -636,33 +712,33 @@ AmazonDash
             background: white;
         }
 
-        .convenio-card:hover {
+        .item-card:hover {
             border-color: var(--secondary);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .convenio-card.selected {
+        .item-card.selected {
             border-color: var(--success);
             background-color: rgba(39, 174, 96, 0.05);
         }
 
-        .convenio-nome {
+        .item-nome {
             font-weight: 600;
             margin-bottom: 5px;
             color: var(--primary);
         }
 
-        .convenio-documento {
+        .item-documento {
             font-size: 0.9rem;
             color: #666;
         }
 
-        .convenio-valor-input {
+        .item-valor-input {
             margin-top: 10px;
         }
 
-        .convenio-valor-input input {
+        .item-valor-input input {
             width: 100%;
             padding: 8px 12px;
             border: 1px solid #ddd;
@@ -670,8 +746,67 @@ AmazonDash
             font-size: 0.9rem;
         }
 
-        /* BADGE PARA CONVÊNIOS */
-        .convenio-badge {
+        /* LISTA DE LANÇAMENTOS */
+        .lancamentos-lista {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .lancamento-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            background: white;
+        }
+
+        .lancamento-item:last-child {
+            border-bottom: none;
+        }
+
+        .lancamento-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .lancamento-info {
+            flex: 1;
+        }
+
+        .lancamento-tipo {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .lancamento-descricao {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .lancamento-valor {
+            font-weight: 600;
+            color: var(--danger);
+            margin-right: 10px;
+        }
+
+        .btn-remove-lancamento {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .btn-remove-lancamento:hover {
+            color: #c0392b;
+        }
+
+        /* BADGE PARA ITENS */
+        .item-badge {
             display: inline-flex;
             align-items: center;
             padding: 5px 10px;
@@ -682,7 +817,7 @@ AmazonDash
             font-size: 0.8rem;
         }
 
-        .convenio-badge i {
+        .item-badge i {
             margin-right: 5px;
         }
 
@@ -711,6 +846,79 @@ AmazonDash
         .total-value {
             font-weight: 600;
             color: var(--primary);
+        }
+
+        /* MODAIS */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-lg {
+            max-width: 800px;
+        }
+
+        /* RELATÓRIO PARA IMPRESSÃO */
+        @media print {
+            .sidebar, .header, .btn, .tabs, .nav-menu, .form-container {
+                display: none !important;
+            }
+            
+            .main-content {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .page {
+                display: block !important;
+            }
+            
+            .table-container {
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            .chart-container {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+        }
+
+        .relatorio-impressao {
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+        }
+
+        .relatorio-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .relatorio-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #666;
         }
 
         /* UTILITÁRIOS */
@@ -768,43 +976,6 @@ AmazonDash
             color: var(--secondary);
         }
 
-        /* MODAL DE CONVÊNIO */
-        .convenio-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        .convenio-modal-content {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        /* ACESSO RESTRITO */
-        .restricted-access {
-            text-align: center;
-            padding: 50px 20px;
-            color: #666;
-        }
-
-        .restricted-access i {
-            font-size: 4rem;
-            color: var(--danger);
-            margin-bottom: 20px;
-        }
-
         /* OVERLAY DE SESSÃO EXPIRADA */
         .block-overlay {
             position: fixed;
@@ -818,6 +989,46 @@ AmazonDash
             justify-content: center;
             z-index: 3000;
         }
+
+        /* UPLOAD AREA */
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--secondary);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #bbb;
+            margin-bottom: 15px;
+        }
+
+        /* PROGRESS BAR */
+        .progress {
+            background-color: #e9ecef;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            height: 5px;
+            width: 100px;
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            transition: width 0.6s ease;
+        }
+
+        .bg-success { background-color: #28a745 !important; }
+        .bg-warning { background-color: #ffc107 !important; }
+        .bg-danger { background-color: #dc3545 !important; }
     </style>
 </head>
 <body>
@@ -837,9 +1048,9 @@ AmazonDash
                 <p>Sistema de Gerenciamento de Dados</p>
             </div>
             
-            <div id="login-alert" class="login-alert error">
+            <div id="login-alert" class="login-alert">
                 <i class="fas fa-exclamation-circle"></i>
-                <span>Usuário ou senha incorretos. Tente novamente.</span>
+                <span></span>
             </div>
             
             <form id="login-form">
@@ -866,7 +1077,7 @@ AmazonDash
                 </div>
                 
                 <div class="text-center mt-3">
-                    <small>Versão 2.1.0 | Sistema de Gestão Completo</small>
+                    <small>Versão 3.0.0 | Gestão Completa</small>
                 </div>
             </form>
             
@@ -876,8 +1087,8 @@ AmazonDash
                 </div>
                 <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; font-size: 0.9rem;">
                     <div><strong>Administrador:</strong> admin@datamanager.com / admin123</div>
-                    <div><strong>Gerente:</strong> joao@empresa.com / senha123</div>
-                    <div><strong>Analista:</strong> maria@empresa.com / senha123</div>
+                    <div><strong>Gerente:</strong> gerente@empresa.com / senha123</div>
+                    <div><strong>Usuário:</strong> usuario@empresa.com / senha123</div>
                 </div>
             </div>
         </div>
@@ -894,61 +1105,8 @@ AmazonDash
                         <span>DataManager</span>
                     </div>
                 </div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active" data-page="dashboard">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span class="nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="fechamento-diario">
-                            <i class="fas fa-calendar-day"></i>
-                            <span class="nav-text">Fechamento Diário</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="convenios">
-                            <i class="fas fa-handshake"></i>
-                            <span class="nav-text">Convênios</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="lancamentos">
-                            <i class="fas fa-file-import"></i>
-                            <span class="nav-text">Lançamentos</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="centro-custo">
-                            <i class="fas fa-tags"></i>
-                            <span class="nav-text">Centros de Custo</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="upload-excel">
-                            <i class="fas fa-file-excel"></i>
-                            <span class="nav-text">Importar Excel</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="relatorios">
-                            <i class="fas fa-chart-pie"></i>
-                            <span class="nav-text">Relatórios</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="usuarios">
-                            <i class="fas fa-users"></i>
-                            <span class="nav-text">Usuários</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="configuracoes">
-                            <i class="fas fa-cog"></i>
-                            <span class="nav-text">Configurações</span>
-                        </a>
-                    </li>
+                <ul class="nav-menu" id="nav-menu">
+                    <!-- Itens serão carregados dinamicamente conforme permissão -->
                 </ul>
             </aside>
 
@@ -959,60 +1117,34 @@ AmazonDash
                     <h1 id="page-title">Dashboard</h1>
                     <div class="user-info">
                         <div class="user-avatar" id="user-avatar">AD</div>
-                        <div>
+                        <div class="user-details">
                             <div class="user-name" id="user-name">Carregando...</div>
                             <div class="user-role" id="user-role"></div>
-                            <div id="user-centros" class="access-badge"></div>
+                            <div class="user-centro" id="user-centro"></div>
                         </div>
-                        <a href="#" id="logout-btn" class="btn btn-primary ml-3">
+                        <button id="logout-btn" class="btn btn-primary">
                             <i class="fas fa-sign-out-alt"></i> Sair
-                        </a>
+                        </button>
                     </div>
                 </div>
 
                 <!-- Páginas do Sistema -->
-                <div id="dashboard" class="page active">
-                    <!-- Conteúdo será carregado dinamicamente -->
-                </div>
-
-                <div id="fechamento-diario" class="page">
-                    <!-- Conteúdo será carregado dinamicamente -->
-                </div>
-
-                <div id="convenios" class="page">
-                    <!-- Conteúdo será carregado dinamicamente -->
-                </div>
-
-                <div id="lancamentos" class="page">
-                    <!-- Conteúdo será carregado dinamicamente -->
-                </div>
-
-                <div id="centro-custo" class="page">
-                    <!-- Conteúdo será carregado dinamicamente -->
-                </div>
-
-                <div id="upload-excel" class="page">
-                    <!-- Conteúdo será carregado dinamicamente -->
-                </div>
-
-                <div id="relatorios" class="page">
-                    <!-- Conteúdo será carregado dinamicamente -->
-                </div>
-
-                <div id="usuarios" class="page">
-                    <!-- Conteúdo será carregado dinamicamente -->
-                </div>
-
-                <div id="configuracoes" class="page">
-                    <!-- Conteúdo será carregado dinamicamente -->
-                </div>
+                <div id="dashboard" class="page active"></div>
+                <div id="fechamento-diario" class="page"></div>
+                <div id="convenios" class="page"></div>
+                <div id="lancamentos" class="page"></div>
+                <div id="centro-custo" class="page"></div>
+                <div id="upload-excel" class="page"></div>
+                <div id="relatorios" class="page"></div>
+                <div id="usuarios" class="page"></div>
+                <div id="configuracoes" class="page"></div>
             </main>
         </div>
     </div>
 
     <!-- Modal para Cadastro de Convênio -->
-    <div id="convenio-modal" class="convenio-modal" style="display: none;">
-        <div class="convenio-modal-content">
+    <div id="convenio-modal" class="modal" style="display: none;">
+        <div class="modal-content">
             <h3 class="form-title">Cadastrar Novo Convênio</h3>
             <form id="convenio-form">
                 <div class="form-group">
@@ -1038,7 +1170,6 @@ AmazonDash
                     <label class="form-label" for="convenio-centro-custo">Centro de Custo Vinculado</label>
                     <select class="form-control" id="convenio-centro-custo">
                         <option value="">Nenhum</option>
-                        <!-- Opções serão carregadas via JS -->
                     </select>
                 </div>
                 
@@ -1058,6 +1189,79 @@ AmazonDash
         </div>
     </div>
 
+    <!-- Modal para Cadastro de Usuário -->
+    <div id="usuario-modal" class="modal" style="display: none;">
+        <div class="modal-content modal-lg">
+            <h3 class="form-title" id="usuario-modal-title">Cadastrar Novo Usuário</h3>
+            <form id="usuario-form">
+                <input type="hidden" id="usuario-id">
+                
+                <div class="form-group">
+                    <label class="form-label" for="usuario-nome">Nome Completo *</label>
+                    <input type="text" class="form-control" id="usuario-nome" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="usuario-email">Email *</label>
+                    <input type="email" class="form-control" id="usuario-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="usuario-senha">Senha</label>
+                    <input type="password" class="form-control" id="usuario-senha" 
+                           placeholder="Deixe em branco para manter a atual">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="usuario-perfil">Nível de Acesso *</label>
+                    <select class="form-control" id="usuario-perfil" required>
+                        <option value="">Selecione...</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Gerente">Gerente</option>
+                        <option value="Usuário">Usuário</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Centro de Custo Vinculado *</label>
+                    <select class="form-control" id="usuario-centro-custo" required>
+                        <option value="">Selecione...</option>
+                    </select>
+                    <small class="text-muted">O usuário terá acesso apenas a este centro de custo</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="usuario-status">Status</label>
+                    <select class="form-control" id="usuario-status">
+                        <option value="Ativo">Ativo</option>
+                        <option value="Inativo">Inativo</option>
+                    </select>
+                </div>
+                
+                <div class="d-flex justify-between mt-3">
+                    <button type="button" id="cancel-usuario" class="btn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Usuário</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Imprimir Relatório -->
+    <div id="relatorio-modal" class="modal" style="display: none;">
+        <div class="modal-content modal-lg">
+            <h3 class="form-title">Visualizar/Imprimir Relatório</h3>
+            <div id="relatorio-conteudo" class="relatorio-impressao">
+                <!-- Conteúdo será gerado dinamicamente -->
+            </div>
+            <div class="d-flex justify-between mt-3">
+                <button type="button" id="fechar-relatorio" class="btn">Fechar</button>
+                <button type="button" id="imprimir-relatorio" class="btn btn-primary">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ============== BANCO DE DADOS COMPLETO ==============
         const database = {
@@ -1068,72 +1272,39 @@ AmazonDash
                     email: "admin@datamanager.com", 
                     password: "admin123", 
                     role: "Administrador", 
-                    centrosCusto: ["ADM", "VENDAS", "PROD", "TI", "RH", "MARK"],
+                    centroCusto: "ADM", // Vinculado a um único centro de custo
                     lastLogin: new Date().toISOString(), 
                     status: "Ativo" 
                 },
                 { 
                     id: 2, 
-                    name: "João Silva", 
-                    email: "joao@empresa.com", 
+                    name: "Carlos Gerente", 
+                    email: "gerente@empresa.com", 
                     password: "senha123", 
                     role: "Gerente", 
-                    centrosCusto: ["VENDAS", "MARK"],
+                    centroCusto: "VENDAS",
                     lastLogin: "2026-01-21T10:30:00", 
                     status: "Ativo" 
                 },
                 { 
                     id: 3, 
-                    name: "Maria Santos", 
-                    email: "maria@empresa.com", 
+                    name: "Ana Usuário", 
+                    email: "usuario@empresa.com", 
                     password: "senha123", 
-                    role: "Analista", 
-                    centrosCusto: ["VENDAS"],
+                    role: "Usuário", 
+                    centroCusto: "VENDAS",
                     lastLogin: "2026-01-20T14:15:00", 
                     status: "Ativo" 
                 }
             ],
             
-            fechamentosDiarios: [
-                {
-                    id: 1,
-                    data: "2026-01-22",
-                    responsavel: "João Silva",
-                    centroCusto: "VENDAS",
-                    dinheiro: 9220.00,
-                    pix: 2450.00,
-                    pixAjuste: 0.00,
-                    lcm: 665.00,
-                    amatur: 420.00,
-                    pixMatriz: 0.00,
-                    outrosFaturamentos: 0.00,
-                    faturamentoL90Dinheiro: 0.00,
-                    faturamentoL90Pix: 0.00,
-                    despesas: 0.00,
-                    valeAdiantamento: 0.00,
-                    taxasBancarias: [
-                        {
-                            bancoId: 1,
-                            bancoNome: "Banco do Brasil",
-                            valor: 150.00
-                        },
-                        {
-                            bancoId: 2,
-                            bancoNome: "Itaú",
-                            valor: 75.00
-                        }
-                    ],
-                    convenios: [
-                        { convenioId: 1, valor: 1500.00, nome: "Convênio Saúde" }
-                    ],
-                    totalFaturamentos: 12755.00,
-                    totalDespesas: 225.00,
-                    totalDiaria: 12530.00,
-                    totalLiquidoDinheiro: 12530.00,
-                    status: "Fechado",
-                    createdAt: "2026-01-22T18:30:00",
-                    createdBy: 2
-                }
+            centrosCusto: [
+                { codigo: "ADM", nome: "Administrativo", responsavel: "Administrador", orcamento: 50000, gasto: 32500, status: "Ativo" },
+                { codigo: "VENDAS", nome: "Vendas", responsavel: "Carlos Gerente", orcamento: 80000, gasto: 45200, status: "Ativo" },
+                { codigo: "PROD", nome: "Produção", responsavel: "João Produção", orcamento: 120000, gasto: 98750, status: "Ativo" },
+                { codigo: "TI", nome: "Tecnologia da Informação", responsavel: "Maria TI", orcamento: 75000, gasto: 42000, status: "Ativo" },
+                { codigo: "RH", nome: "Recursos Humanos", responsavel: "Pedro RH", orcamento: 45000, gasto: 28000, status: "Ativo" },
+                { codigo: "MARK", nome: "Marketing", responsavel: "Beatriz Marketing", orcamento: 60000, gasto: 38500, status: "Ativo" }
             ],
             
             convenios: [
@@ -1162,24 +1333,11 @@ AmazonDash
                     nome: "Convênio Individual",
                     documento: "123.456.789-00",
                     tipo: "CPF",
-                    centroCusto: "",
+                    centroCusto: "VENDAS",
                     status: "Ativo",
                     createdAt: "2026-01-17T09:15:00",
                     createdBy: 2
                 }
-            ],
-            
-            centrosCusto: [
-                { codigo: "ADM", nome: "Administrativo", responsavel: "João Silva", orcamento: 50000, gasto: 32500, status: "Ativo" },
-                { codigo: "VENDAS", nome: "Vendas", responsavel: "Maria Santos", orcamento: 80000, gasto: 45200, status: "Ativo" },
-                { codigo: "PROD", nome: "Produção", responsavel: "Carlos Oliveira", orcamento: 120000, gasto: 98750, status: "Ativo" },
-                { codigo: "TI", nome: "Tecnologia da Informação", responsavel: "Ana Costa", orcamento: 75000, gasto: 42000, status: "Ativo" },
-                { codigo: "RH", nome: "Recursos Humanos", responsavel: "Pedro Almeida", orcamento: 45000, gasto: 28000, status: "Ativo" },
-                { codigo: "MARK", nome: "Marketing", responsavel: "Beatriz Lima", orcamento: 60000, gasto: 38500, status: "Ativo" }
-            ],
-            
-            lancamentos: [
-                { id: 1, data: "2026-01-22", descricao: "Compra de materiais", centroCusto: "ADM", valor: 1250.50, categoria: "Despesa", createdBy: 1 }
             ],
             
             bancos: [
@@ -1212,6 +1370,54 @@ AmazonDash
                 }
             ],
             
+            tiposDespesa: [
+                { id: 1, nome: "Despesa Avulsa", icone: "fa-receipt" },
+                { id: 2, nome: "Abastecimento", icone: "fa-gas-pump" },
+                { id: 3, nome: "Vale Adiantamento", icone: "fa-hand-holding-usd" },
+                { id: 4, nome: "Material de Escritório", icone: "fa-box" },
+                { id: 5, nome: "Manutenção", icone: "fa-tools" },
+                { id: 6, nome: "Alimentação", icone: "fa-utensils" },
+                { id: 7, nome: "Transporte", icone: "fa-bus" },
+                { id: 8, nome: "Outros", icone: "fa-ellipsis-h" }
+            ],
+            
+            fechamentosDiarios: [
+                {
+                    id: 1,
+                    data: "2026-01-22",
+                    responsavel: "Carlos Gerente",
+                    centroCusto: "VENDAS",
+                    dinheiro: 9220.00,
+                    pix: 2450.00,
+                    outrosFaturamentos: 0.00,
+                    taxasBancarias: [ // Agora é um array de lançamentos individuais
+                        { id: 1, bancoId: 1, bancoNome: "Banco do Brasil", valor: 45.50 },
+                        { id: 2, bancoId: 1, bancoNome: "Banco do Brasil", valor: 32.80 },
+                        { id: 3, bancoId: 2, bancoNome: "Itaú", valor: 28.90 }
+                    ],
+                    despesas: [ // Nova estrutura para despesas do dia
+                        { id: 1, tipo: "Abastecimento", descricao: "Posto Shell", valor: 250.00 },
+                        { id: 2, tipo: "Vale Adiantamento", descricao: "João - transporte", valor: 100.00 },
+                        { id: 3, tipo: "Despesa Avulsa", descricao: "Material escritório", valor: 85.50 }
+                    ],
+                    convenios: [
+                        { convenioId: 1, nome: "Convênio Saúde", valor: 1500.00 },
+                        { convenioId: 3, nome: "Convênio Individual", valor: 850.00 }
+                    ],
+                    totalFaturamentos: 14020.00,
+                    totalDespesas: 542.70,
+                    totalTaxas: 107.20,
+                    totalDiaria: 13370.10,
+                    status: "Fechado",
+                    createdAt: "2026-01-22T18:30:00",
+                    createdBy: 2
+                }
+            ],
+            
+            lancamentos: [
+                { id: 1, data: "2026-01-22", descricao: "Compra de materiais", centroCusto: "ADM", valor: 1250.50, categoria: "Despesa", createdBy: 1 }
+            ],
+            
             settings: {
                 systemName: "DataManager Pro",
                 currency: "BRL",
@@ -1228,8 +1434,12 @@ AmazonDash
         let sessionTimer = null;
         let isSystemLocked = true;
         let charts = {};
+        
+        // Estado para fechamento diário
         let selectedConvenios = [];
         let selectedTaxasBancarias = [];
+        let selectedDespesas = [];
+        let nextLancamentoId = 1;
 
         // ============== INICIALIZAÇÃO ==============
         document.addEventListener('DOMContentLoaded', function() {
@@ -1245,7 +1455,7 @@ AmazonDash
                 logoutUser();
             });
             
-            // Configurar modal de convênio
+            // Configurar modais
             document.getElementById('cancel-convenio').addEventListener('click', function() {
                 document.getElementById('convenio-modal').style.display = 'none';
             });
@@ -1253,6 +1463,23 @@ AmazonDash
             document.getElementById('convenio-form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 saveConvenio();
+            });
+            
+            document.getElementById('cancel-usuario').addEventListener('click', function() {
+                document.getElementById('usuario-modal').style.display = 'none';
+            });
+            
+            document.getElementById('usuario-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveUsuario();
+            });
+            
+            document.getElementById('fechar-relatorio').addEventListener('click', function() {
+                document.getElementById('relatorio-modal').style.display = 'none';
+            });
+            
+            document.getElementById('imprimir-relatorio').addEventListener('click', function() {
+                window.print();
             });
         });
 
@@ -1295,10 +1522,6 @@ AmazonDash
             const loginAlert = document.getElementById('login-alert');
             loginAlert.querySelector('span').textContent = message;
             loginAlert.style.display = 'block';
-            loginAlert.style.animation = 'none';
-            setTimeout(() => {
-                loginAlert.style.animation = 'fadeIn 0.3s';
-            }, 10);
         }
         
         function loginUser(user) {
@@ -1309,11 +1532,13 @@ AmazonDash
             document.getElementById('main-system').style.display = 'flex';
             
             updateUserInfo();
+            buildNavigation();
             startSessionTimer();
-            loadInitialContent();
+            
+            // Carregar página inicial
+            showPage('dashboard');
             
             showAlert(`Bem-vindo(a), ${user.name}!`, 'success');
-            console.log(`Usuário ${user.name} (${user.role}) fez login.`);
         }
         
         function logoutUser() {
@@ -1347,18 +1572,10 @@ AmazonDash
             document.getElementById('user-avatar').textContent = 
                 currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2);
             
-            const centrosBadge = document.getElementById('user-centros');
-            if (currentUser.role === "Administrador") {
-                centrosBadge.textContent = "Acesso Total";
-                centrosBadge.style.backgroundColor = '#d4edda';
-                centrosBadge.style.color = '#155724';
-            } else if (currentUser.centrosCusto && currentUser.centrosCusto.length > 0) {
-                centrosBadge.textContent = `${currentUser.centrosCusto.length} centro(s)`;
-            } else {
-                centrosBadge.textContent = "Sem centros designados";
-                centrosBadge.style.backgroundColor = '#f8d7da';
-                centrosBadge.style.color = '#721c24';
-            }
+            // Mostrar centro de custo vinculado
+            const centro = database.centrosCusto.find(c => c.codigo === currentUser.centroCusto);
+            document.getElementById('user-centro').textContent = centro ? 
+                `${centro.codigo} - ${centro.nome}` : 'Sem centro vinculado';
         }
         
         function startSessionTimer() {
@@ -1414,67 +1631,48 @@ AmazonDash
             }, 5000);
         }
 
-        // ============== CONTROLE DE ACESSO ==============
-        function checkAccess(page) {
-            if (!currentUser || isSystemLocked) {
-                showLoginModal();
-                return false;
-            }
+        // ============== CONSTRUÇÃO DA NAVEGAÇÃO ==============
+        function buildNavigation() {
+            const navMenu = document.getElementById('nav-menu');
             
-            if (page === 'usuarios' && currentUser.role !== 'Administrador') {
-                showAlert('Acesso restrito. Apenas administradores podem gerenciar usuários.', 'warning');
-                return false;
-            }
+            // Definir itens de menu baseados no perfil
+            const menuItems = [
+                { page: 'dashboard', icon: 'fa-tachometer-alt', text: 'Dashboard', roles: ['Administrador', 'Gerente', 'Usuário'] },
+                { page: 'fechamento-diario', icon: 'fa-calendar-day', text: 'Fechamento Diário', roles: ['Administrador', 'Gerente', 'Usuário'] },
+                { page: 'convenios', icon: 'fa-handshake', text: 'Convênios', roles: ['Administrador', 'Gerente'] },
+                { page: 'lancamentos', icon: 'fa-file-import', text: 'Lançamentos', roles: ['Administrador', 'Gerente', 'Usuário'] },
+                { page: 'centro-custo', icon: 'fa-tags', text: 'Centros de Custo', roles: ['Administrador', 'Gerente'] },
+                { page: 'upload-excel', icon: 'fa-file-excel', text: 'Importar Excel', roles: ['Administrador', 'Gerente'] },
+                { page: 'relatorios', icon: 'fa-chart-pie', text: 'Relatórios', roles: ['Administrador', 'Gerente'] },
+                { page: 'usuarios', icon: 'fa-users', text: 'Usuários', roles: ['Administrador'] },
+                { page: 'configuracoes', icon: 'fa-cog', text: 'Configurações', roles: ['Administrador'] }
+            ];
             
-            return true;
-        }
-        
-        function showAlert(message, type = 'info') {
-            const existingAlerts = document.querySelectorAll('.alert');
-            existingAlerts.forEach(alert => {
-                if (alert.parentNode) {
-                    alert.parentNode.removeChild(alert);
-                }
+            // Filtrar itens baseado no perfil do usuário
+            const allowedItems = menuItems.filter(item => 
+                item.roles.includes(currentUser.role)
+            );
+            
+            let html = '';
+            allowedItems.forEach(item => {
+                html += `
+                    <li class="nav-item">
+                        <a class="nav-link" data-page="${item.page}">
+                            <i class="fas ${item.icon}"></i>
+                            <span class="nav-text">${item.text}</span>
+                        </a>
+                    </li>
+                `;
             });
             
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type}`;
-            alert.innerHTML = `
-                <i class="fas ${type === 'success' ? 'fa-check-circle' : 
-                               type === 'warning' ? 'fa-exclamation-triangle' : 
-                               type === 'danger' ? 'fa-times-circle' : 'fa-info-circle'}"></i>
-                ${message}
-                <button class="btn-icon close-alert" style="float: right; color: inherit;">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
+            navMenu.innerHTML = html;
             
-            const mainContent = document.querySelector('.main-content');
-            if (mainContent) {
-                mainContent.insertBefore(alert, mainContent.firstChild);
-                
-                alert.querySelector('.close-alert').addEventListener('click', function() {
-                    alert.remove();
-                });
-                
-                setTimeout(() => {
-                    if (alert.parentNode) {
-                        alert.remove();
-                    }
-                }, 5000);
-            }
-        }
-
-        // ============== NAVEGAÇÃO ==============
-        function setupNavigation() {
+            // Adicionar eventos de clique
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     
                     const pageId = this.getAttribute('data-page');
-                    if (!checkAccess(pageId)) {
-                        return;
-                    }
                     
                     document.querySelectorAll('.nav-link').forEach(item => {
                         item.classList.remove('active');
@@ -1490,8 +1688,6 @@ AmazonDash
         }
         
         function showPage(pageId) {
-            if (!checkAccess(pageId)) return;
-            
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
@@ -1506,13 +1702,6 @@ AmazonDash
         }
 
         // ============== CARREGAMENTO DE CONTEÚDO ==============
-        function loadInitialContent() {
-            setupNavigation();
-            loadPageContent('dashboard');
-            setupGlobalEvents();
-            setupRestrictedAccessElements();
-        }
-        
         function loadPageContent(pageId) {
             switch(pageId) {
                 case 'dashboard':
@@ -1545,6 +1734,88 @@ AmazonDash
             }
         }
 
+        // ============== FUNÇÕES UTILITÁRIAS ==============
+        function getCentrosCustoOptions() {
+            let centros = database.centrosCusto;
+            
+            // Se não for admin, mostrar apenas centros permitidos
+            if (currentUser.role !== "Administrador") {
+                centros = centros.filter(c => c.codigo === currentUser.centroCusto);
+            }
+            
+            return centros.map(c => `<option value="${c.codigo}">${c.codigo} - ${c.nome}</option>`).join('');
+        }
+        
+        function getCentrosCustoForUser() {
+            if (currentUser.role === "Administrador") {
+                return database.centrosCusto;
+            } else {
+                return database.centrosCusto.filter(c => c.codigo === currentUser.centroCusto);
+            }
+        }
+        
+        function filterByUserCentro(items, centroField = 'centroCusto') {
+            if (currentUser.role === "Administrador") {
+                return items;
+            } else {
+                return items.filter(item => item[centroField] === currentUser.centroCusto);
+            }
+        }
+        
+        function formatDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                if (isNaN(date.getTime())) return 'Data inválida';
+                
+                return date.toLocaleDateString('pt-BR');
+            } catch (e) {
+                return dateString;
+            }
+        }
+        
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value || 0);
+        }
+        
+        function showAlert(message, type = 'info') {
+            const existingAlerts = document.querySelectorAll('.alert');
+            existingAlerts.forEach(alert => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            });
+            
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 
+                               type === 'warning' ? 'fa-exclamation-triangle' : 
+                               type === 'danger' ? 'fa-times-circle' : 'fa-info-circle'}"></i>
+                ${message}
+                <button class="close-alert">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.insertBefore(alert, mainContent.firstChild);
+                
+                alert.querySelector('.close-alert').addEventListener('click', function() {
+                    alert.remove();
+                });
+                
+                setTimeout(() => {
+                    if (alert.parentNode) {
+                        alert.remove();
+                    }
+                }, 5000);
+            }
+        }
+
         // ============== DASHBOARD ==============
         function loadDashboardContent() {
             const dashboardPage = document.getElementById('dashboard');
@@ -1560,28 +1831,28 @@ AmazonDash
                         <div class="card-title">Fechamentos do Mês</div>
                         <div class="card-value" id="total-fechamentos">0</div>
                         <div class="card-footer">
-                            <span class="success-text" id="fechamentos-variacao">-</span> vs mês anterior
+                            <span class="info-text" id="fechamentos-info">-</span>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-title">Total em Convênios</div>
                         <div class="card-value" id="total-convenios">R$ 0,00</div>
                         <div class="card-footer">
-                            <span class="success-text" id="convenios-variacao">-</span> ativos
+                            <span class="success-text" id="convenios-ativos">-</span> ativos
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-title">Centros de Custo</div>
-                        <div class="card-value" id="total-centros">0</div>
+                        <div class="card-title">Despesas do Dia</div>
+                        <div class="card-value" id="total-despesas">R$ 0,00</div>
                         <div class="card-footer">
-                            <span class="warning-text"><i class="fas fa-arrow-down"></i> 0</span> inativos
+                            <span class="warning-text" id="despesas-info">-</span>
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-title">Usuários Ativos</div>
-                        <div class="card-value" id="total-usuarios">0</div>
+                        <div class="card-title">Taxas Bancárias</div>
+                        <div class="card-value" id="total-taxas">R$ 0,00</div>
                         <div class="card-footer">
-                            <span class="success-text"><i class="fas fa-arrow-up"></i> 0</span> este mês
+                            <span class="danger-text" id="taxas-info">-</span> este mês
                         </div>
                     </div>
                 </div>
@@ -1610,7 +1881,7 @@ AmazonDash
                                 <!-- Últimos fechamentos serão carregados aqui -->
                             </div>
                             <div class="text-center mt-3">
-                                <button class="btn btn-primary" id="ver-todos-fechamentos">
+                                <button class="btn btn-primary btn-sm" id="ver-todos-fechamentos">
                                     <i class="fas fa-list"></i> Ver Todos
                                 </button>
                             </div>
@@ -1622,7 +1893,7 @@ AmazonDash
                                 <!-- Últimos convênios serão carregados aqui -->
                             </div>
                             <div class="text-center mt-3">
-                                <button class="btn btn-primary" id="ver-todos-convenios">
+                                <button class="btn btn-primary btn-sm" id="ver-todos-convenios">
                                     <i class="fas fa-handshake"></i> Ver Todos
                                 </button>
                             </div>
@@ -1640,12 +1911,31 @@ AmazonDash
                 showPage('convenios');
             });
             
-            // Inicializar gráficos e dados
-            setupDashboardCharts();
             updateDashboardData();
+            setupDashboardCharts();
         }
         
         function setupDashboardCharts() {
+            // Destruir gráficos existentes
+            if (charts.faturamentoChart) charts.faturamentoChart.destroy();
+            if (charts.conveniosChart) charts.conveniosChart.destroy();
+            
+            // Filtrar dados por centro de custo
+            const fechamentos = filterByUserCentro(database.fechamentosDiarios);
+            
+            // Calcular totais
+            let totalDinheiro = 0, totalPix = 0, totalConvenios = 0, totalOutros = 0;
+            
+            fechamentos.forEach(f => {
+                totalDinheiro += f.dinheiro || 0;
+                totalPix += f.pix || 0;
+                totalOutros += f.outrosFaturamentos || 0;
+                
+                if (f.convenios) {
+                    totalConvenios += f.convenios.reduce((sum, c) => sum + c.valor, 0);
+                }
+            });
+            
             // Gráfico de faturamento
             const faturamentoCtx = document.getElementById('faturamentoChart');
             if (faturamentoCtx) {
@@ -1654,7 +1944,7 @@ AmazonDash
                     data: {
                         labels: ['Dinheiro', 'PIX', 'Convênios', 'Outros'],
                         datasets: [{
-                            data: [55, 25, 15, 5],
+                            data: [totalDinheiro, totalPix, totalConvenios, totalOutros],
                             backgroundColor: [
                                 'rgba(39, 174, 96, 0.8)',
                                 'rgba(52, 152, 219, 0.8)',
@@ -1675,16 +1965,20 @@ AmazonDash
                 });
             }
             
-            // Gráfico de convênios
+            // Gráfico de convênios - agora mostra NOME em vez de documento
+            const conveniosAtivos = filterByUserCentro(database.convenios.filter(c => c.status === 'Ativo'));
+            const conveniosNomes = conveniosAtivos.map(c => c.nome);
+            const conveniosValores = conveniosAtivos.map(c => Math.random() * 2000 + 500); // Simulado
+            
             const conveniosCtx = document.getElementById('conveniosChart');
             if (conveniosCtx) {
                 charts.conveniosChart = new Chart(conveniosCtx.getContext('2d'), {
                     type: 'bar',
                     data: {
-                        labels: ['Convênio Saúde', 'Convênio Educação', 'Convênio Individual'],
+                        labels: conveniosNomes,
                         datasets: [{
                             label: 'Valor (R$)',
-                            data: [1500, 2000, 800],
+                            data: conveniosValores,
                             backgroundColor: 'rgba(155, 89, 182, 0.7)',
                             borderColor: 'rgba(155, 89, 182, 1)',
                             borderWidth: 1
@@ -1710,62 +2004,70 @@ AmazonDash
         function updateDashboardData() {
             if (!currentUser) return;
             
-            // Calcular total de taxas bancárias do mês
+            // Filtrar fechamentos por centro de custo
+            const fechamentos = filterByUserCentro(database.fechamentosDiarios);
+            
             const hoje = new Date();
             const mesAtual = hoje.getMonth() + 1;
             const anoAtual = hoje.getFullYear();
             
-            const fechamentosMesAtual = database.fechamentosDiarios.filter(f => {
+            const fechamentosMesAtual = fechamentos.filter(f => {
                 const data = new Date(f.data);
                 return data.getMonth() + 1 === mesAtual && data.getFullYear() === anoAtual;
             });
             
-            const totalTaxasBancarias = fechamentosMesAtual.reduce((total, fechamento) => {
-                return total + (fechamento.taxasBancarias ? fechamento.taxasBancarias.reduce((sum, t) => sum + t.valor, 0) : 0);
-            }, 0);
+            // Calcular totais
+            const totalFechamentos = fechamentosMesAtual.length;
+            
+            let totalConvenios = 0;
+            let totalDespesas = 0;
+            let totalTaxas = 0;
+            
+            fechamentosMesAtual.forEach(f => {
+                if (f.convenios) {
+                    totalConvenios += f.convenios.reduce((sum, c) => sum + c.valor, 0);
+                }
+                if (f.despesas) {
+                    totalDespesas += f.despesas.reduce((sum, d) => sum + d.valor, 0);
+                }
+                if (f.taxasBancarias) {
+                    totalTaxas += f.taxasBancarias.reduce((sum, t) => sum + t.valor, 0);
+                }
+            });
             
             // Atualizar cards
-            document.getElementById('total-fechamentos').textContent = fechamentosMesAtual.length;
-            
-            // Total em convênios
-            const totalConvenios = fechamentosMesAtual.reduce((total, fechamento) => {
-                return total + (fechamento.convenios ? fechamento.convenios.reduce((sum, c) => sum + c.valor, 0) : 0);
-            }, 0);
+            document.getElementById('total-fechamentos').textContent = totalFechamentos;
             document.getElementById('total-convenios').textContent = formatCurrency(totalConvenios);
+            document.getElementById('total-despesas').textContent = formatCurrency(totalDespesas);
+            document.getElementById('total-taxas').textContent = formatCurrency(totalTaxas);
             
-            // Atualizar rodapé do card de convênios
-            const cardConvenios = document.querySelector('.card:nth-child(2) .card-footer');
-            if (cardConvenios) {
-                const ativosText = database.convenios.filter(c => c.status === 'Ativo').length;
-                cardConvenios.innerHTML = `<span class="success-text">${ativosText}</span> ativos | <span class="danger-text">Taxas: ${formatCurrency(totalTaxasBancarias)}</span>`;
-            }
-            
-            // Centros de custo
-            const centrosAtivos = database.centrosCusto.filter(c => c.status === 'Ativo').length;
-            const centrosInativos = database.centrosCusto.filter(c => c.status === 'Inativo').length;
-            document.getElementById('total-centros').textContent = database.centrosCusto.length;
-            
-            // Usuários ativos
-            const usuariosAtivos = database.users.filter(u => u.status === 'Ativo').length;
-            document.getElementById('total-usuarios').textContent = usuariosAtivos;
+            // Informações adicionais
+            const conveniosAtivos = filterByUserCentro(database.convenios.filter(c => c.status === 'Ativo')).length;
+            document.getElementById('convenios-ativos').textContent = conveniosAtivos;
             
             // Últimos fechamentos
-            const ultimosFechamentos = database.fechamentosDiarios
+            const ultimosFechamentos = fechamentos
                 .sort((a, b) => new Date(b.data) - new Date(a.data))
                 .slice(0, 3);
             
-            const fechamentosHTML = ultimosFechamentos.map(f => `
-                <div class="summary-item">
-                    <span class="summary-label">${formatDate(f.data)}</span>
-                    <span class="summary-value">${formatCurrency(f.totalDiaria)}</span>
-                </div>
-            `).join('');
+            const fechamentosHTML = ultimosFechamentos.map(f => {
+                const totalConvenios = f.convenios ? f.convenios.reduce((sum, c) => sum + c.valor, 0) : 0;
+                return `
+                    <div class="summary-item">
+                        <span class="summary-label">${formatDate(f.data)}</span>
+                        <span class="summary-value">${formatCurrency(f.totalDiaria || 0)}</span>
+                    </div>
+                    <div class="summary-item" style="font-size: 0.8rem; color: #666; padding-top: 0;">
+                        Convênios: ${formatCurrency(totalConvenios)}
+                    </div>
+                `;
+            }).join('');
             
             document.getElementById('ultimos-fechamentos').innerHTML = fechamentosHTML || 
                 '<div class="text-center">Nenhum fechamento encontrado</div>';
             
-            // Últimos convênios
-            const ultimosConvenios = database.convenios
+            // Últimos convênios - agora mostrando NOME
+            const ultimosConvenios = filterByUserCentro(database.convenios)
                 .filter(c => c.status === 'Ativo')
                 .slice(0, 3);
             
@@ -1780,7 +2082,7 @@ AmazonDash
                 '<div class="text-center">Nenhum convênio encontrado</div>';
         }
 
-        // ============== FECHAMENTO DIÁRIO COM CONVÊNIOS ==============
+        // ============== FECHAMENTO DIÁRIO COM MÚLTIPLOS LANÇAMENTOS ==============
         function loadFechamentoDiarioContent() {
             const page = document.getElementById('fechamento-diario');
             
@@ -1801,6 +2103,13 @@ AmazonDash
                             <input type="month" id="filtro-mes" class="fechamento-input" value="${new Date().toISOString().substring(0, 7)}">
                         </div>
                         <div class="fechamento-group">
+                            <label class="fechamento-label">Centro de Custo</label>
+                            <select class="fechamento-input" id="filtro-centro-fechamento">
+                                <option value="">Todos</option>
+                                ${getCentrosCustoOptions()}
+                            </select>
+                        </div>
+                        <div class="fechamento-group">
                             <label class="fechamento-label">&nbsp;</label>
                             <button class="btn btn-primary" id="aplicar-filtro">
                                 <i class="fas fa-filter"></i> Filtrar
@@ -1816,9 +2125,11 @@ AmazonDash
                             <tr>
                                 <th>Data</th>
                                 <th>Responsável</th>
+                                <th>Centro</th>
                                 <th>Dinheiro</th>
                                 <th>PIX</th>
                                 <th>Convênios</th>
+                                <th>Despesas</th>
                                 <th>Total</th>
                                 <th>Ações</th>
                             </tr>
@@ -1839,6 +2150,7 @@ AmazonDash
                                 <button class="tab active" data-tab="basico">Informações Básicas</button>
                                 <button class="tab" data-tab="convenios">Convênios</button>
                                 <button class="tab" data-tab="taxas-bancarias">Taxas Bancárias</button>
+                                <button class="tab" data-tab="despesas">Despesas do Dia</button>
                                 <button class="tab" data-tab="resumo">Resumo</button>
                             </div>
                             
@@ -1895,9 +2207,11 @@ AmazonDash
                                 <div class="mb-3">
                                     <div class="d-flex justify-between">
                                         <h4>Selecionar Convênios</h4>
+                                        ${currentUser.role !== 'Usuário' ? `
                                         <button type="button" class="btn btn-sm btn-primary" id="add-convenio-fechamento">
                                             <i class="fas fa-plus"></i> Novo Convênio
                                         </button>
+                                        ` : ''}
                                     </div>
                                     <p class="text-muted">Selecione os convênios que fazem parte deste fechamento:</p>
                                 </div>
@@ -1908,10 +2222,10 @@ AmazonDash
                                 
                                 <div class="mt-3" id="convenios-selecionados-container" style="display: none;">
                                     <h5>Convênios Selecionados</h5>
-                                    <div id="convenios-selecionados">
+                                    <div id="convenios-selecionados-lista" class="lancamentos-lista">
                                         <!-- Convênios selecionados aparecerão aqui -->
                                     </div>
-                                    <div class="mt-2">
+                                    <div class="mt-2 text-right">
                                         <strong>Total Convênios:</strong> 
                                         <span id="total-convenios-selecionados">R$ 0,00</span>
                                     </div>
@@ -1921,35 +2235,53 @@ AmazonDash
                                     <button type="button" class="btn btn-secondary" id="voltar-basico">
                                         <i class="fas fa-arrow-left"></i> Voltar
                                     </button>
-                                    <button type="button" class="btn btn-primary" id="proximo-resumo-convenios">
+                                    <button type="button" class="btn btn-primary" id="proximo-taxas">
                                         Próximo: Taxas Bancárias <i class="fas fa-arrow-right"></i>
                                     </button>
                                 </div>
                             </div>
-                        
-                            <!-- Tab 3: Taxas Bancárias -->
+                            
+                            <!-- Tab 3: Taxas Bancárias (Múltiplos Lançamentos) -->
                             <div class="tab-content" id="tab-taxas-bancarias">
                                 <div class="mb-3">
                                     <div class="d-flex justify-between">
-                                        <h4>Taxas Bancárias</h4>
+                                        <h4>Lançamento de Taxas Bancárias</h4>
+                                        ${currentUser.role !== 'Usuário' ? `
                                         <button type="button" class="btn btn-sm btn-primary" id="add-banco-fechamento">
                                             <i class="fas fa-university"></i> Novo Banco
                                         </button>
+                                        ` : ''}
                                     </div>
-                                    <p class="text-muted">Adicione as taxas bancárias deste fechamento:</p>
+                                    <p class="text-muted">Adicione múltiplas taxas bancárias:</p>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Selecione o Banco</label>
+                                        <select class="form-control" id="taxa-banco-select">
+                                            <option value="">Selecione um banco...</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="fechamento-form">
+                                        <div class="fechamento-group">
+                                            <label class="fechamento-label">Valor da Taxa (R$)</label>
+                                            <input type="number" step="0.01" class="fechamento-input" id="taxa-valor" placeholder="0,00">
+                                        </div>
+                                        <div class="fechamento-group">
+                                            <label class="fechamento-label">&nbsp;</label>
+                                            <button type="button" class="btn btn-primary" id="adicionar-taxa">
+                                                <i class="fas fa-plus"></i> Adicionar Taxa
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div id="bancos-selecao">
-                                    <!-- Bancos serão carregados aqui -->
-                                </div>
-                                
-                                <div class="mt-3" id="taxas-selecionadas-container" style="display: none;">
-                                    <h5>Taxas Bancárias Selecionadas</h5>
-                                    <div id="taxas-selecionadas">
-                                        <!-- Taxas selecionadas aparecerão aqui -->
+                                <div class="mt-3" id="taxas-selecionadas-container">
+                                    <h5>Taxas Bancárias Lançadas</h5>
+                                    <div id="taxas-selecionadas-lista" class="lancamentos-lista">
+                                        <!-- Taxas lançadas aparecerão aqui -->
                                     </div>
-                                    <div class="mt-2">
-                                        <strong>Total Taxas Bancárias:</strong> 
+                                    <div class="mt-2 text-right">
+                                        <strong>Total Taxas:</strong> 
                                         <span id="total-taxas-selecionadas">R$ 0,00</span>
                                     </div>
                                 </div>
@@ -1958,13 +2290,70 @@ AmazonDash
                                     <button type="button" class="btn btn-secondary" id="voltar-convenios-taxas">
                                         <i class="fas fa-arrow-left"></i> Voltar para Convênios
                                     </button>
-                                    <button type="button" class="btn btn-primary" id="proximo-resumo-taxas">
+                                    <button type="button" class="btn btn-primary" id="proximo-despesas">
+                                        Próximo: Despesas <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Tab 4: Despesas do Dia (Múltiplos Lançamentos) -->
+                            <div class="tab-content" id="tab-despesas">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-between">
+                                        <h4>Lançamento de Despesas do Dia</h4>
+                                        <button type="button" class="btn btn-sm btn-primary" id="add-tipo-despesa">
+                                            <i class="fas fa-plus"></i> Novo Tipo
+                                        </button>
+                                    </div>
+                                    <p class="text-muted">Adicione as despesas do dia:</p>
+                                    
+                                    <div class="fechamento-form">
+                                        <div class="fechamento-group">
+                                            <label class="fechamento-label">Tipo de Despesa</label>
+                                            <select class="fechamento-input" id="despesa-tipo-select">
+                                                <option value="">Selecione...</option>
+                                                ${database.tiposDespesa.map(t => `<option value="${t.id}">${t.nome}</option>`).join('')}
+                                            </select>
+                                        </div>
+                                        <div class="fechamento-group">
+                                            <label class="fechamento-label">Descrição</label>
+                                            <input type="text" class="fechamento-input" id="despesa-descricao" placeholder="Ex: Posto Shell">
+                                        </div>
+                                        <div class="fechamento-group">
+                                            <label class="fechamento-label">Valor (R$)</label>
+                                            <input type="number" step="0.01" class="fechamento-input" id="despesa-valor" placeholder="0,00">
+                                        </div>
+                                        <div class="fechamento-group">
+                                            <label class="fechamento-label">&nbsp;</label>
+                                            <button type="button" class="btn btn-primary" id="adicionar-despesa">
+                                                <i class="fas fa-plus"></i> Adicionar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3" id="despesas-selecionadas-container">
+                                    <h5>Despesas Lançadas</h5>
+                                    <div id="despesas-selecionadas-lista" class="lancamentos-lista">
+                                        <!-- Despesas lançadas aparecerão aqui -->
+                                    </div>
+                                    <div class="mt-2 text-right">
+                                        <strong>Total Despesas:</strong> 
+                                        <span id="total-despesas-selecionadas">R$ 0,00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3">
+                                    <button type="button" class="btn btn-secondary" id="voltar-taxas-despesas">
+                                        <i class="fas fa-arrow-left"></i> Voltar para Taxas
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="proximo-resumo">
                                         Próximo: Resumo <i class="fas fa-arrow-right"></i>
                                     </button>
                                 </div>
                             </div>
                             
-                            <!-- Tab 4: Resumo -->
+                            <!-- Tab 5: Resumo -->
                             <div class="tab-content" id="tab-resumo">
                                 <div class="totals-container">
                                     <div class="total-item">
@@ -1988,26 +2377,28 @@ AmazonDash
                                         <span class="total-value"><strong id="resumo-total-faturamentos">R$ 0,00</strong></span>
                                     </div>
                                     <div class="total-item">
-                                        <span class="total-label">Despesas Gerais:</span>
+                                        <span class="total-label">Despesas do Dia:</span>
                                         <span class="total-value" id="resumo-despesas">R$ 0,00</span>
                                     </div>
                                     <div class="total-item">
                                         <span class="total-label">Taxas Bancárias:</span>
-                                        <span class="total-value text-danger" id="resumo-taxas-bancarias">R$ 0,00</span>
+                                        <span class="total-value text-danger" id="resumo-taxas">R$ 0,00</span>
                                     </div>
-                                    <div class="total-item">
+                                    <div class="total-item" style="border-top: 2px solid #333;">
                                         <span class="total-label"><strong>Total Líquido:</strong></span>
                                         <span class="total-value"><strong id="resumo-total-liquido">R$ 0,00</strong></span>
                                     </div>
                                 </div>
                                 
-                                <div class="mt-3">
-                                    <button type="button" class="btn btn-secondary" id="voltar-taxas">
-                                        <i class="fas fa-arrow-left"></i> Voltar para Taxas
+                                <div class="mt-3 d-flex justify-between">
+                                    <button type="button" class="btn btn-secondary" id="voltar-despesas">
+                                        <i class="fas fa-arrow-left"></i> Voltar
                                     </button>
-                                    <button type="submit" class="btn btn-success" id="salvar-fechamento">
-                                        <i class="fas fa-save"></i> Salvar Fechamento
-                                    </button>
+                                    <div>
+                                        <button type="button" class="btn btn-success" id="salvar-fechamento">
+                                            <i class="fas fa-save"></i> Salvar Fechamento
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2025,12 +2416,787 @@ AmazonDash
             updateFechamentosTable();
         }
         
-        // Modal para cadastro de banco
+        function setupFechamentoEvents() {
+            // Novo fechamento
+            document.getElementById('add-fechamento').addEventListener('click', function() {
+                // Verificar permissão
+                if (currentUser.role === 'Usuário') {
+                    showAlert('Usuários não podem criar novos fechamentos.', 'warning');
+                    return;
+                }
+                
+                document.getElementById('fechamento-form-container').style.display = 'block';
+                resetFechamentoForm();
+                
+                // Preencher valores padrão
+                document.getElementById('fechamento-data').valueAsDate = new Date();
+                document.getElementById('fechamento-responsavel').value = currentUser.name;
+                
+                // Pré-selecionar centro de custo do usuário
+                if (currentUser.role !== 'Administrador') {
+                    document.getElementById('fechamento-centro-custo').value = currentUser.centroCusto;
+                }
+                
+                // Carregar convênios e bancos
+                loadConveniosForSelection();
+                loadBancosForSelection();
+            });
+            
+            // Cancelar fechamento
+            document.getElementById('cancel-fechamento').addEventListener('click', function() {
+                document.getElementById('fechamento-form-container').style.display = 'none';
+                resetFechamentoForm();
+            });
+            
+            // Aplicar filtro
+            document.getElementById('aplicar-filtro').addEventListener('click', function() {
+                updateFechamentosTable();
+            });
+            
+            // Navegação entre tabs
+            document.getElementById('proximo-convenios').addEventListener('click', function() {
+                showTab('convenios');
+            });
+            
+            document.getElementById('voltar-basico').addEventListener('click', function() {
+                showTab('basico');
+            });
+            
+            document.getElementById('proximo-taxas').addEventListener('click', function() {
+                showTab('taxas-bancarias');
+            });
+            
+            document.getElementById('voltar-convenios-taxas').addEventListener('click', function() {
+                showTab('convenios');
+            });
+            
+            document.getElementById('proximo-despesas').addEventListener('click', function() {
+                showTab('despesas');
+            });
+            
+            document.getElementById('voltar-taxas-despesas').addEventListener('click', function() {
+                showTab('taxas-bancarias');
+            });
+            
+            document.getElementById('proximo-resumo').addEventListener('click', function() {
+                showTab('resumo');
+            });
+            
+            document.getElementById('voltar-despesas').addEventListener('click', function() {
+                showTab('despesas');
+            });
+            
+            // Adicionar taxa bancária (múltiplos lançamentos)
+            document.getElementById('adicionar-taxa').addEventListener('click', function() {
+                adicionarTaxaBancaria();
+            });
+            
+            // Adicionar despesa
+            document.getElementById('adicionar-despesa').addEventListener('click', function() {
+                adicionarDespesa();
+            });
+            
+            // Enter para adicionar taxa
+            document.getElementById('taxa-valor').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    adicionarTaxaBancaria();
+                }
+            });
+            
+            // Enter para adicionar despesa
+            document.getElementById('despesa-valor').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    adicionarDespesa();
+                }
+            });
+            
+            // Adicionar novo banco
+            document.getElementById('add-banco-fechamento').addEventListener('click', function() {
+                showBancoModal();
+            });
+
+            // Adicionar novo tipo de despesa
+            document.getElementById('add-tipo-despesa').addEventListener('click', function() {
+                showTipoDespesaModal();
+            });
+
+            // Salvar fechamento
+            document.getElementById('salvar-fechamento').addEventListener('click', function() {
+                saveFechamento();
+            });
+            
+            // Adicionar novo convênio
+            document.getElementById('add-convenio-fechamento').addEventListener('click', function() {
+                showConvenioModal();
+            });
+            
+            // Atualizar cálculo quando valores mudarem
+            ['fechamento-dinheiro', 'fechamento-pix', 'fechamento-outros'].forEach(id => {
+                document.getElementById(id).addEventListener('input', updateResumoFechamento);
+            });
+        }
+        
+        function adicionarTaxaBancaria() {
+            const bancoSelect = document.getElementById('taxa-banco-select');
+            const valorInput = document.getElementById('taxa-valor');
+            
+            const bancoId = parseInt(bancoSelect.value);
+            const valor = parseFloat(valorInput.value) || 0;
+            
+            if (!bancoId) {
+                showAlert('Selecione um banco.', 'warning');
+                return;
+            }
+            
+            if (valor <= 0) {
+                showAlert('Informe um valor válido para a taxa.', 'warning');
+                return;
+            }
+            
+            const banco = database.bancos.find(b => b.id === bancoId);
+            
+            // Adicionar à lista
+            selectedTaxasBancarias.push({
+                id: nextLancamentoId++,
+                bancoId: bancoId,
+                bancoNome: banco.nome,
+                valor: valor
+            });
+            
+            // Atualizar UI
+            atualizarListaTaxas();
+            
+            // Limpar campos
+            valorInput.value = '';
+            bancoSelect.focus();
+            
+            // Atualizar resumo
+            updateResumoFechamento();
+        }
+        
+        function adicionarDespesa() {
+            const tipoSelect = document.getElementById('despesa-tipo-select');
+            const descricaoInput = document.getElementById('despesa-descricao');
+            const valorInput = document.getElementById('despesa-valor');
+            
+            const tipoId = parseInt(tipoSelect.value);
+            const descricao = descricaoInput.value.trim();
+            const valor = parseFloat(valorInput.value) || 0;
+            
+            if (!tipoId) {
+                showAlert('Selecione o tipo de despesa.', 'warning');
+                return;
+            }
+            
+            if (!descricao) {
+                showAlert('Informe uma descrição para a despesa.', 'warning');
+                return;
+            }
+            
+            if (valor <= 0) {
+                showAlert('Informe um valor válido para a despesa.', 'warning');
+                return;
+            }
+            
+            const tipo = database.tiposDespesa.find(t => t.id === tipoId);
+            
+            // Adicionar à lista
+            selectedDespesas.push({
+                id: nextLancamentoId++,
+                tipoId: tipoId,
+                tipo: tipo.nome,
+                descricao: descricao,
+                valor: valor
+            });
+            
+            // Atualizar UI
+            atualizarListaDespesas();
+            
+            // Limpar campos
+            descricaoInput.value = '';
+            valorInput.value = '';
+            tipoSelect.focus();
+            
+            // Atualizar resumo
+            updateResumoFechamento();
+        }
+        
+        function removerTaxa(id) {
+            const index = selectedTaxasBancarias.findIndex(t => t.id === id);
+            if (index !== -1) {
+                selectedTaxasBancarias.splice(index, 1);
+                atualizarListaTaxas();
+                updateResumoFechamento();
+            }
+        }
+        
+        function removerDespesa(id) {
+            const index = selectedDespesas.findIndex(d => d.id === id);
+            if (index !== -1) {
+                selectedDespesas.splice(index, 1);
+                atualizarListaDespesas();
+                updateResumoFechamento();
+            }
+        }
+        
+        function atualizarListaTaxas() {
+            const lista = document.getElementById('taxas-selecionadas-lista');
+            const totalSpan = document.getElementById('total-taxas-selecionadas');
+            
+            if (selectedTaxasBancarias.length === 0) {
+                lista.innerHTML = '<div class="text-center p-3">Nenhuma taxa lançada</div>';
+                totalSpan.textContent = formatCurrency(0);
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            selectedTaxasBancarias.forEach(taxa => {
+                total += taxa.valor;
+                html += `
+                    <div class="lancamento-item">
+                        <div class="lancamento-info">
+                            <span class="lancamento-tipo">${taxa.bancoNome}</span>
+                            <div class="lancamento-descricao">Taxa bancária</div>
+                        </div>
+                        <span class="lancamento-valor">${formatCurrency(taxa.valor)}</span>
+                        <button class="btn-remove-lancamento" onclick="removerTaxa(${taxa.id})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            lista.innerHTML = html;
+            totalSpan.textContent = formatCurrency(total);
+        }
+        
+        function atualizarListaDespesas() {
+            const lista = document.getElementById('despesas-selecionadas-lista');
+            const totalSpan = document.getElementById('total-despesas-selecionadas');
+            
+            if (selectedDespesas.length === 0) {
+                lista.innerHTML = '<div class="text-center p-3">Nenhuma despesa lançada</div>';
+                totalSpan.textContent = formatCurrency(0);
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            selectedDespesas.forEach(despesa => {
+                total += despesa.valor;
+                html += `
+                    <div class="lancamento-item">
+                        <div class="lancamento-info">
+                            <span class="lancamento-tipo">${despesa.tipo}</span>
+                            <div class="lancamento-descricao">${despesa.descricao}</div>
+                        </div>
+                        <span class="lancamento-valor">${formatCurrency(despesa.valor)}</span>
+                        <button class="btn-remove-lancamento" onclick="removerDespesa(${despesa.id})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            lista.innerHTML = html;
+            totalSpan.textContent = formatCurrency(total);
+        }
+        
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
+        }
+        
+        function resetFechamentoForm() {
+            document.getElementById('fechamento-form-basico').reset();
+            
+            selectedConvenios = [];
+            selectedTaxasBancarias = [];
+            selectedDespesas = [];
+            nextLancamentoId = 1;
+            
+            document.getElementById('convenios-selecionados-container').style.display = 'none';
+            
+            atualizarListaTaxas();
+            atualizarListaDespesas();
+            
+            showTab('basico');
+        }
+        
+        function loadConveniosForSelection() {
+            const container = document.getElementById('convenios-selecao');
+            if (!container) return;
+            
+            let conveniosAtivos = database.convenios.filter(c => c.status === 'Ativo');
+            conveniosAtivos = filterByUserCentro(conveniosAtivos);
+            
+            if (conveniosAtivos.length === 0) {
+                container.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle"></i> Nenhum convênio ativo cadastrado para este centro.
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '<div class="items-grid">';
+            
+            conveniosAtivos.forEach(convenio => {
+                const isSelected = selectedConvenios.some(c => c.id === convenio.id);
+                
+                html += `
+                    <div class="item-card ${isSelected ? 'selected' : ''}" data-id="${convenio.id}">
+                        <div class="item-nome">${convenio.nome}</div>
+                        <div class="item-documento">${convenio.documento}</div>
+                        <div class="item-valor-input">
+                            <input type="number" step="0.01" 
+                                   class="item-valor-input-field" 
+                                   data-id="${convenio.id}"
+                                   placeholder="Valor (R$)"
+                                   value="${isSelected ? selectedConvenios.find(c => c.id === convenio.id).valor || '' : ''}">
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+            
+            // Configurar eventos dos cards
+            document.querySelectorAll('#convenios-selecao .item-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('item-valor-input-field')) return;
+                    
+                    const convenioId = parseInt(this.getAttribute('data-id'));
+                    toggleConvenioSelection(convenioId);
+                });
+            });
+            
+            // Configurar eventos dos inputs de valor
+            document.querySelectorAll('#convenios-selecao .item-valor-input-field').forEach(input => {
+                input.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                
+                input.addEventListener('input', function() {
+                    const convenioId = parseInt(this.getAttribute('data-id'));
+                    updateConvenioValor(convenioId, parseFloat(this.value) || 0);
+                });
+            });
+        }
+        
+        function loadBancosForSelection() {
+            const select = document.getElementById('taxa-banco-select');
+            if (!select) return;
+            
+            let bancosAtivos = database.bancos.filter(b => b.status === 'Ativo');
+            
+            let options = '<option value="">Selecione um banco...</option>';
+            bancosAtivos.forEach(banco => {
+                options += `<option value="${banco.id}">${banco.nome} - Ag: ${banco.agencia}</option>`;
+            });
+            
+            select.innerHTML = options;
+        }
+        
+        function toggleConvenioSelection(convenioId) {
+            const convenio = database.convenios.find(c => c.id === convenioId);
+            if (!convenio) return;
+            
+            const index = selectedConvenios.findIndex(c => c.id === convenioId);
+            
+            if (index === -1) {
+                selectedConvenios.push({
+                    id: convenioId,
+                    nome: convenio.nome,
+                    valor: 0,
+                    documento: convenio.documento
+                });
+            } else {
+                selectedConvenios.splice(index, 1);
+            }
+            
+            updateConveniosSelectionUI();
+            updateResumoFechamento();
+        }
+        
+        function updateConvenioValor(convenioId, valor) {
+            const convenioIndex = selectedConvenios.findIndex(c => c.id === convenioId);
+            if (convenioIndex !== -1) {
+                selectedConvenios[convenioIndex].valor = valor;
+                updateConveniosSelectionUI();
+                updateResumoFechamento();
+            }
+        }
+        
+        function updateConveniosSelectionUI() {
+            document.querySelectorAll('#convenios-selecao .item-card').forEach(card => {
+                const convenioId = parseInt(card.getAttribute('data-id'));
+                const isSelected = selectedConvenios.some(c => c.id === convenioId);
+                
+                if (isSelected) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+            
+            const container = document.getElementById('convenios-selecionados-container');
+            const lista = document.getElementById('convenios-selecionados-lista');
+            const totalSpan = document.getElementById('total-convenios-selecionados');
+            
+            if (selectedConvenios.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+            
+            container.style.display = 'block';
+            
+            let html = '';
+            let total = 0;
+            
+            selectedConvenios.forEach(convenio => {
+                total += convenio.valor;
+                html += `
+                    <div class="lancamento-item">
+                        <div class="lancamento-info">
+                            <span class="lancamento-tipo">${convenio.nome}</span>
+                            <div class="lancamento-descricao">Convênio</div>
+                        </div>
+                        <span class="lancamento-valor">${formatCurrency(convenio.valor)}</span>
+                    </div>
+                `;
+            });
+            
+            lista.innerHTML = html;
+            totalSpan.textContent = formatCurrency(total);
+        }
+        
+        function updateResumoFechamento() {
+            const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro').value) || 0;
+            const pix = parseFloat(document.getElementById('fechamento-pix').value) || 0;
+            const outros = parseFloat(document.getElementById('fechamento-outros').value) || 0;
+            
+            const totalConvenios = selectedConvenios.reduce((sum, c) => sum + c.valor, 0);
+            const totalTaxas = selectedTaxasBancarias.reduce((sum, t) => sum + t.valor, 0);
+            const totalDespesas = selectedDespesas.reduce((sum, d) => sum + d.valor, 0);
+            
+            const totalFaturamentos = dinheiro + pix + outros + totalConvenios;
+            const totalLiquido = totalFaturamentos - totalDespesas - totalTaxas;
+            
+            document.getElementById('resumo-dinheiro').textContent = formatCurrency(dinheiro);
+            document.getElementById('resumo-pix').textContent = formatCurrency(pix);
+            document.getElementById('resumo-outros').textContent = formatCurrency(outros);
+            document.getElementById('resumo-convenios').textContent = formatCurrency(totalConvenios);
+            document.getElementById('resumo-total-faturamentos').textContent = formatCurrency(totalFaturamentos);
+            document.getElementById('resumo-despesas').textContent = formatCurrency(totalDespesas);
+            document.getElementById('resumo-taxas').textContent = formatCurrency(totalTaxas);
+            document.getElementById('resumo-total-liquido').textContent = formatCurrency(totalLiquido);
+        }
+        
+        function saveFechamento() {
+            // Verificar permissão
+            if (currentUser.role === 'Usuário') {
+                showAlert('Usuários não podem salvar fechamentos.', 'warning');
+                return;
+            }
+            
+            const data = document.getElementById('fechamento-data').value;
+            const responsavel = document.getElementById('fechamento-responsavel').value;
+            let centroCusto = document.getElementById('fechamento-centro-custo').value;
+            
+            // Se não for admin, usar centro do usuário
+            if (currentUser.role !== 'Administrador') {
+                centroCusto = currentUser.centroCusto;
+            }
+            
+            if (!data || !responsavel || !centroCusto) {
+                showAlert('Preencha todos os campos obrigatórios.', 'warning');
+                showTab('basico');
+                return;
+            }
+            
+            const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro').value) || 0;
+            const pix = parseFloat(document.getElementById('fechamento-pix').value) || 0;
+            const outros = parseFloat(document.getElementById('fechamento-outros').value) || 0;
+            
+            const totalConvenios = selectedConvenios.reduce((sum, c) => sum + c.valor, 0);
+            const totalTaxas = selectedTaxasBancarias.reduce((sum, t) => sum + t.valor, 0);
+            const totalDespesas = selectedDespesas.reduce((sum, d) => sum + d.valor, 0);
+            
+            const totalFaturamentos = dinheiro + pix + outros + totalConvenios;
+            const totalLiquido = totalFaturamentos - totalDespesas - totalTaxas;
+            
+            const novoFechamento = {
+                id: database.fechamentosDiarios.length + 1,
+                data: data,
+                responsavel: responsavel,
+                centroCusto: centroCusto,
+                dinheiro: dinheiro,
+                pix: pix,
+                outrosFaturamentos: outros,
+                convenios: selectedConvenios.map(c => ({
+                    convenioId: c.id,
+                    nome: c.nome,
+                    valor: c.valor
+                })),
+                taxasBancarias: selectedTaxasBancarias.map(t => ({
+                    id: t.id,
+                    bancoId: t.bancoId,
+                    bancoNome: t.bancoNome,
+                    valor: t.valor
+                })),
+                despesas: selectedDespesas.map(d => ({
+                    id: d.id,
+                    tipo: d.tipo,
+                    descricao: d.descricao,
+                    valor: d.valor
+                })),
+                totalFaturamentos: totalFaturamentos,
+                totalDespesas: totalDespesas,
+                totalTaxas: totalTaxas,
+                totalDiaria: totalLiquido,
+                status: "Fechado",
+                createdAt: new Date().toISOString(),
+                createdBy: currentUser.id
+            };
+            
+            database.fechamentosDiarios.push(novoFechamento);
+            
+            document.getElementById('fechamento-form-container').style.display = 'none';
+            updateFechamentosTable();
+            
+            if (currentPage === 'dashboard') {
+                updateDashboardData();
+            }
+            
+            showAlert('Fechamento salvo com sucesso!', 'success');
+            
+            // Perguntar se quer imprimir
+            if (confirm('Deseja imprimir o relatório deste fechamento?')) {
+                imprimirRelatorioFechamento(novoFechamento);
+            }
+            
+            resetFechamentoForm();
+        }
+        
+        function imprimirRelatorioFechamento(fechamento) {
+            const centro = database.centrosCusto.find(c => c.codigo === fechamento.centroCusto);
+            
+            let conveniosHTML = '';
+            if (fechamento.convenios && fechamento.convenios.length > 0) {
+                fechamento.convenios.forEach(c => {
+                    conveniosHTML += `
+                        <tr>
+                            <td>${c.nome}</td>
+                            <td class="text-right">${formatCurrency(c.valor)}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                conveniosHTML = '<tr><td colspan="2" class="text-center">Nenhum convênio</td></tr>';
+            }
+            
+            let taxasHTML = '';
+            if (fechamento.taxasBancarias && fechamento.taxasBancarias.length > 0) {
+                fechamento.taxasBancarias.forEach(t => {
+                    taxasHTML += `
+                        <tr>
+                            <td>${t.bancoNome}</td>
+                            <td class="text-right">${formatCurrency(t.valor)}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                taxasHTML = '<tr><td colspan="2" class="text-center">Nenhuma taxa</td></tr>';
+            }
+            
+            let despesasHTML = '';
+            if (fechamento.despesas && fechamento.despesas.length > 0) {
+                fechamento.despesas.forEach(d => {
+                    despesasHTML += `
+                        <tr>
+                            <td>${d.tipo}</td>
+                            <td>${d.descricao}</td>
+                            <td class="text-right">${formatCurrency(d.valor)}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                despesasHTML = '<tr><td colspan="3" class="text-center">Nenhuma despesa</td></tr>';
+            }
+            
+            const relatorioHTML = `
+                <div class="relatorio-header">
+                    <h2>${database.settings.systemName}</h2>
+                    <h3>Relatório de Fechamento Diário</h3>
+                    <p>Data do fechamento: ${formatDate(fechamento.data)}</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Responsável:</strong> ${fechamento.responsavel}</p>
+                    <p><strong>Centro de Custo:</strong> ${centro ? centro.nome : fechamento.centroCusto}</p>
+                    <p><strong>Data de emissão:</strong> ${new Date().toLocaleString('pt-BR')}</p>
+                </div>
+                
+                <h4>Faturamento</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="text-align: left;">Tipo</th>
+                        <th style="text-align: right;">Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Dinheiro</td>
+                        <td class="text-right">${formatCurrency(fechamento.dinheiro)}</td>
+                    </tr>
+                    <tr>
+                        <td>PIX</td>
+                        <td class="text-right">${formatCurrency(fechamento.pix)}</td>
+                    </tr>
+                    <tr>
+                        <td>Outros Faturamentos</td>
+                        <td class="text-right">${formatCurrency(fechamento.outrosFaturamentos || 0)}</td>
+                    </tr>
+                    ${conveniosHTML}
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td>Total Faturamentos</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalFaturamentos)}</td>
+                    </tr>
+                </table>
+                
+                <h4>Despesas do Dia</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="text-align: left;">Tipo</th>
+                        <th style="text-align: left;">Descrição</th>
+                        <th style="text-align: right;">Valor</th>
+                    </tr>
+                    ${despesasHTML}
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td colspan="2">Total Despesas</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalDespesas)}</td>
+                    </tr>
+                </table>
+                
+                <h4>Taxas Bancárias</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="text-align: left;">Banco</th>
+                        <th style="text-align: right;">Valor</th>
+                    </tr>
+                    ${taxasHTML}
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td>Total Taxas</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalTaxas)}</td>
+                    </tr>
+                </table>
+                
+                <div style="border-top: 3px solid #333; padding: 15px; text-align: right; font-size: 1.2rem;">
+                    <strong>Total Líquido do Dia: ${formatCurrency(fechamento.totalDiaria)}</strong>
+                </div>
+                
+                <div class="relatorio-footer">
+                    <p>Documento gerado em ${new Date().toLocaleString('pt-BR')}</p>
+                    <p>DataManager Pro - Sistema de Gerenciamento</p>
+                </div>
+            `;
+            
+            document.getElementById('relatorio-conteudo').innerHTML = relatorioHTML;
+            document.getElementById('relatorio-modal').style.display = 'flex';
+        }
+        
+        function updateFechamentosTable() {
+            const tbody = document.getElementById('fechamentos-table');
+            if (!tbody) return;
+            
+            const filtroMes = document.getElementById('filtro-mes')?.value;
+            const filtroCentro = document.getElementById('filtro-centro-fechamento')?.value;
+            
+            let fechamentos = database.fechamentosDiarios;
+            
+            // Filtrar por centro de custo do usuário
+            fechamentos = filterByUserCentro(fechamentos);
+            
+            if (filtroMes) {
+                const [ano, mes] = filtroMes.split('-');
+                fechamentos = fechamentos.filter(f => {
+                    const data = new Date(f.data);
+                    return data.getFullYear() == ano && (data.getMonth() + 1) == mes;
+                });
+            }
+            
+            if (filtroCentro) {
+                fechamentos = fechamentos.filter(f => f.centroCusto === filtroCentro);
+            }
+            
+            fechamentos.sort((a, b) => new Date(b.data) - new Date(a.data));
+            
+            if (fechamentos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="text-center">Nenhum fechamento encontrado</td></tr>';
+                return;
+            }
+            
+            let html = '';
+            fechamentos.forEach(f => {
+                const totalConvenios = f.convenios ? f.convenios.reduce((sum, c) => sum + c.valor, 0) : 0;
+                const totalDespesas = f.despesas ? f.despesas.reduce((sum, d) => sum + d.valor, 0) : 0;
+                
+                html += `
+                    <tr>
+                        <td>${formatDate(f.data)}</td>
+                        <td>${f.responsavel}</td>
+                        <td>${f.centroCusto}</td>
+                        <td>${formatCurrency(f.dinheiro)}</td>
+                        <td>${formatCurrency(f.pix)}</td>
+                        <td>${formatCurrency(totalConvenios)}</td>
+                        <td>${formatCurrency(totalDespesas)}</td>
+                        <td><strong>${formatCurrency(f.totalDiaria)}</strong></td>
+                        <td>
+                            <button class="btn-icon view-fechamento" onclick="visualizarFechamento(${f.id})" title="Visualizar">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon print-fechamento" onclick="imprimirFechamento(${f.id})" title="Imprimir">
+                                <i class="fas fa-print"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = html;
+        }
+        
+        function visualizarFechamento(id) {
+            const fechamento = database.fechamentosDiarios.find(f => f.id === id);
+            if (fechamento) {
+                imprimirRelatorioFechamento(fechamento);
+            }
+        }
+        
+        function imprimirFechamento(id) {
+            const fechamento = database.fechamentosDiarios.find(f => f.id === id);
+            if (fechamento) {
+                imprimirRelatorioFechamento(fechamento);
+            }
+        }
+        
         function showBancoModal() {
-            // Criar modal dinamicamente
             const modalHTML = `
-                <div id="banco-modal" class="convenio-modal" style="display: flex;">
-                    <div class="convenio-modal-content">
+                <div id="banco-modal" class="modal" style="display: flex;">
+                    <div class="modal-content">
                         <h3 class="form-title">Cadastrar Novo Banco</h3>
                         <form id="banco-form">
                             <div class="form-group">
@@ -2067,16 +3233,13 @@ AmazonDash
                 </div>
             `;
             
-            // Remover modal existente se houver
             const existingModal = document.getElementById('banco-modal');
             if (existingModal) {
                 existingModal.remove();
             }
             
-            // Adicionar modal ao body
             document.body.insertAdjacentHTML('beforeend', modalHTML);
             
-            // Configurar eventos do modal
             document.getElementById('cancel-banco').addEventListener('click', function() {
                 document.getElementById('banco-modal').remove();
             });
@@ -2086,8 +3249,7 @@ AmazonDash
                 saveBanco();
             });
         }
-
-        // Salvar banco
+        
         function saveBanco() {
             const nome = document.getElementById('banco-nome').value;
             const agencia = document.getElementById('banco-agencia').value;
@@ -2106,10 +3268,8 @@ AmazonDash
             
             database.bancos.push(novoBanco);
             
-            // Fechar modal
             document.getElementById('banco-modal').remove();
             
-            // Recarregar seleção de bancos
             if (currentPage === 'fechamento-diario') {
                 loadBancosForSelection();
             }
@@ -2117,536 +3277,45 @@ AmazonDash
             showAlert('Banco cadastrado com sucesso!', 'success');
         }
         
-        function setupFechamentoEvents() {
-            // Novo fechamento
-            document.getElementById('add-fechamento').addEventListener('click', function() {
-                document.getElementById('fechamento-form-container').style.display = 'block';
-                resetFechamentoForm();
+        function showTipoDespesaModal() {
+            const nome = prompt('Digite o nome do novo tipo de despesa:');
+            if (nome && nome.trim()) {
+                const novoTipo = {
+                    id: database.tiposDespesa.length + 1,
+                    nome: nome.trim(),
+                    icone: 'fa-tag'
+                };
                 
-                // Preencher valores padrão
-                document.getElementById('fechamento-data').valueAsDate = new Date();
-                document.getElementById('fechamento-responsavel').value = currentUser.name;
+                database.tiposDespesa.push(novoTipo);
                 
-                // Carregar convênios
-                loadConveniosForSelection();
-                loadBancosForSelection();
-                
-                // Atualizar cálculo
-                updateResumoFechamento();
-            });
-            
-            // Cancelar fechamento
-            document.getElementById('cancel-fechamento').addEventListener('click', function() {
-                document.getElementById('fechamento-form-container').style.display = 'none';
-                resetFechamentoForm();
-            });
-            
-            // Aplicar filtro
-            document.getElementById('aplicar-filtro').addEventListener('click', function() {
-                updateFechamentosTable();
-            });
-            
-            // Navegação entre tabs
-            document.getElementById('proximo-convenios').addEventListener('click', function() {
-                showTab('convenios');
-            });
-            
-            document.getElementById('voltar-basico').addEventListener('click', function() {
-                showTab('basico');
-            });
-            
-            document.getElementById('proximo-resumo-convenios').addEventListener('click', function() {
-                showTab('taxas-bancarias');
-            });
-            
-            document.getElementById('voltar-convenios-taxas').addEventListener('click', function() {
-                showTab('convenios');
-            });
-            
-            document.getElementById('proximo-resumo-taxas').addEventListener('click', function() {
-                showTab('resumo');
-            });
-            
-            document.getElementById('voltar-taxas').addEventListener('click', function() {
-                showTab('taxas-bancarias');
-            });
-            
-            // Adicionar novo banco
-            document.getElementById('add-banco-fechamento').addEventListener('click', function() {
-                showBancoModal();
-            });
-
-            // Salvar fechamento
-            document.getElementById('salvar-fechamento').addEventListener('click', function() {
-                saveFechamento();
-            });
-            
-            // Adicionar novo convênio
-            document.getElementById('add-convenio-fechamento').addEventListener('click', function() {
-                showConvenioModal();
-            });
-            
-            // Atualizar cálculo quando valores mudarem
-            ['fechamento-dinheiro', 'fechamento-pix', 'fechamento-outros'].forEach(id => {
-                document.getElementById(id).addEventListener('input', updateResumoFechamento);
-            });
-        }
-        
-        function showTab(tabName) {
-            // Esconder todas as tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Mostrar tab selecionada
-            document.getElementById(`tab-${tabName}`).classList.add('active');
-            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
-        }
-        
-        function resetFechamentoForm() {
-            // Resetar form básico
-            document.getElementById('fechamento-form-basico').reset();
-            
-            // Resetar convênios selecionados
-            selectedConvenios = [];
-            selectedTaxasBancarias = [];
-            
-            document.getElementById('convenios-selecionados-container').style.display = 'none';
-            document.getElementById('taxas-selecionadas-container').style.display = 'none';
-            
-            // Resetar tabs
-            showTab('basico');
-        }
-        
-        function loadConveniosForSelection() {
-            const container = document.getElementById('convenios-selecao');
-            if (!container) return;
-            
-            const conveniosAtivos = database.convenios.filter(c => c.status === 'Ativo');
-            
-            if (conveniosAtivos.length === 0) {
-                container.innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="fas fa-info-circle"></i> Nenhum convênio ativo cadastrado.
-                        <button class="btn btn-sm btn-primary ml-2" id="cadastrar-convenio-now">
-                            <i class="fas fa-plus"></i> Cadastrar Primeiro Convênio
-                        </button>
-                    </div>
-                `;
-                
-                document.getElementById('cadastrar-convenio-now').addEventListener('click', function() {
-                    showConvenioModal();
-                });
-                return;
-            }
-            
-            let html = '<div class="convenios-grid">';
-            
-            conveniosAtivos.forEach(convenio => {
-                const isSelected = selectedConvenios.some(c => c.id === convenio.id);
-                
-                html += `
-                    <div class="convenio-card ${isSelected ? 'selected' : ''}" data-id="${convenio.id}">
-                        <div class="convenio-nome">${convenio.nome}</div>
-                        <div class="convenio-documento">${convenio.documento}</div>
-                        <div class="convenio-valor-input">
-                            <input type="number" step="0.01" 
-                                   class="convenio-valor-input-field" 
-                                   data-id="${convenio.id}"
-                                   placeholder="Valor (R$)"
-                                   value="${isSelected ? selectedConvenios.find(c => c.id === convenio.id).valor || '' : ''}">
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            container.innerHTML = html;
-            
-            // Configurar eventos dos cards
-            document.querySelectorAll('.convenio-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const convenioId = parseInt(this.getAttribute('data-id'));
-                    toggleConvenioSelection(convenioId);
-                });
-            });
-            
-            // Configurar eventos dos inputs de valor
-            document.querySelectorAll('.convenio-valor-input-field').forEach(input => {
-                input.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-                
-                input.addEventListener('input', function() {
-                    const convenioId = parseInt(this.getAttribute('data-id'));
-                    updateConvenioValor(convenioId, parseFloat(this.value) || 0);
-                });
-            });
-        }
-        
-        function toggleConvenioSelection(convenioId) {
-            const convenio = database.convenios.find(c => c.id === convenioId);
-            if (!convenio) return;
-            
-            const index = selectedConvenios.findIndex(c => c.id === convenioId);
-            
-            if (index === -1) {
-                // Adicionar convênio
-                selectedConvenios.push({
-                    id: convenioId,
-                    nome: convenio.nome,
-                    valor: 0,
-                    documento: convenio.documento
-                });
-            } else {
-                // Remover convênio
-                selectedConvenios.splice(index, 1);
-            }
-            
-            // Atualizar interface
-            updateConveniosSelectionUI();
-            updateResumoFechamento();
-        }
-        
-        function updateConvenioValor(convenioId, valor) {
-            const convenioIndex = selectedConvenios.findIndex(c => c.id === convenioId);
-            if (convenioIndex !== -1) {
-                selectedConvenios[convenioIndex].valor = valor;
-                updateConveniosSelectionUI();
-                updateResumoFechamento();
-            }
-        }
-        
-        function updateConveniosSelectionUI() {
-            // Atualizar estado visual dos cards
-            document.querySelectorAll('.convenio-card').forEach(card => {
-                const convenioId = parseInt(card.getAttribute('data-id'));
-                const isSelected = selectedConvenios.some(c => c.id === convenioId);
-                
-                if (isSelected) {
-                    card.classList.add('selected');
-                } else {
-                    card.classList.remove('selected');
+                // Atualizar select
+                const select = document.getElementById('despesa-tipo-select');
+                if (select) {
+                    const option = document.createElement('option');
+                    option.value = novoTipo.id;
+                    option.textContent = novoTipo.nome;
+                    select.appendChild(option);
                 }
-            });
-            
-            // Atualizar lista de convênios selecionados
-            const container = document.getElementById('convenios-selecionados-container');
-            const lista = document.getElementById('convenios-selecionados');
-            const totalSpan = document.getElementById('total-convenios-selecionados');
-            
-            if (selectedConvenios.length === 0) {
-                container.style.display = 'none';
-                return;
-            }
-            
-            container.style.display = 'block';
-            
-            let html = '';
-            let total = 0;
-            
-            selectedConvenios.forEach(convenio => {
-                total += convenio.valor;
-                html += `
-                    <div class="convenio-badge">
-                        <i class="fas fa-handshake"></i>
-                        ${convenio.nome}: ${formatCurrency(convenio.valor)}
-                    </div>
-                `;
-            });
-            
-            lista.innerHTML = html;
-            totalSpan.textContent = formatCurrency(total);
-        }
-        
-        // Função para carregar bancos para seleção
-        function loadBancosForSelection() {
-            const container = document.getElementById('bancos-selecao');
-            if (!container) return;
-            
-            const bancosAtivos = database.bancos.filter(b => b.status === 'Ativo');
-            
-            if (bancosAtivos.length === 0) {
-                container.innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="fas fa-info-circle"></i> Nenhum banco cadastrado.
-                        <button class="btn btn-sm btn-primary ml-2" id="cadastrar-banco-now">
-                            <i class="fas fa-plus"></i> Cadastrar Primeiro Banco
-                        </button>
-                    </div>
-                `;
                 
-                document.getElementById('cadastrar-banco-now').addEventListener('click', function() {
-                    showBancoModal();
-                });
-                return;
+                showAlert('Tipo de despesa cadastrado com sucesso!', 'success');
             }
-            
-            let html = '<div class="convenios-grid">';
-            
-            bancosAtivos.forEach(banco => {
-                const isSelected = selectedTaxasBancarias.some(t => t.bancoId === banco.id);
-                
-                html += `
-                    <div class="convenio-card ${isSelected ? 'selected' : ''}" data-banco-id="${banco.id}">
-                        <div class="convenio-nome">${banco.nome}</div>
-                        <div class="convenio-documento">Ag: ${banco.agencia} | C/C: ${banco.conta}</div>
-                        <div class="convenio-valor-input">
-                            <input type="number" step="0.01" 
-                                   class="convenio-valor-input-field" 
-                                   data-banco-id="${banco.id}"
-                                   placeholder="Valor da Taxa (R$)"
-                                   value="${isSelected ? selectedTaxasBancarias.find(t => t.bancoId === banco.id).valor || '' : ''}">
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            container.innerHTML = html;
-            
-            // Configurar eventos dos cards
-            document.querySelectorAll('.convenio-card[data-banco-id]').forEach(card => {
-                card.addEventListener('click', function() {
-                    const bancoId = parseInt(this.getAttribute('data-banco-id'));
-                    toggleTaxaBancariaSelection(bancoId);
-                });
-            });
-            
-            // Configurar eventos dos inputs de valor
-            document.querySelectorAll('.convenio-valor-input-field[data-banco-id]').forEach(input => {
-                input.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-                
-                input.addEventListener('input', function() {
-                    const bancoId = parseInt(this.getAttribute('data-banco-id'));
-                    updateTaxaBancariaValor(bancoId, parseFloat(this.value) || 0);
-                });
-            });
-        }
-
-        // Função para alternar seleção de taxa bancária
-        function toggleTaxaBancariaSelection(bancoId) {
-            const banco = database.bancos.find(b => b.id === bancoId);
-            if (!banco) return;
-            
-            const index = selectedTaxasBancarias.findIndex(t => t.bancoId === bancoId);
-            
-            if (index === -1) {
-                // Adicionar taxa bancária
-                selectedTaxasBancarias.push({
-                    bancoId: bancoId,
-                    bancoNome: banco.nome,
-                    valor: 0
-                });
-            } else {
-                // Remover taxa bancária
-                selectedTaxasBancarias.splice(index, 1);
-            }
-            
-            // Atualizar interface
-            updateTaxasBancariasSelectionUI();
-            updateResumoFechamento();
-        }
-
-        // Função para atualizar valor da taxa bancária
-        function updateTaxaBancariaValor(bancoId, valor) {
-            const taxaIndex = selectedTaxasBancarias.findIndex(t => t.bancoId === bancoId);
-            if (taxaIndex !== -1) {
-                selectedTaxasBancarias[taxaIndex].valor = valor;
-                updateTaxasBancariasSelectionUI();
-                updateResumoFechamento();
-            }
-        }
-
-        // Função para atualizar interface de taxas bancárias selecionadas
-        function updateTaxasBancariasSelectionUI() {
-            // Atualizar estado visual dos cards
-            document.querySelectorAll('.convenio-card[data-banco-id]').forEach(card => {
-                const bancoId = parseInt(card.getAttribute('data-banco-id'));
-                const isSelected = selectedTaxasBancarias.some(t => t.bancoId === bancoId);
-                
-                if (isSelected) {
-                    card.classList.add('selected');
-                } else {
-                    card.classList.remove('selected');
-                }
-            });
-            
-            // Atualizar lista de taxas selecionadas
-            const container = document.getElementById('taxas-selecionadas-container');
-            const lista = document.getElementById('taxas-selecionadas');
-            const totalSpan = document.getElementById('total-taxas-selecionadas');
-            
-            if (selectedTaxasBancarias.length === 0) {
-                container.style.display = 'none';
-                return;
-            }
-            
-            container.style.display = 'block';
-            
-            let html = '';
-            let total = 0;
-            
-            selectedTaxasBancarias.forEach(taxa => {
-                total += taxa.valor;
-                html += `
-                    <div class="convenio-badge" style="background: #f8d7da; color: #721c24;">
-                        <i class="fas fa-university"></i>
-                        ${taxa.bancoNome}: ${formatCurrency(taxa.valor)}
-                    </div>
-                `;
-            });
-            
-            lista.innerHTML = html;
-            totalSpan.textContent = formatCurrency(total);
-        }
-        
-        function updateResumoFechamento() {
-            // Coletar valores básicos
-            const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro').value) || 0;
-            const pix = parseFloat(document.getElementById('fechamento-pix').value) || 0;
-            const outros = parseFloat(document.getElementById('fechamento-outros').value) || 0;
-            
-            // Calcular total de convênios
-            const totalConvenios = selectedConvenios.reduce((sum, c) => sum + c.valor, 0);
-            
-            // Calcular total de taxas bancárias
-            const totalTaxasBancarias = selectedTaxasBancarias.reduce((sum, t) => sum + t.valor, 0);
-            
-            // Para este exemplo, vamos considerar despesas gerais como 10% do faturamento
-            const totalFaturamentos = dinheiro + pix + outros + totalConvenios;
-            const despesasGerais = totalFaturamentos * 0.1;
-            const totalLiquido = totalFaturamentos - despesasGerais - totalTaxasBancarias;
-            
-            // Atualizar exibição
-            document.getElementById('resumo-dinheiro').textContent = formatCurrency(dinheiro);
-            document.getElementById('resumo-pix').textContent = formatCurrency(pix);
-            document.getElementById('resumo-outros').textContent = formatCurrency(outros);
-            document.getElementById('resumo-convenios').textContent = formatCurrency(totalConvenios);
-            document.getElementById('resumo-total-faturamentos').textContent = formatCurrency(totalFaturamentos);
-            document.getElementById('resumo-despesas').textContent = formatCurrency(despesasGerais);
-            document.getElementById('resumo-taxas-bancarias').textContent = formatCurrency(totalTaxasBancarias);
-            document.getElementById('resumo-total-liquido').textContent = formatCurrency(totalLiquido);
-        }
-        
-        function saveFechamento() {
-            // Coletar valores
-            const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro').value) || 0;
-            const pix = parseFloat(document.getElementById('fechamento-pix').value) || 0;
-            const outros = parseFloat(document.getElementById('fechamento-outros').value) || 0;
-            const totalConvenios = selectedConvenios.reduce((sum, c) => sum + c.valor, 0);
-            const totalTaxasBancarias = selectedTaxasBancarias.reduce((sum, t) => sum + t.valor, 0);
-            
-            const totalFaturamentos = dinheiro + pix + outros + totalConvenios;
-            const despesasGerais = totalFaturamentos * 0.1;
-            const totalLiquido = totalFaturamentos - despesasGerais - totalTaxasBancarias;
-            const totalDespesas = despesasGerais + totalTaxasBancarias;
-            
-            // Criar novo fechamento
-            const novoFechamento = {
-                id: database.fechamentosDiarios.length + 1,
-                data: document.getElementById('fechamento-data').value,
-                responsavel: document.getElementById('fechamento-responsavel').value,
-                centroCusto: document.getElementById('fechamento-centro-custo').value,
-                dinheiro: dinheiro,
-                pix: pix,
-                outrosFaturamentos: outros,
-                convenios: selectedConvenios.map(c => ({
-                    convenioId: c.id,
-                    valor: c.valor,
-                    nome: c.nome
-                })),
-                taxasBancarias: selectedTaxasBancarias.map(t => ({
-                    bancoId: t.bancoId,
-                    bancoNome: t.bancoNome,
-                    valor: t.valor
-                })),
-                despesas: despesasGerais,
-                taxasBancariasTotal: totalTaxasBancarias,
-                totalFaturamentos: totalFaturamentos,
-                totalDespesas: totalDespesas,
-                totalDiaria: totalLiquido,
-                totalLiquidoDinheiro: totalLiquido,
-                status: "Fechado",
-                createdAt: new Date().toISOString(),
-                createdBy: currentUser.id
-            };
-            
-            database.fechamentosDiarios.push(novoFechamento);
-            
-            // Atualizar interface
-            document.getElementById('fechamento-form-container').style.display = 'none';
-            updateFechamentosTable();
-            
-            // Atualizar dashboard
-            if (currentPage === 'dashboard') {
-                updateDashboardData();
-            }
-            
-            showAlert('Fechamento salvo com sucesso!', 'success');
-            resetFechamentoForm();
-        }
-        
-        function updateFechamentosTable() {
-            const tbody = document.getElementById('fechamentos-table');
-            if (!tbody) return;
-            
-            // Aplicar filtro
-            const filtroMes = document.getElementById('filtro-mes')?.value;
-            let fechamentos = database.fechamentosDiarios;
-            
-            if (filtroMes) {
-                const [ano, mes] = filtroMes.split('-');
-                fechamentos = fechamentos.filter(f => {
-                    const data = new Date(f.data);
-                    return data.getFullYear() == ano && (data.getMonth() + 1) == mes;
-                });
-            }
-            
-            // Ordenar por data (mais recente primeiro)
-            fechamentos.sort((a, b) => new Date(b.data) - new Date(a.data));
-            
-            if (fechamentos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="text-center">Nenhum fechamento encontrado</td></tr>';
-                return;
-            }
-            
-            let html = '';
-            fechamentos.forEach(f => {
-                const totalConvenios = f.convenios ? f.convenios.reduce((sum, c) => sum + c.valor, 0) : 0;
-                const conveniosInfo = f.convenios && f.convenios.length > 0 
-                    ? `${f.convenios.length} convênio(s) - ${formatCurrency(totalConvenios)}`
-                    : 'Nenhum';
-                
-                html += `
-                    <tr>
-                        <td>${formatDate(f.data)}</td>
-                        <td>${f.responsavel}</td>
-                        <td>${formatCurrency(f.dinheiro)}</td>
-                        <td>${formatCurrency(f.pix)}</td>
-                        <td>${conveniosInfo}</td>
-                        <td><strong>${formatCurrency(f.totalDiaria)}</strong></td>
-                        <td>
-                            <button class="btn-icon view-fechamento" data-id="${f.id}" title="Visualizar">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tbody.innerHTML = html;
         }
 
         // ============== SISTEMA DE CONVÊNIOS ==============
         function loadConveniosContent() {
             const page = document.getElementById('convenios');
+            
+            // Verificar permissão
+            if (currentUser.role === 'Usuário') {
+                page.innerHTML = `
+                    <div class="restricted-access">
+                        <i class="fas fa-ban"></i>
+                        <h3>Acesso Restrito</h3>
+                        <p>Usuários não têm acesso à funcionalidade de convênios.</p>
+                    </div>
+                `;
+                return;
+            }
             
             page.innerHTML = `
                 <div class="d-flex justify-between mb-3">
@@ -2711,25 +3380,27 @@ AmazonDash
         }
         
         function setupConveniosEvents() {
-            // Novo convênio
             document.getElementById('add-convenio').addEventListener('click', function() {
                 showConvenioModal();
             });
             
-            // Aplicar filtro
             document.getElementById('aplicar-filtro-convenios').addEventListener('click', function() {
                 updateConveniosTable();
             });
         }
         
         function showConvenioModal() {
-            // Limpar e preparar formulário
             document.getElementById('convenio-form').reset();
             
-            // Carregar opções de centros de custo
             const select = document.getElementById('convenio-centro-custo');
             select.innerHTML = '<option value="">Nenhum</option>';
-            database.centrosCusto.forEach(centro => {
+            
+            let centros = database.centrosCusto;
+            if (currentUser.role !== 'Administrador') {
+                centros = centros.filter(c => c.codigo === currentUser.centroCusto);
+            }
+            
+            centros.forEach(centro => {
                 const option = document.createElement('option');
                 option.value = centro.codigo;
                 option.textContent = `${centro.codigo} - ${centro.nome}`;
@@ -2746,7 +3417,6 @@ AmazonDash
             const centroCusto = document.getElementById('convenio-centro-custo').value;
             const status = document.getElementById('convenio-status').value;
             
-            // Validar documento
             if (!validarDocumento(documento, tipo)) {
                 showAlert('Documento inválido para o tipo selecionado.', 'danger');
                 return;
@@ -2757,7 +3427,7 @@ AmazonDash
                 nome: nome,
                 documento: documento,
                 tipo: tipo,
-                centroCusto: centroCusto,
+                centroCusto: centroCusto || currentUser.centroCusto,
                 status: status,
                 createdAt: new Date().toISOString(),
                 createdBy: currentUser.id
@@ -2765,13 +3435,10 @@ AmazonDash
             
             database.convenios.push(novoConvenio);
             
-            // Fechar modal
             document.getElementById('convenio-modal').style.display = 'none';
             
-            // Atualizar tabela
             updateConveniosTable();
             
-            // Se estiver na tela de fechamento, recarregar convênios
             if (currentPage === 'fechamento-diario') {
                 loadConveniosForSelection();
             }
@@ -2780,7 +3447,6 @@ AmazonDash
         }
         
         function validarDocumento(documento, tipo) {
-            // Remover caracteres não numéricos
             const docLimpo = documento.replace(/\D/g, '');
             
             if (tipo === 'CPF') {
@@ -2796,11 +3462,13 @@ AmazonDash
             const tbody = document.getElementById('convenios-table');
             if (!tbody) return;
             
-            // Aplicar filtros
             const filtroStatus = document.getElementById('filtro-status-convenio')?.value;
             const filtroCentro = document.getElementById('filtro-centro-convenio')?.value;
             
             let convenios = database.convenios;
+            
+            // Filtrar por centro de custo do usuário
+            convenios = filterByUserCentro(convenios);
             
             if (filtroStatus) {
                 convenios = convenios.filter(c => c.status === filtroStatus);
@@ -2830,11 +3498,11 @@ AmazonDash
                         <td><span class="badge ${c.status === 'Ativo' ? 'badge-success' : 'badge-danger'}">${c.status}</span></td>
                         <td>${formatDate(c.createdAt)}</td>
                         <td>
-                            <button class="btn-icon edit-convenio" data-id="${c.id}" title="Editar">
+                            <button class="btn-icon edit-convenio" onclick="editConvenio(${c.id})" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <button class="btn-icon ${c.status === 'Ativo' ? 'deactivate-convenio' : 'activate-convenio'}" 
-                                    data-id="${c.id}" title="${c.status === 'Ativo' ? 'Desativar' : 'Ativar'}">
+                                    onclick="toggleConvenioStatus(${c.id})" title="${c.status === 'Ativo' ? 'Desativar' : 'Ativar'}">
                                 <i class="fas ${c.status === 'Ativo' ? 'fa-ban' : 'fa-check'}"></i>
                             </button>
                         </td>
@@ -2843,37 +3511,26 @@ AmazonDash
             });
             
             tbody.innerHTML = html;
-            
-            // Configurar eventos dos botões
-            document.querySelectorAll('.edit-convenio').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    editConvenio(id);
-                });
-            });
-            
-            document.querySelectorAll('.deactivate-convenio, .activate-convenio').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    toggleConvenioStatus(id);
-                });
-            });
         }
         
         function editConvenio(id) {
             const convenio = database.convenios.find(c => c.id === id);
             if (!convenio) return;
             
-            // Preencher formulário
             document.getElementById('convenio-nome').value = convenio.nome;
             document.getElementById('convenio-documento').value = convenio.documento;
             document.getElementById('convenio-tipo').value = convenio.tipo;
             document.getElementById('convenio-status').value = convenio.status;
             
-            // Carregar opções de centros de custo
             const select = document.getElementById('convenio-centro-custo');
             select.innerHTML = '<option value="">Nenhum</option>';
-            database.centrosCusto.forEach(centro => {
+            
+            let centros = database.centrosCusto;
+            if (currentUser.role !== 'Administrador') {
+                centros = centros.filter(c => c.codigo === currentUser.centroCusto);
+            }
+            
+            centros.forEach(centro => {
                 const option = document.createElement('option');
                 option.value = centro.codigo;
                 option.textContent = `${centro.codigo} - ${centro.nome}`;
@@ -2883,32 +3540,26 @@ AmazonDash
                 select.appendChild(option);
             });
             
-            // Mostrar modal
             document.getElementById('convenio-modal').style.display = 'flex';
             
-            // Configurar submit para edição
             const form = document.getElementById('convenio-form');
             const originalSubmit = form.onsubmit;
             
             form.onsubmit = function(e) {
                 e.preventDefault();
                 
-                // Atualizar convênio
                 convenio.nome = document.getElementById('convenio-nome').value;
                 convenio.documento = document.getElementById('convenio-documento').value;
                 convenio.tipo = document.getElementById('convenio-tipo').value;
                 convenio.centroCusto = document.getElementById('convenio-centro-custo').value;
                 convenio.status = document.getElementById('convenio-status').value;
                 
-                // Fechar modal
                 document.getElementById('convenio-modal').style.display = 'none';
                 
-                // Atualizar tabela
                 updateConveniosTable();
                 
                 showAlert('Convênio atualizado com sucesso!', 'success');
                 
-                // Restaurar submit original
                 form.onsubmit = originalSubmit;
             };
         }
@@ -2926,100 +3577,216 @@ AmazonDash
             }
         }
 
-        // ============== FUNÇÕES UTILITÁRIAS ==============
-        function getCentrosCustoOptions() {
-            let centros = database.centrosCusto;
+        // ============== SISTEMA DE USUÁRIOS ==============
+        function loadUsuariosContent() {
+            const page = document.getElementById('usuarios');
             
             if (currentUser.role !== "Administrador") {
-                centros = centros.filter(c => currentUser.centrosCusto.includes(c.codigo));
+                page.innerHTML = `
+                    <div class="restricted-access">
+                        <i class="fas fa-ban"></i>
+                        <h3>Acesso Restrito</h3>
+                        <p>Você não tem permissão para gerenciar usuários.</p>
+                        <p>Apenas administradores podem acessar esta funcionalidade.</p>
+                    </div>
+                `;
+                return;
             }
             
-            return centros.map(c => `<option value="${c.codigo}">${c.codigo} - ${c.nome}</option>`).join('');
+            page.innerHTML = `
+                <div class="d-flex justify-between mb-3">
+                    <h2>Gerenciamento de Usuários</h2>
+                    <button class="btn btn-primary" id="add-usuario-btn">
+                        <i class="fas fa-user-plus"></i> Novo Usuário
+                    </button>
+                </div>
+                
+                <!-- Tabela de Usuários -->
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Perfil</th>
+                                <th>Centro de Custo</th>
+                                <th>Último Acesso</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-table">
+                            <!-- Dados serão carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            setupUsuariosEvents();
+            updateUsuariosTable();
         }
         
-        function formatDate(dateString) {
-            try {
-                const date = new Date(dateString);
-                if (isNaN(date.getTime())) return 'Data inválida';
+        function setupUsuariosEvents() {
+            document.getElementById('add-usuario-btn').addEventListener('click', function() {
+                showUsuarioModal();
+            });
+        }
+        
+        function showUsuarioModal(usuario = null) {
+            const modal = document.getElementById('usuario-modal');
+            const title = document.getElementById('usuario-modal-title');
+            const form = document.getElementById('usuario-form');
+            
+            if (usuario) {
+                title.textContent = 'Editar Usuário';
+                document.getElementById('usuario-id').value = usuario.id;
+                document.getElementById('usuario-nome').value = usuario.name;
+                document.getElementById('usuario-email').value = usuario.email;
+                document.getElementById('usuario-perfil').value = usuario.role;
+                document.getElementById('usuario-status').value = usuario.status;
                 
-                const format = database.settings.dateFormat || 'dd/mm/yyyy';
-                
-                if (format === 'dd/mm/yyyy') {
-                    return date.toLocaleDateString('pt-BR');
-                } else if (format === 'mm/dd/yyyy') {
-                    return date.toLocaleDateString('en-US');
-                } else {
-                    return date.toISOString().split('T')[0];
+                // Pré-selecionar centro de custo
+                const centroSelect = document.getElementById('usuario-centro-custo');
+                centroSelect.value = usuario.centroCusto || '';
+            } else {
+                title.textContent = 'Novo Usuário';
+                form.reset();
+                document.getElementById('usuario-id').value = '';
+            }
+            
+            // Carregar centros de custo
+            const centroSelect = document.getElementById('usuario-centro-custo');
+            centroSelect.innerHTML = '<option value="">Selecione...</option>';
+            database.centrosCusto.forEach(centro => {
+                const option = document.createElement('option');
+                option.value = centro.codigo;
+                option.textContent = `${centro.codigo} - ${centro.nome}`;
+                centroSelect.appendChild(option);
+            });
+            
+            modal.style.display = 'flex';
+        }
+        
+        function saveUsuario() {
+            const id = document.getElementById('usuario-id').value;
+            const nome = document.getElementById('usuario-nome').value;
+            const email = document.getElementById('usuario-email').value;
+            const senha = document.getElementById('usuario-senha').value;
+            const perfil = document.getElementById('usuario-perfil').value;
+            const centroCusto = document.getElementById('usuario-centro-custo').value;
+            const status = document.getElementById('usuario-status').value;
+            
+            if (!nome || !email || !perfil || !centroCusto) {
+                showAlert('Preencha todos os campos obrigatórios.', 'warning');
+                return;
+            }
+            
+            if (id) {
+                // Editar
+                const usuario = database.users.find(u => u.id === parseInt(id));
+                if (usuario) {
+                    usuario.name = nome;
+                    usuario.email = email;
+                    if (senha) usuario.password = senha;
+                    usuario.role = perfil;
+                    usuario.centroCusto = centroCusto;
+                    usuario.status = status;
+                    
+                    showAlert('Usuário atualizado com sucesso!', 'success');
                 }
-            } catch (e) {
-                return dateString;
+            } else {
+                // Novo
+                if (!senha) {
+                    showAlert('Informe uma senha para o novo usuário.', 'warning');
+                    return;
+                }
+                
+                const novoUsuario = {
+                    id: database.users.length + 1,
+                    name: nome,
+                    email: email,
+                    password: senha,
+                    role: perfil,
+                    centroCusto: centroCusto,
+                    lastLogin: new Date().toISOString(),
+                    status: status
+                };
+                
+                database.users.push(novoUsuario);
+                showAlert('Usuário cadastrado com sucesso!', 'success');
+            }
+            
+            document.getElementById('usuario-modal').style.display = 'none';
+            updateUsuariosTable();
+        }
+        
+        function updateUsuariosTable() {
+            const tbody = document.getElementById('usuarios-table');
+            if (!tbody) return;
+            
+            let html = '';
+            database.users.forEach(user => {
+                const centro = database.centrosCusto.find(c => c.codigo === user.centroCusto);
+                const centroNome = centro ? `${centro.codigo} - ${centro.nome}` : 'Não vinculado';
+                
+                html += `
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td><span class="badge ${user.role === 'Administrador' ? 'badge-danger' : user.role === 'Gerente' ? 'badge-warning' : 'badge-info'}">${user.role}</span></td>
+                        <td>${centroNome}</td>
+                        <td>${formatDate(user.lastLogin)}</td>
+                        <td><span class="badge ${user.status === 'Ativo' ? 'badge-success' : 'badge-danger'}">${user.status}</span></td>
+                        <td>
+                            <button class="btn-icon edit-usuario" onclick="editUsuario(${user.id})" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            ${user.id !== currentUser.id ? `
+                            <button class="btn-icon toggle-usuario" onclick="toggleUsuarioStatus(${user.id})" 
+                                    title="${user.status === 'Ativo' ? 'Desativar' : 'Ativar'}">
+                                <i class="fas ${user.status === 'Ativo' ? 'fa-user-slash' : 'fa-user-check'}"></i>
+                            </button>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = html;
+        }
+        
+        function editUsuario(id) {
+            const usuario = database.users.find(u => u.id === id);
+            if (usuario) {
+                showUsuarioModal(usuario);
             }
         }
         
-        function formatCurrency(value) {
-            const currency = database.settings.currency || 'BRL';
-            const locale = currency === 'BRL' ? 'pt-BR' : 
-                          currency === 'USD' ? 'en-US' : 'de-DE';
+        function toggleUsuarioStatus(id) {
+            const usuario = database.users.find(u => u.id === id);
+            if (!usuario) return;
             
-            return new Intl.NumberFormat(locale, {
-                style: 'currency',
-                currency: currency
-            }).format(value || 0);
-        }
-        
-        function setupGlobalEvents() {
-            setInterval(() => {
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('pt-BR', { 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                });
-                document.title = `${database.settings.systemName} | ${timeString}`;
-            }, 60000);
+            const novaAcao = usuario.status === 'Ativo' ? 'desativar' : 'ativar';
+            
+            if (confirm(`Tem certeza que deseja ${novaAcao} o usuário "${usuario.name}"?`)) {
+                usuario.status = usuario.status === 'Ativo' ? 'Inativo' : 'Ativo';
+                updateUsuariosTable();
+                showAlert(`Usuário ${novaAcao}do com sucesso!`, 'success');
+            }
         }
 
+        // ============== DEMAIS FUNÇÕES ==============
         function loadLancamentosContent() {
             const page = document.getElementById('lancamentos');
             
             page.innerHTML = `
                 <div class="d-flex justify-between mb-3">
-                    <h2>Gerenciamento de Lançamentos</h2>
+                    <h2>Lançamentos</h2>
                     <button class="btn btn-primary" id="add-lancamento-btn">
                         <i class="fas fa-plus"></i> Novo Lançamento
                     </button>
-                </div>
-                
-                <!-- Filtros -->
-                <div class="form-container mb-3">
-                    <div class="fechamento-form">
-                        <div class="fechamento-group">
-                            <label class="fechamento-label">Data Inicial</label>
-                            <input type="date" class="fechamento-input" id="filtro-data-inicio">
-                        </div>
-                        
-                        <div class="fechamento-group">
-                            <label class="fechamento-label">Data Final</label>
-                            <input type="date" class="fechamento-input" id="filtro-data-fim">
-                        </div>
-                        
-                        <div class="fechamento-group">
-                            <label class="fechamento-label">Centro de Custo</label>
-                            <select class="fechamento-input" id="filtro-centro-lancamento">
-                                <option value="">Todos</option>
-                                ${getCentrosCustoOptions()}
-                            </select>
-                        </div>
-                        
-                        <div class="fechamento-group">
-                            <label class="fechamento-label">&nbsp;</label>
-                            <button class="btn btn-primary" id="aplicar-filtro-lancamentos">
-                                <i class="fas fa-filter"></i> Filtrar
-                            </button>
-                            <button class="btn btn-secondary" id="limpar-filtro-lancamentos">
-                                <i class="fas fa-eraser"></i> Limpar
-                            </button>
-                        </div>
-                    </div>
                 </div>
                 
                 <!-- Tabela de Lançamentos -->
@@ -3027,13 +3794,11 @@ AmazonDash
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Data</th>
                                 <th>Descrição</th>
                                 <th>Centro de Custo</th>
-                                <th>Valor (R$)</th>
+                                <th>Valor</th>
                                 <th>Categoria</th>
-                                <th>Criado por</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -3042,155 +3807,35 @@ AmazonDash
                         </tbody>
                     </table>
                 </div>
-                
-                <!-- Formulário de Lançamento (inicialmente oculto) -->
-                <div id="lancamento-form-container" style="display: none;">
-                    <div class="form-container">
-                        <h3 class="form-title" id="lancamento-form-title">Novo Lançamento</h3>
-                        <form id="lancamento-form">
-                            <input type="hidden" id="lancamento-id" value="">
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="lancamento-descricao">Descrição *</label>
-                                <input type="text" class="form-control" id="lancamento-descricao" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="lancamento-valor">Valor (R$) *</label>
-                                <input type="number" step="0.01" class="form-control" id="lancamento-valor" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="lancamento-centro-custo">Centro de Custo *</label>
-                                <select class="form-control" id="lancamento-centro-custo" required>
-                                    <option value="">Selecione...</option>
-                                    ${getCentrosCustoOptions()}
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="lancamento-categoria">Categoria *</label>
-                                <select class="form-control" id="lancamento-categoria" required>
-                                    <option value="">Selecione...</option>
-                                    <option value="Despesa">Despesa</option>
-                                    <option value="Receita">Receita</option>
-                                    <option value="Investimento">Investimento</option>
-                                    <option value="Manutenção">Manutenção</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="lancamento-data">Data *</label>
-                                <input type="date" class="form-control" id="lancamento-data" required>
-                            </div>
-                            
-                            <div class="d-flex justify-between mt-3">
-                                <button type="button" id="cancel-lancamento" class="btn">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Salvar Lançamento</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             `;
             
-            setupLancamentosEvents();
             updateLancamentosTable();
         }
-
-        function setupLancamentosEvents() {
-            // Novo lançamento
-            document.getElementById('add-lancamento-btn').addEventListener('click', function() {
-                document.getElementById('lancamento-form-container').style.display = 'block';
-                document.getElementById('lancamento-form-title').textContent = 'Novo Lançamento';
-                document.getElementById('lancamento-form').reset();
-                document.getElementById('lancamento-id').value = '';
-                document.getElementById('lancamento-data').valueAsDate = new Date();
-            });
-            
-            // Cancelar lançamento
-            document.getElementById('cancel-lancamento').addEventListener('click', function() {
-                document.getElementById('lancamento-form-container').style.display = 'none';
-            });
-            
-            // Aplicar filtro
-            document.getElementById('aplicar-filtro-lancamentos').addEventListener('click', function() {
-                updateLancamentosTable();
-            });
-            
-            // Limpar filtro
-            document.getElementById('limpar-filtro-lancamentos').addEventListener('click', function() {
-                document.getElementById('filtro-data-inicio').value = '';
-                document.getElementById('filtro-data-fim').value = '';
-                document.getElementById('filtro-centro-lancamento').value = '';
-                updateLancamentosTable();
-            });
-            
-            // Salvar lançamento
-            document.getElementById('lancamento-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                saveLancamento();
-            });
-        }
-
+        
         function updateLancamentosTable() {
             const tbody = document.getElementById('lancamentos-table');
             if (!tbody) return;
             
-            // Aplicar filtros
-            const filtroInicio = document.getElementById('filtro-data-inicio')?.value;
-            const filtroFim = document.getElementById('filtro-data-fim')?.value;
-            const filtroCentro = document.getElementById('filtro-centro-lancamento')?.value;
-            
-            let lancamentos = database.lancamentos;
-            
-            // Filtrar por data
-            if (filtroInicio) {
-                lancamentos = lancamentos.filter(l => new Date(l.data) >= new Date(filtroInicio));
-            }
-            
-            if (filtroFim) {
-                lancamentos = lancamentos.filter(l => new Date(l.data) <= new Date(filtroFim));
-            }
-            
-            // Filtrar por centro de custo
-            if (filtroCentro) {
-                lancamentos = lancamentos.filter(l => l.centroCusto === filtroCentro);
-            }
-            
-            // Filtrar por permissão do usuário
-            if (currentUser.role !== "Administrador") {
-                lancamentos = lancamentos.filter(l => 
-                    currentUser.centrosCusto.includes(l.centroCusto)
-                );
-            }
-            
-            // Ordenar por data (mais recente primeiro)
+            let lancamentos = filterByUserCentro(database.lancamentos);
             lancamentos.sort((a, b) => new Date(b.data) - new Date(a.data));
             
             if (lancamentos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center">Nenhum lançamento encontrado</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center">Nenhum lançamento encontrado</td></tr>';
                 return;
             }
             
             let html = '';
             lancamentos.forEach(l => {
-                const usuarioCriador = database.users.find(u => u.id === l.createdBy)?.name || 'Desconhecido';
-                
                 html += `
                     <tr>
-                        <td>${l.id}</td>
                         <td>${formatDate(l.data)}</td>
                         <td>${l.descricao}</td>
                         <td>${l.centroCusto}</td>
                         <td>${formatCurrency(l.valor)}</td>
                         <td><span class="badge ${getCategoriaClass(l.categoria)}">${l.categoria}</span></td>
-                        <td>${usuarioCriador}</td>
                         <td>
-                            <button class="btn-icon edit-lancamento" data-id="${l.id}" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn-icon delete-lancamento" data-id="${l.id}" title="Excluir">
-                                <i class="fas fa-trash"></i>
+                            <button class="btn-icon view-lancamento" onclick="visualizarLancamento(${l.id})" title="Visualizar">
+                                <i class="fas fa-eye"></i>
                             </button>
                         </td>
                     </tr>
@@ -3198,210 +3843,69 @@ AmazonDash
             });
             
             tbody.innerHTML = html;
-            
-            // Configurar eventos dos botões
-            document.querySelectorAll('.edit-lancamento').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    editLancamento(id);
-                });
-            });
-            
-            document.querySelectorAll('.delete-lancamento').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    deleteLancamento(id);
-                });
-            });
         }
-
-        function saveLancamento() {
-            const id = document.getElementById('lancamento-id').value;
-            const descricao = document.getElementById('lancamento-descricao').value;
-            const valor = parseFloat(document.getElementById('lancamento-valor').value);
-            const centroCusto = document.getElementById('lancamento-centro-custo').value;
-            const categoria = document.getElementById('lancamento-categoria').value;
-            const data = document.getElementById('lancamento-data').value;
-            
-            if (id) {
-                // Editar lançamento existente
-                const lancamento = database.lancamentos.find(l => l.id === parseInt(id));
-                if (lancamento) {
-                    lancamento.descricao = descricao;
-                    lancamento.valor = valor;
-                    lancamento.centroCusto = centroCusto;
-                    lancamento.categoria = categoria;
-                    lancamento.data = data;
-                    
-                    showAlert('Lançamento atualizado com sucesso!', 'success');
-                }
-            } else {
-                // Criar novo lançamento
-                const novoId = database.lancamentos.length > 0 ? 
-                    Math.max(...database.lancamentos.map(l => l.id)) + 1 : 1;
-                
-                const novoLancamento = {
-                    id: novoId,
-                    data: data,
-                    descricao: descricao,
-                    centroCusto: centroCusto,
-                    valor: valor,
-                    categoria: categoria,
-                    createdBy: currentUser.id
-                };
-                
-                database.lancamentos.push(novoLancamento);
-                showAlert('Lançamento criado com sucesso!', 'success');
-            }
-            
-            // Atualizar interface
-            document.getElementById('lancamento-form-container').style.display = 'none';
-            updateLancamentosTable();
-            
-            // Atualizar dashboard
-            if (currentPage === 'dashboard') {
-                updateDashboardData();
-            }
-        }
-
-        function editLancamento(id) {
+        
+        function visualizarLancamento(id) {
             const lancamento = database.lancamentos.find(l => l.id === id);
-            if (!lancamento) return;
-            
-            // Verificar permissão
-            if (currentUser.role !== "Administrador" && !currentUser.centrosCusto.includes(lancamento.centroCusto)) {
-                showAlert('Você não tem permissão para editar este lançamento!', 'warning');
-                return;
-            }
-            
-            // Preencher formulário
-            document.getElementById('lancamento-id').value = lancamento.id;
-            document.getElementById('lancamento-descricao').value = lancamento.descricao;
-            document.getElementById('lancamento-valor').value = lancamento.valor;
-            document.getElementById('lancamento-centro-custo').value = lancamento.centroCusto;
-            document.getElementById('lancamento-categoria').value = lancamento.categoria;
-            document.getElementById('lancamento-data').value = lancamento.data;
-            
-            // Mostrar formulário
-            document.getElementById('lancamento-form-container').style.display = 'block';
-            document.getElementById('lancamento-form-title').textContent = 'Editar Lançamento';
-        }
-
-        function deleteLancamento(id) {
-            const lancamento = database.lancamentos.find(l => l.id === id);
-            if (!lancamento) return;
-            
-            // Verificar permissão
-            if (currentUser.role !== "Administrador" && !currentUser.centrosCusto.includes(lancamento.centroCusto)) {
-                showAlert('Você não tem permissão para excluir este lançamento!', 'warning');
-                return;
-            }
-            
-            if (confirm('Tem certeza que deseja excluir este lançamento?')) {
-                const index = database.lancamentos.findIndex(l => l.id === id);
-                if (index !== -1) {
-                    database.lancamentos.splice(index, 1);
-                    updateLancamentosTable();
-                    showAlert('Lançamento excluído com sucesso!', 'success');
-                }
+            if (lancamento) {
+                showAlert(`Lançamento: ${lancamento.descricao} - ${formatCurrency(lancamento.valor)}`, 'info');
             }
         }
-
+        
         function loadCentroCustoContent() {
             const page = document.getElementById('centro-custo');
             
+            if (currentUser.role === 'Usuário') {
+                page.innerHTML = `
+                    <div class="restricted-access">
+                        <i class="fas fa-ban"></i>
+                        <h3>Acesso Restrito</h3>
+                        <p>Usuários não têm acesso à funcionalidade de centros de custo.</p>
+                    </div>
+                `;
+                return;
+            }
+            
             page.innerHTML = `
-                <div id="restricted-centro-custo" class="restricted-access" style="display: none;">
-                    <i class="fas fa-ban"></i>
-                    <h3>Acesso Restrito</h3>
-                    <p>Você não tem permissão para acessar todos os centros de custo.</p>
-                    <p>Seu acesso está limitado aos centros de custo designados para o seu usuário.</p>
-                </div>
+                <h2>Centros de Custo</h2>
                 
-                <div id="centro-custo-content">
-                    <div class="d-flex justify-between mb-3">
-                        <h2>Centros de Custo</h2>
-                        <button class="btn btn-primary" id="add-centro-custo-btn" style="display: none;">
-                            <i class="fas fa-plus"></i> Novo Centro de Custo
-                        </button>
-                    </div>
-                    
-                    <!-- Tabela de Centros de Custo -->
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Nome</th>
-                                    <th>Responsável</th>
-                                    <th>Orçamento (R$)</th>
-                                    <th>Gasto (R$)</th>
-                                    <th>Saldo (R$)</th>
-                                    <th>Status</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody id="centro-custo-table">
-                                <!-- Dados serão carregados via JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nome</th>
+                                <th>Responsável</th>
+                                <th>Orçamento</th>
+                                <th>Gasto</th>
+                                <th>Saldo</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="centro-custo-table">
+                            <!-- Dados serão carregados via JavaScript -->
+                        </tbody>
+                    </table>
                 </div>
             `;
             
-            checkCentroCustoAccess();
             updateCentroCustoTable();
         }
-
-        function checkCentroCustoAccess() {
-            const restrictedDiv = document.getElementById('restricted-centro-custo');
-            const contentDiv = document.getElementById('centro-custo-content');
-            const addButton = document.getElementById('add-centro-custo-btn');
-            
-            if (currentUser.role === "Administrador") {
-                restrictedDiv.style.display = 'none';
-                contentDiv.style.display = 'block';
-                addButton.style.display = 'inline-block';
-                
-                // Configurar evento do botão de adicionar
-                addButton.addEventListener('click', function() {
-                    addCentroCusto();
-                });
-            } else {
-                // Verificar se o usuário tem acesso a algum centro de custo
-                if (currentUser.centrosCusto && currentUser.centrosCusto.length > 0) {
-                    restrictedDiv.style.display = 'none';
-                    contentDiv.style.display = 'block';
-                    addButton.style.display = 'none';
-                } else {
-                    restrictedDiv.style.display = 'block';
-                    contentDiv.style.display = 'none';
-                }
-            }
-        }
-
+        
         function updateCentroCustoTable() {
             const tbody = document.getElementById('centro-custo-table');
             if (!tbody) return;
             
-            // Filtrar centros de custo por permissão do usuário
-            let centrosExibidos = database.centrosCusto;
+            let centros = getCentrosCustoForUser();
             
-            if (currentUser.role !== "Administrador") {
-                centrosExibidos = database.centrosCusto.filter(c => 
-                    currentUser.centrosCusto.includes(c.codigo)
-                );
-            }
-            
-            if (centrosExibidos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center">Nenhum centro de custo encontrado</td></tr>';
+            if (centros.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center">Nenhum centro de custo encontrado</td></tr>';
                 return;
             }
             
             let html = '';
-            centrosExibidos.forEach(centro => {
+            centros.forEach(centro => {
                 const saldo = centro.orcamento - centro.gasto;
-                const percentualUso = centro.orcamento > 0 ? (centro.gasto / centro.orcamento) * 100 : 0;
                 
                 html += `
                     <tr>
@@ -3411,72 +3915,27 @@ AmazonDash
                         <td>${formatCurrency(centro.orcamento)}</td>
                         <td>${formatCurrency(centro.gasto)}</td>
                         <td class="${saldo < 0 ? 'danger-text' : 'success-text'}">${formatCurrency(saldo)}</td>
-                        <td>
-                            <span class="badge ${centro.status === 'Ativo' ? 'badge-success' : 'badge-danger'}">
-                                ${centro.status}
-                            </span>
-                            <div class="progress" style="height: 5px; width: 100px; margin-top: 5px;">
-                                <div class="progress-bar ${percentualUso > 90 ? 'bg-danger' : percentualUso > 70 ? 'bg-warning' : 'bg-success'}" 
-                                     style="width: ${Math.min(percentualUso, 100)}%"></div>
-                            </div>
-                        </td>
-                        <td>
-                            <button class="btn-icon edit-centro" data-codigo="${centro.codigo}" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            ${currentUser.role === "Administrador" ? `
-                            <button class="btn-icon toggle-centro" data-codigo="${centro.codigo}" 
-                                    title="${centro.status === 'Ativo' ? 'Desativar' : 'Ativar'}">
-                                <i class="fas ${centro.status === 'Ativo' ? 'fa-ban' : 'fa-check'}"></i>
-                            </button>` : ''}
-                        </td>
+                        <td><span class="badge ${centro.status === 'Ativo' ? 'badge-success' : 'badge-danger'}">${centro.status}</span></td>
                     </tr>
                 `;
             });
             
             tbody.innerHTML = html;
-            
-            // Configurar eventos dos botões
-            document.querySelectorAll('.edit-centro').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const codigo = this.getAttribute('data-codigo');
-                    editCentroCusto(codigo);
-                });
-            });
-            
-            document.querySelectorAll('.toggle-centro').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const codigo = this.getAttribute('data-codigo');
-                    toggleCentroCustoStatus(codigo);
-                });
-            });
-        }
-
-        function addCentroCusto() {
-            // Implementar adição de centro de custo
-            showAlert('Funcionalidade de adicionar centro de custo em desenvolvimento', 'info');
-        }
-
-        function editCentroCusto(codigo) {
-            // Implementar edição de centro de custo
-            showAlert('Funcionalidade de editar centro de custo em desenvolvimento', 'info');
-        }
-
-        function toggleCentroCustoStatus(codigo) {
-            const centro = database.centrosCusto.find(c => c.codigo === codigo);
-            if (!centro) return;
-            
-            const novaAcao = centro.status === 'Ativo' ? 'desativar' : 'ativar';
-            
-            if (confirm(`Tem certeza que deseja ${novaAcao} o centro de custo "${centro.nome}"?`)) {
-                centro.status = centro.status === 'Ativo' ? 'Inativo' : 'Ativo';
-                updateCentroCustoTable();
-                showAlert(`Centro de custo ${novaAcao}do com sucesso!`, 'success');
-            }
         }
         
         function loadUploadExcelContent() {
             const page = document.getElementById('upload-excel');
+            
+            if (currentUser.role === 'Usuário') {
+                page.innerHTML = `
+                    <div class="restricted-access">
+                        <i class="fas fa-ban"></i>
+                        <h3>Acesso Restrito</h3>
+                        <p>Usuários não têm acesso à importação de arquivos.</p>
+                    </div>
+                `;
+                return;
+            }
             
             page.innerHTML = `
                 <div class="form-container">
@@ -3501,31 +3960,16 @@ AmazonDash
                             <label class="form-label">Arquivo selecionado:</label>
                             <div id="selected-file-name" class="text-success"></div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="sheet-select">Planilha:</label>
-                            <select class="form-control" id="sheet-select">
-                                <option>Planilha1</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="start-row">Linha de início dos dados:</label>
-                            <input type="number" class="form-control" id="start-row" value="2" min="1">
-                        </div>
-                        
                         <button class="btn btn-success btn-block" id="import-btn">
                             <i class="fas fa-upload"></i> Importar Dados
                         </button>
                     </div>
-                    
-                    <div id="import-results" style="display: none; margin-top: 20px;"></div>
                 </div>
             `;
             
             setupFileUpload();
         }
-
+        
         function setupFileUpload() {
             const dropArea = document.getElementById('drop-area');
             const fileInput = document.getElementById('file-input');
@@ -3533,7 +3977,6 @@ AmazonDash
             
             if (!dropArea || !fileInput || !browseBtn) return;
             
-            // Prevenir comportamentos padrão para drag and drop
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropArea.addEventListener(eventName, preventDefaults, false);
             });
@@ -3543,7 +3986,6 @@ AmazonDash
                 e.stopPropagation();
             }
             
-            // Destacar área de drop
             ['dragenter', 'dragover'].forEach(eventName => {
                 dropArea.addEventListener(eventName, highlight, false);
             });
@@ -3562,7 +4004,6 @@ AmazonDash
                 dropArea.style.backgroundColor = '';
             }
             
-            // Lidar com arquivo dropado
             dropArea.addEventListener('drop', handleDrop, false);
             
             function handleDrop(e) {
@@ -3574,128 +4015,73 @@ AmazonDash
                 }
             }
             
-            // Botão para selecionar arquivo
             browseBtn.addEventListener('click', function() {
                 fileInput.click();
             });
             
-            // Lidar com seleção de arquivo
             fileInput.addEventListener('change', function() {
                 if (this.files.length) {
                     handleFiles(this.files);
                 }
             });
             
-            // Botão de importação
             const importBtn = document.getElementById('import-btn');
             if (importBtn) {
                 importBtn.addEventListener('click', simulateExcelImport);
             }
         }
-
+        
         function handleFiles(files) {
             const file = files[0];
             
-            // Verificar se é um arquivo Excel
             if (!file.name.match(/\.(xlsx|xls)$/i)) {
                 alert('Por favor, selecione um arquivo Excel (.xlsx ou .xls)');
                 return;
             }
             
-            // Mostrar informações do arquivo
             document.getElementById('selected-file-name').textContent = 
                 file.name + ' (' + (file.size / 1024).toFixed(2) + ' KB)';
             document.getElementById('file-info').style.display = 'block';
         }
-
+        
         function simulateExcelImport() {
-            // Simular processamento
-            const importResults = document.getElementById('import-results');
-            importResults.innerHTML = `
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i> Importação concluída com sucesso!<br><br>
-                    <strong>15 registros importados</strong><br>
-                    <strong>2 registros com erro</strong> (verifique os dados)<br><br>
-                    <button class="btn btn-sm btn-primary" id="ver-detalhes">Ver detalhes da importação</button>
-                </div>
-            `;
-            importResults.style.display = 'block';
-            
-            // Simular adição de novos dados ao banco
-            for (let i = 0; i < 5; i++) {
-                const newId = database.lancamentos.length > 0 ? 
-                    Math.max(...database.lancamentos.map(l => l.id)) + 1 : 1;
-                
-                const novoLancamento = {
-                    id: newId,
-                    data: `2026-01-${15 + i}`,
-                    descricao: `Lançamento importado ${i + 1}`,
-                    centroCusto: ['ADM', 'VENDAS', 'PROD', 'TI', 'RH'][i % 5],
-                    valor: Math.random() * 5000 + 1000,
-                    categoria: ['Despesa', 'Receita', 'Investimento'][i % 3],
-                    createdBy: currentUser.id
-                };
-                
-                database.lancamentos.push(novoLancamento);
-            }
-            
-            showAlert('Dados do Excel importados com sucesso!', 'success');
-            
-            // Atualizar páginas se necessário
-            if (currentPage === 'lancamentos') {
-                updateLancamentosTable();
-            }
-            
-            // Configurar botão de detalhes
-            document.getElementById('ver-detalhes').addEventListener('click', function() {
-                alert('Detalhes da importação:\n\n' +
-                      '• 15 registros processados\n' +
-                      '• 13 registros importados com sucesso\n' +
-                      '• 2 registros com erro de formatação\n' +
-                      '• Dados atualizados no sistema');
-            });
+            showAlert('Importação simulada: 15 registros importados com sucesso!', 'success');
+            document.getElementById('file-info').style.display = 'none';
         }
         
         function loadRelatoriosContent() {
             const page = document.getElementById('relatorios');
             
+            if (currentUser.role === 'Usuário') {
+                page.innerHTML = `
+                    <div class="restricted-access">
+                        <i class="fas fa-ban"></i>
+                        <h3>Acesso Restrito</h3>
+                        <p>Usuários não têm acesso à funcionalidade de relatórios.</p>
+                    </div>
+                `;
+                return;
+            }
+            
             page.innerHTML = `
-                <h2>Relatórios Personalizáveis</h2>
+                <h2>Relatórios</h2>
                 
                 <div class="dashboard-customizer mb-3">
-                    <h3>Construtor de Relatórios</h3>
-                    <p>Selecione os dados e visualize seu relatório personalizado</p>
+                    <h3>Gerar Relatórios</h3>
                     
                     <div class="fechamento-form">
                         <div class="fechamento-group">
-                            <label class="fechamento-label">Tipo de Gráfico</label>
-                            <select class="fechamento-input" id="chart-type">
-                                <option value="bar">Gráfico de Barras</option>
-                                <option value="line">Gráfico de Linhas</option>
-                                <option value="pie">Gráfico de Pizza</option>
-                                <option value="doughnut">Gráfico de Rosca</option>
+                            <label class="fechamento-label">Tipo de Relatório</label>
+                            <select class="fechamento-input" id="report-type">
+                                <option value="fechamentos">Fechamentos Diários</option>
+                                <option value="convenios">Convênios</option>
+                                <option value="lancamentos">Lançamentos</option>
+                                <option value="centros">Centros de Custo</option>
+                                <option value="taxas">Taxas Bancárias</option>
+                                <option value="despesas">Despesas</option>
                             </select>
                         </div>
                         
-                        <div class="fechamento-group">
-                            <label class="fechamento-label">Eixo X (Categorias)</label>
-                            <select class="fechamento-input" id="x-axis">
-                                <option value="categoria">Categoria</option>
-                                <option value="centro_custo">Centro de Custo</option>
-                                <option value="mes">Mês</option>
-                            </select>
-                        </div>
-                        
-                        <div class="fechamento-group">
-                            <label class="fechamento-label">Eixo Y (Valores)</label>
-                            <select class="fechamento-input" id="y-axis">
-                                <option value="valor">Valor Total</option>
-                                <option value="quantidade">Quantidade</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="fechamento-form">
                         <div class="fechamento-group">
                             <label class="fechamento-label">Período</label>
                             <input type="month" class="fechamento-input" id="report-month" 
@@ -3703,456 +4089,299 @@ AmazonDash
                         </div>
                         
                         <div class="fechamento-group">
+                            <label class="fechamento-label">Centro de Custo</label>
+                            <select class="fechamento-input" id="report-centro">
+                                <option value="">Todos</option>
+                                ${getCentrosCustoOptions()}
+                            </select>
+                        </div>
+                        
+                        <div class="fechamento-group">
                             <label class="fechamento-label">&nbsp;</label>
-                            <button class="btn btn-primary" id="generate-report">
+                            <button class="btn btn-primary" id="generate-report-btn">
                                 <i class="fas fa-chart-bar"></i> Gerar Relatório
                             </button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="chart-container">
-                    <div class="chart-header">
-                        <div class="chart-title">Relatório Personalizado</div>
-                        <button class="btn btn-sm btn-secondary" id="export-report">
-                            <i class="fas fa-download"></i> Exportar
-                        </button>
-                    </div>
-                    <canvas id="customReportChart"></canvas>
-                </div>
-                
-                <div class="table-container mt-3" id="report-table-container" style="display: none;">
-                    <h4>Dados do Relatório</h4>
-                    <table class="table">
-                        <thead id="report-table-head">
-                            <!-- Cabeçalho será gerado dinamicamente -->
-                        </thead>
-                        <tbody id="report-table-body">
-                            <!-- Dados serão gerados dinamicamente -->
-                        </tbody>
-                    </table>
+                <div id="report-result" class="table-container">
+                    <!-- Resultado do relatório será carregado aqui -->
                 </div>
             `;
-            setupReportGenerator();
-        }
-
-        function setupReportGenerator() {
-            document.getElementById('generate-report').addEventListener('click', function() {
-                generateReport();
-            });
             
-            document.getElementById('export-report').addEventListener('click', function() {
-                exportReport();
-            });
-        }
-
-        function generateReport() {
-            const chartType = document.getElementById('chart-type').value;
-            const xAxis = document.getElementById('x-axis').value;
-            const yAxis = document.getElementById('y-axis').value;
-            const month = document.getElementById('report-month').value;
-            
-            // Gerar dados de exemplo baseado nas seleções
-            let labels = [];
-            let data = [];
-            let tableData = [];
-            
-            if (xAxis === 'categoria') {
-                labels = ['Despesa', 'Receita', 'Investimento', 'Manutenção'];
-                data = [65000, 32000, 15000, 8000];
-                tableData = [
-                    { categoria: 'Despesa', valor: 65000, quantidade: 45 },
-                    { categoria: 'Receita', valor: 32000, quantidade: 12 },
-                    { categoria: 'Investimento', valor: 15000, quantidade: 5 },
-                    { categoria: 'Manutenção', valor: 8000, quantidade: 8 }
-                ];
-            } else if (xAxis === 'centro_custo') {
-                labels = database.centrosCusto.map(c => c.nome);
-                data = database.centrosCusto.map(c => c.gasto);
-                tableData = database.centrosCusto.map(c => ({
-                    centro: c.nome,
-                    orcamento: c.orcamento,
-                    gasto: c.gasto,
-                    saldo: c.orcamento - c.gasto
-                }));
-            } else if (xAxis === 'mes') {
-                labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
-                data = [12000, 19000, 15000, 25000, 22000, 30000];
-                tableData = labels.map((mes, i) => ({
-                    mes: mes,
-                    valor: data[i],
-                    variacao: i > 0 ? ((data[i] - data[i-1]) / data[i-1] * 100).toFixed(1) + '%' : '-'
-                }));
-            }
-            
-            // Atualizar o gráfico
-            const chartCanvas = document.getElementById('customReportChart');
-            const ctx = chartCanvas.getContext('2d');
-            
-            // Destruir gráfico anterior se existir
-            if (window.reportChart) {
-                window.reportChart.destroy();
-            }
-            
-            window.reportChart = new Chart(ctx, {
-                type: chartType,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: yAxis === 'valor' ? 'Valor Total (R$)' : 'Quantidade',
-                        data: data,
-                        backgroundColor: chartType === 'line' ? 
-                            'rgba(52, 152, 219, 0.1)' : 
-                            ['rgba(52, 152, 219, 0.7)', 'rgba(39, 174, 96, 0.7)', 'rgba(241, 196, 15, 0.7)', 'rgba(155, 89, 182, 0.7)', 'rgba(231, 76, 60, 0.7)'],
-                        borderColor: 'rgba(52, 152, 219, 1)',
-                        borderWidth: chartType === 'line' ? 3 : 1,
-                        fill: chartType === 'line'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: chartType !== 'pie' && chartType !== 'doughnut' ? {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return yAxis === 'quantidade' ? 
-                                        value : 'R$ ' + value.toLocaleString('pt-BR');
-                                }
-                            }
-                        }
-                    } : {}
-                }
-            });
-            
-            // Atualizar tabela de dados
-            updateReportTable(xAxis, tableData);
-            
-            showAlert('Relatório gerado com sucesso!', 'success');
-        }
-
-        function updateReportTable(xAxis, data) {
-            const container = document.getElementById('report-table-container');
-            const thead = document.getElementById('report-table-head');
-            const tbody = document.getElementById('report-table-body');
-            
-            container.style.display = 'block';
-            thead.innerHTML = '';
-            tbody.innerHTML = '';
-            
-            let headers = [];
-            if (xAxis === 'categoria') {
-                headers = ['Categoria', 'Valor Total (R$)', 'Quantidade'];
-            } else if (xAxis === 'centro_custo') {
-                headers = ['Centro de Custo', 'Orçamento (R$)', 'Gasto (R$)', 'Saldo (R$)'];
-            } else if (xAxis === 'mes') {
-                headers = ['Mês', 'Valor (R$)', 'Variação'];
-            }
-            
-            // Criar cabeçalho
-            let headerRow = '<tr>';
-            headers.forEach(header => {
-                headerRow += `<th>${header}</th>`;
-            });
-            headerRow += '</tr>';
-            thead.innerHTML = headerRow;
-            
-            // Criar linhas de dados
-            data.forEach(item => {
-                let row = '<tr>';
-                if (xAxis === 'categoria') {
-                    row += `<td>${item.categoria}</td>`;
-                    row += `<td>${formatCurrency(item.valor)}</td>`;
-                    row += `<td>${item.quantidade}</td>`;
-                } else if (xAxis === 'centro_custo') {
-                    row += `<td>${item.centro}</td>`;
-                    row += `<td>${formatCurrency(item.orcamento)}</td>`;
-                    row += `<td>${formatCurrency(item.gasto)}</td>`;
-                    row += `<td class="${item.saldo < 0 ? 'danger-text' : 'success-text'}">${formatCurrency(item.saldo)}</td>`;
-                } else if (xAxis === 'mes') {
-                    row += `<td>${item.mes}</td>`;
-                    row += `<td>${formatCurrency(item.valor)}</td>`;
-                    row += `<td>${item.variacao}</td>`;
-                }
-                row += '</tr>';
-                tbody.innerHTML += row;
-            });
-        }
-
-        function exportReport() {
-            // Simular exportação
-            showAlert('Relatório exportado com sucesso! (simulação)', 'success');
+            setupReportEvents();
         }
         
-        function loadUsuariosContent() {
-            const page = document.getElementById('usuarios');
+        function setupReportEvents() {
+            document.getElementById('generate-report-btn').addEventListener('click', function() {
+                generateReport();
+            });
+        }
+        
+        function generateReport() {
+            const tipo = document.getElementById('report-type').value;
+            const mes = document.getElementById('report-month').value;
+            const centro = document.getElementById('report-centro').value;
             
-            page.innerHTML = `
-                <div id="restricted-usuarios" class="restricted-access" style="display: none;">
-                    <i class="fas fa-ban"></i>
-                    <h3>Acesso Restrito</h3>
-                    <p>Você não tem permissão para gerenciar usuários.</p>
-                    <p>Apenas administradores podem acessar esta funcionalidade.</p>
-                </div>
-                
-                <div id="usuarios-content">
-                    <div class="d-flex justify-between mb-3">
-                        <h2>Gerenciamento de Usuários</h2>
-                        <button class="btn btn-primary" id="add-usuario-btn">
-                            <i class="fas fa-user-plus"></i> Novo Usuário
-                        </button>
-                    </div>
+            let dados = [];
+            let titulo = '';
+            let headers = [];
+            
+            switch(tipo) {
+                case 'fechamentos':
+                    titulo = 'Relatório de Fechamentos Diários';
+                    headers = ['Data', 'Responsável', 'Centro', 'Faturamento', 'Despesas', 'Taxas', 'Total Líquido'];
                     
-                    <!-- Tabela de Usuários -->
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Perfil</th>
-                                    <th>Centros de Custo</th>
-                                    <th>Último Acesso</th>
-                                    <th>Status</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody id="usuarios-table">
-                                <!-- Dados serão carregados via JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            `;
-            
-            checkUsuariosAccess();
-            updateUsuariosTable();
-        }
-
-        function checkUsuariosAccess() {
-            const restrictedDiv = document.getElementById('restricted-usuarios');
-            const contentDiv = document.getElementById('usuarios-content');
-            
-            if (currentUser.role === "Administrador") {
-                restrictedDiv.style.display = 'none';
-                contentDiv.style.display = 'block';
-                
-                // Configurar evento do botão de adicionar
-                document.getElementById('add-usuario-btn').addEventListener('click', function() {
-                    addUsuario();
-                });
-            } else {
-                restrictedDiv.style.display = 'block';
-                contentDiv.style.display = 'none';
+                    dados = filterByUserCentro(database.fechamentosDiarios);
+                    if (centro) dados = dados.filter(f => f.centroCusto === centro);
+                    if (mes) {
+                        const [ano, mesNum] = mes.split('-');
+                        dados = dados.filter(f => {
+                            const data = new Date(f.data);
+                            return data.getFullYear() == ano && (data.getMonth() + 1) == mesNum;
+                        });
+                    }
+                    break;
+                    
+                case 'convenios':
+                    titulo = 'Relatório de Convênios';
+                    headers = ['Nome', 'Documento', 'Tipo', 'Centro', 'Status'];
+                    
+                    dados = filterByUserCentro(database.convenios);
+                    if (centro) dados = dados.filter(c => c.centroCusto === centro);
+                    break;
+                    
+                case 'taxas':
+                    titulo = 'Relatório de Taxas Bancárias';
+                    headers = ['Data', 'Banco', 'Valor', 'Centro'];
+                    
+                    dados = [];
+                    const fechamentos = filterByUserCentro(database.fechamentosDiarios);
+                    fechamentos.forEach(f => {
+                        if (f.taxasBancarias) {
+                            f.taxasBancarias.forEach(t => {
+                                dados.push({
+                                    data: f.data,
+                                    banco: t.bancoNome,
+                                    valor: t.valor,
+                                    centro: f.centroCusto
+                                });
+                            });
+                        }
+                    });
+                    
+                    if (centro) dados = dados.filter(d => d.centro === centro);
+                    if (mes) {
+                        const [ano, mesNum] = mes.split('-');
+                        dados = dados.filter(d => {
+                            const data = new Date(d.data);
+                            return data.getFullYear() == ano && (data.getMonth() + 1) == mesNum;
+                        });
+                    }
+                    break;
+                    
+                case 'despesas':
+                    titulo = 'Relatório de Despesas';
+                    headers = ['Data', 'Tipo', 'Descrição', 'Valor', 'Centro'];
+                    
+                    dados = [];
+                    const fechamentosD = filterByUserCentro(database.fechamentosDiarios);
+                    fechamentosD.forEach(f => {
+                        if (f.despesas) {
+                            f.despesas.forEach(d => {
+                                dados.push({
+                                    data: f.data,
+                                    tipo: d.tipo,
+                                    descricao: d.descricao,
+                                    valor: d.valor,
+                                    centro: f.centroCusto
+                                });
+                            });
+                        }
+                    });
+                    
+                    if (centro) dados = dados.filter(d => d.centro === centro);
+                    if (mes) {
+                        const [ano, mesNum] = mes.split('-');
+                        dados = dados.filter(d => {
+                            const data = new Date(d.data);
+                            return data.getFullYear() == ano && (data.getMonth() + 1) == mesNum;
+                        });
+                    }
+                    break;
+                    
+                default:
+                    showAlert('Tipo de relatório não implementado.', 'warning');
+                    return;
             }
+            
+            mostrarRelatorio(titulo, headers, dados, tipo);
         }
-
-        function updateUsuariosTable() {
-            const tbody = document.getElementById('usuarios-table');
-            if (!tbody) return;
+        
+        function mostrarRelatorio(titulo, headers, dados, tipo) {
+            const container = document.getElementById('report-result');
             
-            // Filtrar usuários (administrador vê todos, outros só veem a si mesmos)
-            let usuariosExibidos = database.users;
-            
-            if (currentUser.role !== "Administrador") {
-                usuariosExibidos = database.users.filter(u => u.id === currentUser.id);
-            }
-            
-            if (usuariosExibidos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center">Nenhum usuário encontrado</td></tr>';
+            if (dados.length === 0) {
+                container.innerHTML = '<div class="alert alert-warning">Nenhum dado encontrado para os filtros selecionados.</div>';
                 return;
             }
             
-            let html = '';
-            usuariosExibidos.forEach(user => {
-                // Mostrar centros de custo do usuário
-                const centrosText = user.centrosCusto && user.centrosCusto.length > 0 
-                    ? user.centrosCusto.join(', ')
-                    : 'Nenhum';
+            let html = `
+                <h3 class="mb-3">${titulo}</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            ${headers.map(h => `<th>${h}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            let totalGeral = 0;
+            
+            dados.forEach(item => {
+                html += '<tr>';
                 
+                if (tipo === 'fechamentos') {
+                    html += `
+                        <td>${formatDate(item.data)}</td>
+                        <td>${item.responsavel}</td>
+                        <td>${item.centroCusto}</td>
+                        <td>${formatCurrency(item.totalFaturamentos)}</td>
+                        <td>${formatCurrency(item.totalDespesas)}</td>
+                        <td>${formatCurrency(item.totalTaxas)}</td>
+                        <td><strong>${formatCurrency(item.totalDiaria)}</strong></td>
+                    `;
+                    totalGeral += item.totalDiaria;
+                } else if (tipo === 'convenios') {
+                    html += `
+                        <td>${item.nome}</td>
+                        <td>${item.documento}</td>
+                        <td>${item.tipo}</td>
+                        <td>${item.centroCusto || 'Não vinculado'}</td>
+                        <td><span class="badge ${item.status === 'Ativo' ? 'badge-success' : 'badge-danger'}">${item.status}</span></td>
+                    `;
+                } else if (tipo === 'taxas') {
+                    html += `
+                        <td>${formatDate(item.data)}</td>
+                        <td>${item.banco}</td>
+                        <td>${formatCurrency(item.valor)}</td>
+                        <td>${item.centro}</td>
+                    `;
+                    totalGeral += item.valor;
+                } else if (tipo === 'despesas') {
+                    html += `
+                        <td>${formatDate(item.data)}</td>
+                        <td>${item.tipo}</td>
+                        <td>${item.descricao}</td>
+                        <td>${formatCurrency(item.valor)}</td>
+                        <td>${item.centro}</td>
+                    `;
+                    totalGeral += item.valor;
+                }
+                
+                html += '</tr>';
+            });
+            
+            if (totalGeral > 0) {
                 html += `
-                    <tr>
-                        <td>${user.id}</td>
-                        <td>${user.name}</td>
-                        <td>${user.email}</td>
-                        <td><span class="badge ${user.role === 'Administrador' ? 'badge-danger' : 'badge-primary'}">${user.role}</span></td>
-                        <td title="${centrosText}">${centrosText.length > 30 ? centrosText.substring(0, 30) + '...' : centrosText}</td>
-                        <td>${formatDate(user.lastLogin)}</td>
-                        <td><span class="badge ${user.status === 'Ativo' ? 'badge-success' : 'badge-danger'}">${user.status}</span></td>
-                        <td>
-                            <button class="btn-icon edit-usuario" data-id="${user.id}" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            ${currentUser.role === "Administrador" && user.id !== currentUser.id ? `
-                            <button class="btn-icon toggle-usuario" data-id="${user.id}" 
-                                    title="${user.status === 'Ativo' ? 'Desativar' : 'Ativar'}">
-                                <i class="fas ${user.status === 'Ativo' ? 'fa-user-slash' : 'fa-user-check'}"></i>
-                            </button>
-                            ` : ''}
-                        </td>
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td colspan="${headers.length - 1}" class="text-right">Total Geral:</td>
+                        <td>${formatCurrency(totalGeral)}</td>
                     </tr>
                 `;
-            });
-            
-            tbody.innerHTML = html;
-            
-            // Configurar eventos dos botões
-            document.querySelectorAll('.edit-usuario').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    editUsuario(id);
-                });
-            });
-            
-            document.querySelectorAll('.toggle-usuario').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    toggleUsuarioStatus(id);
-                });
-            });
-        }
-
-        function addUsuario() {
-            // Implementar adição de usuário
-            showAlert('Funcionalidade de adicionar usuário em desenvolvimento', 'info');
-        }
-
-        function editUsuario(id) {
-            // Implementar edição de usuário
-            showAlert('Funcionalidade de editar usuário em desenvolvimento', 'info');
-        }
-
-        function toggleUsuarioStatus(id) {
-            const usuario = database.users.find(u => u.id === id);
-            if (!usuario) return;
-            
-            const novaAcao = usuario.status === 'Ativo' ? 'desativar' : 'ativar';
-            
-            if (confirm(`Tem certeza que deseja ${novaAcao} o usuário "${usuario.name}"?`)) {
-                usuario.status = usuario.status === 'Ativo' ? 'Inativo' : 'Ativo';
-                updateUsuariosTable();
-                showAlert(`Usuário ${novaAcao}do com sucesso!`, 'success');
             }
-        }
-
-        // ============== PÁGINA: CONFIGURAÇÕES ==============
-        function loadConfiguracoesContent() {
-            const page = document.getElementById('configuracoes');
             
-            page.innerHTML = `
-                <div id="restricted-config" class="restricted-access" style="display: none;">
-                    <i class="fas fa-ban"></i>
-                    <h3>Acesso Restrito</h3>
-                    <p>Você não tem permissão para alterar as configurações do sistema.</p>
-                    <p>Apenas administradores podem acessar esta funcionalidade.</p>
-                </div>
-                
-                <div id="config-content">
-                    <div class="form-container">
-                        <h3 class="form-title">Configurações do Sistema</h3>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="system-name">Nome do Sistema</label>
-                            <input type="text" class="form-control" id="system-name" value="${database.settings.systemName}">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="system-currency">Moeda Padrão</label>
-                            <select class="form-control" id="system-currency">
-                                <option value="BRL" ${database.settings.currency === 'BRL' ? 'selected' : ''}>Real Brasileiro (R$)</option>
-                                <option value="USD" ${database.settings.currency === 'USD' ? 'selected' : ''}>Dólar Americano ($)</option>
-                                <option value="EUR" ${database.settings.currency === 'EUR' ? 'selected' : ''}>Euro (€)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="date-format">Formato de Data</label>
-                            <select class="form-control" id="date-format">
-                                <option value="dd/mm/yyyy" ${database.settings.dateFormat === 'dd/mm/yyyy' ? 'selected' : ''}>DD/MM/YYYY</option>
-                                <option value="mm/dd/yyyy" ${database.settings.dateFormat === 'mm/dd/yyyy' ? 'selected' : ''}>MM/DD/YYYY</option>
-                                <option value="yyyy-mm-dd" ${database.settings.dateFormat === 'yyyy-mm-dd' ? 'selected' : ''}>YYYY-MM-DD</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="session-timeout">Tempo de Sessão (minutos)</label>
-                            <input type="number" class="form-control" id="session-timeout" 
-                                   value="${database.settings.sessionTimeout}" min="5" max="120">
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="email-notifications" 
-                                       ${database.settings.emailNotifications ? 'checked' : ''}>
-                                <label class="form-check-label" for="email-notifications">Ativar notificações por email</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="backup-automatico" 
-                                       ${database.settings.backupAutomatico ? 'checked' : ''}>
-                                <label class="form-check-label" for="backup-automatico">Backup automático diário</label>
-                            </div>
-                        </div>
-                        
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle"></i> As alterações serão aplicadas após salvar e recarregar o sistema.
-                        </div>
-                        
-                        <button class="btn btn-primary btn-block" id="save-settings">
-                            <i class="fas fa-save"></i> Salvar Configurações
-                        </button>
-                    </div>
+            html += `
+                    </tbody>
+                </table>
+                <div class="mt-3 text-right">
+                    <button class="btn btn-primary" onclick="imprimirRelatorio()">
+                        <i class="fas fa-print"></i> Imprimir Relatório
+                    </button>
                 </div>
             `;
             
-            checkConfigAccess();
-            setupConfigEvents();
+            container.innerHTML = html;
         }
-
-        function checkConfigAccess() {
-            const restrictedDiv = document.getElementById('restricted-config');
-            const contentDiv = document.getElementById('config-content');
+        
+        function imprimirRelatorio() {
+            window.print();
+        }
+        
+        function loadConfiguracoesContent() {
+            const page = document.getElementById('configuracoes');
             
-            if (currentUser.role === "Administrador") {
-                restrictedDiv.style.display = 'none';
-                contentDiv.style.display = 'block';
-            } else {
-                restrictedDiv.style.display = 'block';
-                contentDiv.style.display = 'none';
+            if (currentUser.role !== "Administrador") {
+                page.innerHTML = `
+                    <div class="restricted-access">
+                        <i class="fas fa-ban"></i>
+                        <h3>Acesso Restrito</h3>
+                        <p>Você não tem permissão para acessar as configurações do sistema.</p>
+                    </div>
+                `;
+                return;
             }
-        }
-
-        function setupConfigEvents() {
+            
+            page.innerHTML = `
+                <div class="form-container">
+                    <h3 class="form-title">Configurações do Sistema</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="system-name">Nome do Sistema</label>
+                        <input type="text" class="form-control" id="system-name" value="${database.settings.systemName}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="session-timeout">Tempo de Sessão (minutos)</label>
+                        <input type="number" class="form-control" id="session-timeout" 
+                               value="${database.settings.sessionTimeout}" min="5" max="120">
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="email-notifications" 
+                                   ${database.settings.emailNotifications ? 'checked' : ''}>
+                            <label class="form-check-label" for="email-notifications">Ativar notificações por email</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="backup-automatico" 
+                                   ${database.settings.backupAutomatico ? 'checked' : ''}>
+                            <label class="form-check-label" for="backup-automatico">Backup automático diário</label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block" id="save-settings">
+                        <i class="fas fa-save"></i> Salvar Configurações
+                    </button>
+                </div>
+            `;
+            
             document.getElementById('save-settings').addEventListener('click', function() {
                 saveSettings();
             });
         }
-
+        
         function saveSettings() {
-            // Coletar valores
             database.settings.systemName = document.getElementById('system-name').value;
-            database.settings.currency = document.getElementById('system-currency').value;
-            database.settings.dateFormat = document.getElementById('date-format').value;
             database.settings.sessionTimeout = parseInt(document.getElementById('session-timeout').value);
             database.settings.emailNotifications = document.getElementById('email-notifications').checked;
             database.settings.backupAutomatico = document.getElementById('backup-automatico').checked;
             
-            // Atualizar timer da sessão se necessário
             if (sessionTimer) {
                 clearTimeout(sessionTimer);
                 startSessionTimer();
             }
             
-            showAlert('Configurações salvas com sucesso!', 'success');
-            
-            // Atualizar título da página se necessário
             document.title = `${database.settings.systemName} | Sistema de Gerenciamento`;
+            
+            showAlert('Configurações salvas com sucesso!', 'success');
         }
-
-        // ============== FUNÇÕES AUXILIARES ==============
+        
         function getCategoriaClass(categoria) {
             const classes = {
                 'Despesa': 'badge-danger',
@@ -4160,118 +4389,20 @@ AmazonDash
                 'Investimento': 'badge-primary',
                 'Manutenção': 'badge-warning'
             };
-            
             return classes[categoria] || 'badge-secondary';
         }
 
-        // Adicione esta função ao final do seu script, antes do fechamento </script>
-        function setupRestrictedAccessElements() {
-            // Adicionar estilos CSS para acesso restrito se não existirem
-            if (!document.querySelector('#restricted-access-styles')) {
-                const style = document.createElement('style');
-                style.id = 'restricted-access-styles';
-                style.textContent = `
-                    .restricted-access {
-                        background-color: #ffebee;
-                        color: #c62828;
-                        padding: 30px;
-                        border-radius: 10px;
-                        text-align: center;
-                        margin: 20px 0;
-                        border: 1px solid #ffcdd2;
-                    }
-                    
-                    .restricted-access i {
-                        font-size: 3rem;
-                        margin-bottom: 15px;
-                        color: #f44336;
-                    }
-                    
-                    .restricted-access h3 {
-                        margin-bottom: 10px;
-                        color: #c62828;
-                    }
-                    
-                    .restricted-access p {
-                        margin-bottom: 5px;
-                        color: #b71c1c;
-                    }
-                    
-                    .badge {
-                        display: inline-block;
-                        padding: 5px 10px;
-                        border-radius: 20px;
-                        font-size: 0.8rem;
-                        font-weight: 600;
-                    }
-                    
-                    .badge-success {
-                        background-color: #d4edda;
-                        color: #155724;
-                    }
-                    
-                    .badge-danger {
-                        background-color: #f8d7da;
-                        color: #721c24;
-                    }
-                    
-                    .badge-warning {
-                        background-color: #fff3cd;
-                        color: #856404;
-                    }
-                    
-                    .badge-primary {
-                        background-color: #d1ecf1;
-                        color: #0c5460;
-                    }
-                    
-                    .badge-secondary {
-                        background-color: #e2e3e5;
-                        color: #383d41;
-                    }
-                    
-                    .progress {
-                        background-color: #e9ecef;
-                        border-radius: 0.25rem;
-                        overflow: hidden;
-                    }
-                    
-                    .progress-bar {
-                        height: 100%;
-                        transition: width 0.6s ease;
-                    }
-                    
-                    .bg-success { background-color: #28a745 !important; }
-                    .bg-warning { background-color: #ffc107 !important; }
-                    .bg-danger { background-color: #dc3545 !important; }
-                    
-                    .upload-area {
-                        border: 2px dashed #ddd;
-                        border-radius: 10px;
-                        padding: 40px;
-                        text-align: center;
-                        margin-bottom: 20px;
-                        transition: all 0.3s;
-                        cursor: pointer;
-                    }
-                    
-                    .upload-icon {
-                        font-size: 3rem;
-                        color: #bbb;
-                        margin-bottom: 15px;
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        }
-
-        // ============== INICIALIZAÇÃO FINAL ==============
-        console.log('Sistema DataManager 2.1 carregado com sucesso!');
-        console.log('Correções aplicadas:');
-        console.log('1. Dashboard agora aparece corretamente');
-        console.log('2. Sistema de Convênios implementado');
-        console.log('3. Abas no fechamento diário para seleção de convênios');
-        console.log('4. Cadastro completo de convênios com CNPJ/CPF');
+        // Tornar funções globais para uso em eventos onclick
+        window.removerTaxa = removerTaxa;
+        window.removerDespesa = removerDespesa;
+        window.editConvenio = editConvenio;
+        window.toggleConvenioStatus = toggleConvenioStatus;
+        window.editUsuario = editUsuario;
+        window.toggleUsuarioStatus = toggleUsuarioStatus;
+        window.visualizarFechamento = visualizarFechamento;
+        window.imprimirFechamento = imprimirFechamento;
+        window.visualizarLancamento = visualizarLancamento;
+        window.imprimirRelatorio = imprimirRelatorio;
     </script>
 </body>
 </html>
