@@ -1,4 +1,4 @@
-Ferramenta Auxiliar para Gestão de Balsas
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -258,6 +258,12 @@ Ferramenta Auxiliar para Gestão de Balsas
             color: var(--secondary);
         }
 
+        .logo-img {
+            max-height: 40px;
+            max-width: 150px;
+            margin-right: 10px;
+        }
+
         .nav-menu {
             list-style: none;
             margin-top: 20px;
@@ -312,6 +318,12 @@ Ferramenta Auxiliar para Gestão de Balsas
 
         .header h1 {
             color: var(--primary);
+        }
+
+        .header-logo {
+            max-height: 50px;
+            max-width: 200px;
+            margin-right: 15px;
         }
 
         .user-info {
@@ -461,6 +473,18 @@ Ferramenta Auxiliar para Gestão de Balsas
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             border-radius: 10px;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-welcome-logo {
+            max-height: 80px;
+            max-width: 200px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
         }
 
         .dashboard-welcome h2 {
@@ -956,6 +980,54 @@ Ferramenta Auxiliar para Gestão de Balsas
             max-width: 800px;
         }
 
+        /* UPLOAD DE LOGO */
+        .logo-upload-area {
+            border: 2px dashed var(--secondary);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .logo-upload-area:hover {
+            background: #e9ecef;
+            border-color: var(--primary);
+        }
+
+        .logo-preview {
+            max-width: 200px;
+            max-height: 100px;
+            margin: 10px auto;
+            display: block;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background: white;
+        }
+
+        .logo-preview-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-remove-logo {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        .btn-remove-logo:hover {
+            background: #c0392b;
+        }
+
         /* RELATÓRIO PARA IMPRESSÃO */
         @media print {
             .sidebar, .header, .btn, .tabs, .nav-menu, .form-container, .filtros-dashboard {
@@ -980,6 +1052,11 @@ Ferramenta Auxiliar para Gestão de Balsas
                 box-shadow: none;
                 page-break-inside: avoid;
             }
+
+            .relatorio-header img {
+                max-width: 200px;
+                margin-bottom: 10px;
+            }
         }
 
         .relatorio-impressao {
@@ -994,11 +1071,30 @@ Ferramenta Auxiliar para Gestão de Balsas
             padding-bottom: 10px;
         }
 
+        .relatorio-header img {
+            max-width: 150px;
+            max-height: 80px;
+            margin-bottom: 10px;
+        }
+
         .relatorio-footer {
             text-align: center;
             margin-top: 30px;
             font-size: 0.8rem;
             color: #666;
+        }
+
+        /* BACKUP E IMPORTAÇÃO */
+        .backup-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .backup-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
         }
 
         /* UTILITÁRIOS */
@@ -1215,9 +1311,10 @@ Ferramenta Auxiliar para Gestão de Balsas
             <!-- Sidebar -->
             <aside class="sidebar">
                 <div class="sidebar-header">
-                    <div class="logo">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>AmazonDash</span>
+                    <div class="logo" id="sidebar-logo-container">
+                        <i class="fas fa-chart-bar" id="sidebar-default-logo"></i>
+                        <img id="sidebar-logo-img" class="logo-img" style="display: none;">
+                        <span id="sidebar-logo-text">AmazonDash</span>
                     </div>
                 </div>
                 <ul class="nav-menu" id="nav-menu">
@@ -1229,7 +1326,10 @@ Ferramenta Auxiliar para Gestão de Balsas
             <main class="main-content">
                 <!-- Header -->
                 <div class="header">
-                    <h1 id="page-title">Dashboard</h1>
+                    <div class="d-flex align-center">
+                        <img id="header-logo-img" class="header-logo" style="display: none; margin-right: 15px;">
+                        <h1 id="page-title">Dashboard</h1>
+                    </div>
                     <div class="user-info">
                         <div class="user-avatar" id="user-avatar">AD</div>
                         <div class="user-details">
@@ -1361,6 +1461,34 @@ Ferramenta Auxiliar para Gestão de Balsas
         </div>
     </div>
 
+    <!-- Modal para Upload de Logo -->
+    <div id="logo-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 class="form-title">Gerenciar Logomarca</h3>
+            
+            <div class="logo-upload-area" id="logo-drop-area">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h4>Arraste sua logo aqui ou clique para selecionar</h4>
+                <p>Formatos aceitos: JPG, PNG, GIF (máx. 2MB)</p>
+                <input type="file" id="logo-file-input" accept="image/*" style="display: none;">
+            </div>
+            
+            <div id="logo-preview-container" class="logo-preview-container" style="display: none;">
+                <h4>Logo atual:</h4>
+                <img id="logo-preview" class="logo-preview">
+                <button class="btn-remove-logo" id="remove-logo-btn">
+                    <i class="fas fa-trash"></i> Remover Logo
+                </button>
+            </div>
+            
+            <div class="d-flex justify-between mt-3">
+                <button type="button" id="cancel-logo" class="btn">Fechar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal para Imprimir Relatório -->
     <div id="relatorio-modal" class="modal" style="display: none;">
         <div class="modal-content modal-lg">
@@ -1378,291 +1506,304 @@ Ferramenta Auxiliar para Gestão de Balsas
     </div>
 
     <script>
-        // ============== BANCO DE DADOS COMPLETO ==============
-		const database = {
-			// Função para carregar dados do localStorage
-			loadData: function() {
-				const savedData = localStorage.getItem('datamanager_data');
-				if (savedData) {
-					const data = JSON.parse(savedData);
-					Object.assign(this, data);
-				}
-			},
-			
-			// Função para salvar dados no localStorage
-			saveData: function() {
-				const dataToSave = {
-					users: this.users,
-					centrosCusto: this.centrosCusto,
-					convenios: this.convenios,
-					bancos: this.bancos,
-					tiposDespesa: this.tiposDespesa,
-					fechamentosDiarios: this.fechamentosDiarios,
-					lancamentos: this.lancamentos,
-					settings: this.settings
-				};
-				localStorage.setItem('datamanager_data', JSON.stringify(dataToSave));
-			},
-			
-			// Dados iniciais (usados apenas se não houver dados salvos)
-			users: [
-				{ 
-					id: 1, 
-					name: "Administrador", 
-					email: "admin@datamanager.com", 
-					password: "admin123", 
-					role: "Administrador", 
-					centroCusto: "Igapó",
-					lastLogin: new Date().toISOString(), 
-					status: "Ativo" 
-				},
-				{ 
-					id: 2, 
-					name: "Carlos Gerente", 
-					email: "gerente@empresa.com", 
-					password: "senha123", 
-					role: "Gerente", 
-					centroCusto: "Humaitá",
-					lastLogin: "2026-01-21T10:30:00", 
-					status: "Ativo" 
-				},
-				{ 
-					id: 3, 
-					name: "Ana Usuário", 
-					email: "usuario@empresa.com", 
-					password: "senha123", 
-					role: "Usuário", 
-					centroCusto: "Humaitá",
-					lastLogin: "2026-01-20T14:15:00", 
-					status: "Ativo" 
-				}
-			],
-			
-			centrosCusto: [
-				{ codigo: "Igapó", nome: "Igapó", responsavel: "João Assis", orcamento: 50000, gasto: 32500, status: "Ativo" },
-				{ codigo: "Humaitá", nome: "Humaitá", responsavel: "Cleber", orcamento: 80000, gasto: 45200, status: "Ativo" },
-				{ codigo: "Mucuim", nome: "Mucuim", responsavel: "Diego", orcamento: 120000, gasto: 98750, status: "Ativo" },
-				{ codigo: "Candeias", nome: "Candeias", responsavel: "Luciana", orcamento: 75000, gasto: 42000, status: "Ativo" },
-				{ codigo: "Samuel", nome: "Samuel", responsavel: "Delamare", orcamento: 45000, gasto: 28000, status: "Ativo" },
-				{ codigo: "Machadinho", nome: "Machadinho", responsavel: "Geovane", orcamento: 60000, gasto: 38500, status: "Ativo" }
-			],
-			
-			convenios: [
-				{
-					id: 1,
-					nome: "AMATUR",
-					documento: "12.345.678/0001-90",
-					tipo: "CNPJ",
-					centroCusto: "Humaitá",
-					status: "Ativo",
-					createdAt: "2026-01-15T10:00:00",
-					createdBy: 1
-				},
-				{
-					id: 2,
-					nome: "POLICIA FEDERAL",
-					documento: "98.765.432/0001-10",
-					tipo: "CNPJ",
-					centroCusto: "Machadinho",
-					status: "Ativo",
-					createdAt: "2026-01-16T14:30:00",
-					createdBy: 1
-				},
-				{
-					id: 3,
-					nome: "LCM",
-					documento: "123.456.789-00",
-					tipo: "CPF",
-					centroCusto: "Humaitá",
-					status: "Ativo",
-					createdAt: "2026-01-17T09:15:00",
-					createdBy: 2
-				}
-			],
-			
-			bancos: [
-				{
-					id: 1,
-					nome: "STONE",
-					agencia: "1234-5",
-					conta: "98765-4",
-					status: "Ativo",
-					createdAt: "2026-01-15T10:00:00",
-					createdBy: 1
-				},
-				{
-					id: 2,
-					nome: "Itaú",
-					agencia: "1234",
-					conta: "56789-0",
-					status: "Ativo",
-					createdAt: "2026-01-15T10:00:00",
-					createdBy: 1
-				}
-			],
-			
-			tiposDespesa: [
-				{ id: 1, nome: "Despesa Avulsa", icone: "fa-receipt" },
-				{ id: 2, nome: "Abastecimento", icone: "fa-gas-pump" },
-				{ id: 3, nome: "Vale Adiantamento", icone: "fa-hand-holding-usd" },
-				{ id: 4, nome: "Material de Escritório", icone: "fa-box" },
-				{ id: 5, nome: "Manutenção", icone: "fa-tools" },
-				{ id: 6, nome: "Alimentação", icone: "fa-utensils" },
-				{ id: 7, nome: "Transporte", icone: "fa-bus" },
-				{ id: 8, nome: "Outros", icone: "fa-ellipsis-h" }
-			],
-			
-			fechamentosDiarios: [
-				{
-					id: 1,
-					data: "2026-01-22",
-					responsavel: "Carlos Gerente",
-					centroCusto: "Humaitá",
-					dinheiro: 9220.00,
-					pix: 2450.00,
-					outrosFaturamentos: 0.00,
-					taxasBancarias: [
-						{ id: 1, bancoId: 1, bancoNome: "STONE", valor: 45.50 },
-						{ id: 2, bancoId: 1, bancoNome: "STONE", valor: 32.80 }
-					],
-					despesas: [
-						{ id: 1, tipo: "Abastecimento", descricao: "Posto Shell", valor: 250.00 },
-						{ id: 2, tipo: "Vale Adiantamento", descricao: "João - transporte", valor: 100.00 },
-						{ id: 3, tipo: "Despesa Avulsa", descricao: "Material escritório", valor: 85.50 }
-					],
-					convenios: [
-						{ id: 1, convenioId: 1, nome: "AMATUR", valor: 1500.00 },
-						{ id: 2, convenioId: 3, nome: "LCM", valor: 850.00 }
-					],
-					totalFaturamentos: 14020.00,
-					totalDespesas: 435.50,
-					totalTaxas: 78.30,
-					totalDiaria: 13506.20,
-					status: "Fechado",
-					createdAt: "2026-01-22T18:30:00",
-					createdBy: 2
-				},
-				{
-					id: 2,
-					data: "2026-01-23",
-					responsavel: "Ana Usuário",
-					centroCusto: "Igapó",
-					dinheiro: 5000.00,
-					pix: 3000.00,
-					outrosFaturamentos: 500.00,
-					taxasBancarias: [
-						{ id: 3, bancoId: 2, bancoNome: "Itaú", valor: 25.50 }
-					],
-					despesas: [
-						{ id: 4, tipo: "Alimentação", descricao: "Almoço equipe", valor: 180.00 }
-					],
-					convenios: [
-						{ id: 3, convenioId: 2, nome: "POLICIA FEDERAL", valor: 2000.00 }
-					],
-					totalFaturamentos: 10500.00,
-					totalDespesas: 180.00,
-					totalTaxas: 25.50,
-					totalDiaria: 10294.50,
-					status: "Fechado",
-					createdAt: "2026-01-23T19:00:00",
-					createdBy: 3
-				}
-			],
-			
-			lancamentos: [
-				{ id: 1, data: "2026-01-22", descricao: "Compra de materiais", centroCusto: "Igapó", valor: 1250.50, categoria: "Despesa", createdBy: 1 }
-			],
-			
-			settings: {
-				systemName: "DataManager Pro",
-				currency: "BRL",
-				dateFormat: "dd/mm/yyyy",
-				sessionTimeout: 30,
-				emailNotifications: true,
-				backupAutomatico: true,
-				logo: null
-			}
-		};
-		// Função para salvar após qualquer alteração
-		function autoSave() {
-			database.saveData();
-			console.log('Dados salvos com sucesso!');
-		}
+        // ============== BANCO DE DADOS COMPLETO COM PERSISTÊNCIA ==============
+        const database = {
+            // Dados iniciais (usados apenas se não houver dados salvos)
+            users: [
+                { 
+                    id: 1, 
+                    name: "Administrador", 
+                    email: "admin@AmazonDash.com", 
+                    password: "admin123", 
+                    role: "Administrador", 
+                    centroCusto: "Igapó",
+                    lastLogin: new Date().toISOString(), 
+                    status: "Ativo" 
+                },
+                { 
+                    id: 2, 
+                    name: "Carlos Gerente", 
+                    email: "gerente@empresa.com", 
+                    password: "senha123", 
+                    role: "Gerente", 
+                    centroCusto: "Humaitá",
+                    lastLogin: "2026-01-21T10:30:00", 
+                    status: "Ativo" 
+                },
+                { 
+                    id: 3, 
+                    name: "Ana Usuário", 
+                    email: "usuario@empresa.com", 
+                    password: "senha123", 
+                    role: "Usuário", 
+                    centroCusto: "Humaitá",
+                    lastLogin: "2026-01-20T14:15:00", 
+                    status: "Ativo" 
+                }
+            ],
+            
+            centrosCusto: [
+                { codigo: "Igapó", nome: "Igapó", responsavel: "João Assis", orcamento: 50000, gasto: 32500, status: "Ativo" },
+                { codigo: "Humaitá", nome: "Humaitá", responsavel: "Cleber", orcamento: 80000, gasto: 45200, status: "Ativo" },
+                { codigo: "Mucuim", nome: "Mucuim", responsavel: "Diego", orcamento: 120000, gasto: 98750, status: "Ativo" },
+                { codigo: "Candeias", nome: "Candeias", responsavel: "Luciana", orcamento: 75000, gasto: 42000, status: "Ativo" },
+                { codigo: "Samuel", nome: "Samuel", responsavel: "Delamare", orcamento: 45000, gasto: 28000, status: "Ativo" },
+                { codigo: "Machadinho", nome: "Machadinho", responsavel: "Geovane", orcamento: 60000, gasto: 38500, status: "Ativo" }
+            ],
+            
+            convenios: [
+                {
+                    id: 1,
+                    nome: "AMATUR",
+                    documento: "12.345.678/0001-90",
+                    tipo: "CNPJ",
+                    centroCusto: "Humaitá",
+                    status: "Ativo",
+                    createdAt: "2026-01-15T10:00:00",
+                    createdBy: 1
+                },
+                {
+                    id: 2,
+                    nome: "POLICIA FEDERAL",
+                    documento: "98.765.432/0001-10",
+                    tipo: "CNPJ",
+                    centroCusto: "Machadinho",
+                    status: "Ativo",
+                    createdAt: "2026-01-16T14:30:00",
+                    createdBy: 1
+                },
+                {
+                    id: 3,
+                    nome: "LCM",
+                    documento: "123.456.789-00",
+                    tipo: "CPF",
+                    centroCusto: "Humaitá",
+                    status: "Ativo",
+                    createdAt: "2026-01-17T09:15:00",
+                    createdBy: 2
+                }
+            ],
+            
+            bancos: [
+                {
+                    id: 1,
+                    nome: "STONE",
+                    agencia: "1234-5",
+                    conta: "98765-4",
+                    status: "Ativo",
+                    createdAt: "2026-01-15T10:00:00",
+                    createdBy: 1
+                },
+                {
+                    id: 2,
+                    nome: "Itaú",
+                    agencia: "1234",
+                    conta: "56789-0",
+                    status: "Ativo",
+                    createdAt: "2026-01-15T10:00:00",
+                    createdBy: 1
+                }
+            ],
+            
+            tiposDespesa: [
+                { id: 1, nome: "Despesa Avulsa", icone: "fa-receipt" },
+                { id: 2, nome: "Abastecimento", icone: "fa-gas-pump" },
+                { id: 3, nome: "Vale Adiantamento", icone: "fa-hand-holding-usd" },
+                { id: 4, nome: "Material de Escritório", icone: "fa-box" },
+                { id: 5, nome: "Manutenção", icone: "fa-tools" },
+                { id: 6, nome: "Alimentação", icone: "fa-utensils" },
+                { id: 7, nome: "Transporte", icone: "fa-bus" },
+                { id: 8, nome: "Outros", icone: "fa-ellipsis-h" }
+            ],
+            
+            fechamentosDiarios: [
+                {
+                    id: 1,
+                    data: "2026-01-22",
+                    responsavel: "Carlos Gerente",
+                    centroCusto: "Humaitá",
+                    dinheiro: 9220.00,
+                    pix: 2450.00,
+                    outrosFaturamentos: 0.00,
+                    taxasBancarias: [
+                        { id: 1, bancoId: 1, bancoNome: "STONE", valor: 45.50 },
+                        { id: 2, bancoId: 1, bancoNome: "STONE", valor: 32.80 }
+                    ],
+                    despesas: [
+                        { id: 1, tipo: "Abastecimento", descricao: "Posto Shell", valor: 250.00 },
+                        { id: 2, tipo: "Vale Adiantamento", descricao: "João - transporte", valor: 100.00 },
+                        { id: 3, tipo: "Despesa Avulsa", descricao: "Material escritório", valor: 85.50 }
+                    ],
+                    convenios: [
+                        { id: 1, convenioId: 1, nome: "AMATUR", valor: 1500.00 },
+                        { id: 2, convenioId: 3, nome: "LCM", valor: 850.00 }
+                    ],
+                    totalFaturamentos: 14020.00,
+                    totalDespesas: 435.50,
+                    totalTaxas: 78.30,
+                    totalDiaria: 13506.20,
+                    status: "Fechado",
+                    createdAt: "2026-01-22T18:30:00",
+                    createdBy: 2
+                },
+                {
+                    id: 2,
+                    data: "2026-01-23",
+                    responsavel: "Ana Usuário",
+                    centroCusto: "Igapó",
+                    dinheiro: 5000.00,
+                    pix: 3000.00,
+                    outrosFaturamentos: 500.00,
+                    taxasBancarias: [
+                        { id: 3, bancoId: 2, bancoNome: "Itaú", valor: 25.50 }
+                    ],
+                    despesas: [
+                        { id: 4, tipo: "Alimentação", descricao: "Almoço equipe", valor: 180.00 }
+                    ],
+                    convenios: [
+                        { id: 3, convenioId: 2, nome: "POLICIA FEDERAL", valor: 2000.00 }
+                    ],
+                    totalFaturamentos: 10500.00,
+                    totalDespesas: 180.00,
+                    totalTaxas: 25.50,
+                    totalDiaria: 10294.50,
+                    status: "Fechado",
+                    createdAt: "2026-01-23T19:00:00",
+                    createdBy: 3
+                }
+            ],
+            
+            lancamentos: [
+                { id: 1, data: "2026-01-22", descricao: "Compra de materiais", centroCusto: "Igapó", valor: 1250.50, categoria: "Despesa", createdBy: 1 }
+            ],
+            
+            settings: {
+                systemName: "AmazonDash Pro",
+                currency: "BRL",
+                dateFormat: "dd/mm/yyyy",
+                sessionTimeout: 30,
+                emailNotifications: true,
+                backupAutomatico: true,
+                logo: null
+            },
 
-		// Função para exportar dados (backup manual)
-		function exportarDados() {
-			const dataStr = JSON.stringify(database, null, 2);
-			const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-			
-			const exportFileDefaultName = `datamanager_backup_${new Date().toISOString().slice(0,10)}.json`;
-			
-			const linkElement = document.createElement('a');
-			linkElement.setAttribute('href', dataUri);
-			linkElement.setAttribute('download', exportFileDefaultName);
-			linkElement.click();
-		}
-
-		// Função para importar dados (restaurar backup)
-		function importarDados(event) {
-			const file = event.target.files[0];
-			const reader = new FileReader();
-			
-			reader.onload = function(e) {
-				try {
-					const importedData = JSON.parse(e.target.result);
-					
-					// Validar estrutura básica
-					if (importedData.users && importedData.centrosCusto && importedData.settings) {
-						Object.assign(database, importedData);
-						autoSave();
-						showAlert('Dados importados com sucesso! Recarregue a página.', 'success');
-						setTimeout(() => location.reload(), 2000);
-					} else {
-						showAlert('Arquivo de backup inválido.', 'danger');
-					}
-				} catch (error) {
-					showAlert('Erro ao importar arquivo.', 'danger');
-				}
-			};
-			
-			reader.readAsText(file);
-		}
-
-
-
-
-
-
-
-// Inicializar: carregar dados salvos
-database.loadData();
-
-// Função para salvar automaticamente após qualquer modificação
-function saveDatabase() {
-    database.saveData();
-};
-
-        // ============== ESTADO DA APLICAÇÃO ==============
-        let currentUser = null;
-        let currentPage = "dashboard";
-        let sessionTimer = null;
-        let isSystemLocked = true;
-        let charts = {};
-        let dashboardFiltros = {
-            dataInicio: '',
-            dataFim: '',
-            centroCusto: '',
-            tipo: 'todos'
+            // ============== MÉTODOS DE PERSISTÊNCIA ==============
+            loadData: function() {
+                const savedData = localStorage.getItem('amazondash_data');
+                if (savedData) {
+                    try {
+                        const data = JSON.parse(savedData);
+                        // Atualizar todas as propriedades
+                        this.users = data.users || this.users;
+                        this.centrosCusto = data.centrosCusto || this.centrosCusto;
+                        this.convenios = data.convenios || this.convenios;
+                        this.bancos = data.bancos || this.bancos;
+                        this.tiposDespesa = data.tiposDespesa || this.tiposDespesa;
+                        this.fechamentosDiarios = data.fechamentosDiarios || this.fechamentosDiarios;
+                        this.lancamentos = data.lancamentos || this.lancamentos;
+                        this.settings = { ...this.settings, ...data.settings };
+                        
+                        console.log('Dados carregados do localStorage');
+                    } catch (e) {
+                        console.error('Erro ao carregar dados:', e);
+                    }
+                }
+            },
+            
+            saveData: function() {
+                const dataToSave = {
+                    users: this.users,
+                    centrosCusto: this.centrosCusto,
+                    convenios: this.convenios,
+                    bancos: this.bancos,
+                    tiposDespesa: this.tiposDespesa,
+                    fechamentosDiarios: this.fechamentosDiarios,
+                    lancamentos: this.lancamentos,
+                    settings: this.settings
+                };
+                
+                try {
+                    localStorage.setItem('amazondash_data', JSON.stringify(dataToSave));
+                    console.log('Dados salvos no localStorage');
+                    return true;
+                } catch (e) {
+                    console.error('Erro ao salvar dados:', e);
+                    return false;
+                }
+            },
+            
+            // Método para exportar backup
+            exportBackup: function() {
+                const dataStr = JSON.stringify(this, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = `amazondash_backup_${new Date().toISOString().slice(0,10)}.json`;
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+                
+                showAlert('Backup exportado com sucesso!', 'success');
+            },
+            
+            // Método para importar backup
+            importBackup: function(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    
+                    reader.onload = (e) => {
+                        try {
+                            const importedData = JSON.parse(e.target.result);
+                            
+                            // Validar estrutura básica
+                            if (importedData.users && importedData.centrosCusto && importedData.settings) {
+                                // Atualizar todas as propriedades
+                                this.users = importedData.users || this.users;
+                                this.centrosCusto = importedData.centrosCusto || this.centrosCusto;
+                                this.convenios = importedData.convenios || this.convenios;
+                                this.bancos = importedData.bancos || this.bancos;
+                                this.tiposDespesa = importedData.tiposDespesa || this.tiposDespesa;
+                                this.fechamentosDiarios = importedData.fechamentosDiarios || this.fechamentosDiarios;
+                                this.lancamentos = importedData.lancamentos || this.lancamentos;
+                                this.settings = { ...this.settings, ...importedData.settings };
+                                
+                                this.saveData();
+                                resolve(true);
+                            } else {
+                                reject(new Error('Arquivo de backup inválido'));
+                            }
+                        } catch (error) {
+                            reject(error);
+                        }
+                    };
+                    
+                    reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
+                    reader.readAsText(file);
+                });
+            }
         };
-        
-        // Estado para fechamento diário
-        let selectedConvenios = [];
-        let selectedTaxasBancarias = [];
-        let selectedDespesas = [];
-        let nextLancamentoId = 1;
+
+        // ============== FUNÇÃO DE AUTO-SAVE ==============
+        function autoSave() {
+            const saved = database.saveData();
+            if (saved) {
+                // Opcional: mostrar indicador de salvamento
+                const saveIndicator = document.getElementById('save-indicator');
+                if (saveIndicator) {
+                    saveIndicator.style.opacity = '1';
+                    setTimeout(() => {
+                        saveIndicator.style.opacity = '0';
+                    }, 1000);
+                }
+            }
+        }
 
         // ============== INICIALIZAÇÃO ==============
         document.addEventListener('DOMContentLoaded', function() {
+            // Carregar dados salvos
+            database.loadData();
+            
             // Mostrar loading por 1.5 segundos e depois mostrar login
             setTimeout(() => {
                 const loadingScreen = document.getElementById('loading-screen');
@@ -1726,7 +1867,173 @@ function saveDatabase() {
                     window.print();
                 });
             }
+
+            // Configurar upload de logo
+            setupLogoUpload();
         });
+
+        // ============== SISTEMA DE LOGO ==============
+        function setupLogoUpload() {
+            const logoModal = document.getElementById('logo-modal');
+            const logoDropArea = document.getElementById('logo-drop-area');
+            const logoFileInput = document.getElementById('logo-file-input');
+            const cancelLogo = document.getElementById('cancel-logo');
+            const removeLogoBtn = document.getElementById('remove-logo-btn');
+
+            if (logoDropArea) {
+                logoDropArea.addEventListener('click', function() {
+                    logoFileInput.click();
+                });
+
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    logoDropArea.addEventListener(eventName, preventDefaults, false);
+                });
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    logoDropArea.addEventListener(eventName, highlight, false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    logoDropArea.addEventListener(eventName, unhighlight, false);
+                });
+
+                logoDropArea.addEventListener('drop', handleDrop, false);
+
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+
+                function highlight() {
+                    logoDropArea.style.borderColor = 'var(--primary)';
+                    logoDropArea.style.backgroundColor = '#e9ecef';
+                }
+
+                function unhighlight() {
+                    logoDropArea.style.borderColor = 'var(--secondary)';
+                    logoDropArea.style.backgroundColor = '#f8f9fa';
+                }
+
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    
+                    if (files.length) {
+                        handleLogoFile(files[0]);
+                    }
+                }
+            }
+
+            if (logoFileInput) {
+                logoFileInput.addEventListener('change', function(e) {
+                    if (this.files.length) {
+                        handleLogoFile(this.files[0]);
+                    }
+                });
+            }
+
+            if (cancelLogo) {
+                cancelLogo.addEventListener('click', function() {
+                    logoModal.style.display = 'none';
+                });
+            }
+
+            if (removeLogoBtn) {
+                removeLogoBtn.addEventListener('click', function() {
+                    removeLogo();
+                });
+            }
+        }
+
+        function handleLogoFile(file) {
+            if (!file.type.match('image.*')) {
+                showAlert('Por favor, selecione apenas arquivos de imagem.', 'warning');
+                return;
+            }
+
+            if (file.size > 2 * 1024 * 1024) {
+                showAlert('A imagem não pode ter mais que 2MB.', 'warning');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                database.settings.logo = e.target.result;
+                updateLogoDisplay();
+                autoSave(); // Salvar após alterar logo
+                
+                const previewContainer = document.getElementById('logo-preview-container');
+                const preview = document.getElementById('logo-preview');
+                if (previewContainer && preview) {
+                    preview.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                
+                showAlert('Logo atualizada com sucesso!', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeLogo() {
+            if (confirm('Tem certeza que deseja remover a logomarca?')) {
+                database.settings.logo = null;
+                updateLogoDisplay();
+                autoSave(); // Salvar após remover logo
+                
+                const previewContainer = document.getElementById('logo-preview-container');
+                if (previewContainer) {
+                    previewContainer.style.display = 'none';
+                }
+                
+                showAlert('Logo removida com sucesso!', 'success');
+            }
+        }
+
+        function updateLogoDisplay() {
+            const sidebarLogoImg = document.getElementById('sidebar-logo-img');
+            const sidebarDefaultLogo = document.getElementById('sidebar-default-logo');
+            const sidebarLogoText = document.getElementById('sidebar-logo-text');
+            const headerLogoImg = document.getElementById('header-logo-img');
+
+            if (database.settings.logo) {
+                // Sidebar
+                if (sidebarLogoImg) {
+                    sidebarLogoImg.src = database.settings.logo;
+                    sidebarLogoImg.style.display = 'inline-block';
+                }
+                if (sidebarDefaultLogo) sidebarDefaultLogo.style.display = 'none';
+                if (sidebarLogoText) sidebarLogoText.style.display = 'none';
+
+                // Header
+                if (headerLogoImg) {
+                    headerLogoImg.src = database.settings.logo;
+                    headerLogoImg.style.display = 'inline-block';
+                }
+            } else {
+                // Sidebar
+                if (sidebarLogoImg) sidebarLogoImg.style.display = 'none';
+                if (sidebarDefaultLogo) sidebarDefaultLogo.style.display = 'inline-block';
+                if (sidebarLogoText) sidebarLogoText.style.display = 'inline-block';
+
+                // Header
+                if (headerLogoImg) headerLogoImg.style.display = 'none';
+            }
+        }
+
+        function showLogoModal() {
+            const modal = document.getElementById('logo-modal');
+            const previewContainer = document.getElementById('logo-preview-container');
+            const preview = document.getElementById('logo-preview');
+
+            if (database.settings.logo) {
+                preview.src = database.settings.logo;
+                previewContainer.style.display = 'block';
+            } else {
+                previewContainer.style.display = 'none';
+            }
+
+            modal.style.display = 'flex';
+        }
 
         // ============== SISTEMA DE LOGIN ==============
         function setupLogin() {
@@ -1796,6 +2103,7 @@ function saveDatabase() {
             updateUserInfo();
             buildNavigation();
             startSessionTimer();
+            updateLogoDisplay();
             
             // Carregar página inicial
             showPage('dashboard');
@@ -1951,29 +2259,48 @@ function saveDatabase() {
                     </li>
                 `;
             });
+
+            // Adicionar item de logo para administradores
+            if (currentUser.role === 'Administrador') {
+                html += `
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav-logo">
+                            <i class="fas fa-image"></i>
+                            <span class="nav-text">Logomarca</span>
+                        </a>
+                    </li>
+                `;
+            }
             
             navMenu.innerHTML = html;
             
             // Adicionar eventos de clique
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const pageId = this.getAttribute('data-page');
-                    
-                    document.querySelectorAll('.nav-link').forEach(item => {
-                        item.classList.remove('active');
+                if (link.id === 'nav-logo') {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        showLogoModal();
                     });
-                    this.classList.add('active');
-                    
-                    showPage(pageId);
-                    
-                    const pageTitle = document.getElementById('page-title');
-                    const navText = this.querySelector('.nav-text');
-                    if (pageTitle && navText) {
-                        pageTitle.textContent = navText.textContent;
-                    }
-                });
+                } else {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        const pageId = this.getAttribute('data-page');
+                        
+                        document.querySelectorAll('.nav-link').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                        
+                        showPage(pageId);
+                        
+                        const pageTitle = document.getElementById('page-title');
+                        const navText = this.querySelector('.nav-text');
+                        if (pageTitle && navText) {
+                            pageTitle.textContent = navText.textContent;
+                        }
+                    });
+                }
             });
         }
         
@@ -2276,18 +2603,22 @@ function saveDatabase() {
             }
         }
 
-        // ============== DASHBOARD COM FILTROS (MANTENDO LAYOUT ORIGINAL) ==============
+        // ============== DASHBOARD COM FILTROS ==============
         function loadDashboardContent() {
             const dashboardPage = document.getElementById('dashboard');
             if (!dashboardPage || !currentUser) return;
             
+            const logoHTML = database.settings.logo ? 
+                `<img src="${database.settings.logo}" class="dashboard-welcome-logo">` : '';
+
             dashboardPage.innerHTML = `
                 <div class="dashboard-welcome">
-                    <h2>Bem-vindo ao AmazonDash Pro</h2>
+                    ${logoHTML}
+                    <h2>Bem-vindo ao ${database.settings.systemName}</h2>
                     <p>Olá, ${currentUser ? currentUser.name : 'Usuário'}! Aqui está o resumo do seu sistema.</p>
                 </div>
                 
-                <!-- FILTROS DO DASHBOARD (ADICIONADOS) -->
+                <!-- FILTROS DO DASHBOARD -->
                 <div class="filtros-dashboard">
                     <h3 style="margin-bottom: 15px; color: var(--primary);">
                         <i class="fas fa-filter"></i> Filtros
@@ -2348,7 +2679,7 @@ function saveDatabase() {
                     </div>
                 </div>
                 
-                <!-- CARDS (MANTIDOS IGUAIS) -->
+                <!-- CARDS -->
                 <div class="cards-container">
                     <div class="card">
                         <div class="card-title">Fechamentos do Mês</div>
@@ -2681,7 +3012,133 @@ function saveDatabase() {
             }
         }
 
-        // ============== DEMAIS FUNÇÕES (MANTIDAS IGUAIS) ==============
+        // ============== FUNÇÃO DE IMPRESSÃO DO RELATÓRIO (MODIFICADA) ==============
+        function imprimirRelatorioFechamento(fechamento) {
+            const centro = database.centrosCusto.find(c => c.codigo === fechamento.centroCusto);
+            
+            const logoHTML = database.settings.logo ? 
+                `<img src="${database.settings.logo}" style="max-width: 150px; max-height: 80px; margin-bottom: 10px;">` : '';
+
+            let conveniosHTML = '';
+            if (fechamento.convenios && fechamento.convenios.length > 0) {
+                fechamento.convenios.forEach(c => {
+                    conveniosHTML += `
+                        <tr>
+                            <td>${c.nome}</td>
+                            <td class="text-right">${formatCurrency(c.valor)}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                conveniosHTML = '<tr><td colspan="2" class="text-center">Nenhum convênio</td></tr>';
+            }
+            
+            let despesasHTML = '';
+            if (fechamento.despesas && fechamento.despesas.length > 0) {
+                fechamento.despesas.forEach(d => {
+                    despesasHTML += `
+                        <tr>
+                            <td>${d.tipo}</td>
+                            <td>${d.descricao}</td>
+                            <td class="text-right">${formatCurrency(d.valor)}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                despesasHTML = '<tr><td colspan="3" class="text-center">Nenhuma despesa</td></tr>';
+            }
+            
+            const relatorioHTML = `
+                <div class="relatorio-header">
+                    ${logoHTML}
+                    <h2>${database.settings.systemName}</h2>
+                    <h3>Relatório de Fechamento Diário</h3>
+                    <p>Data do fechamento: ${formatDate(fechamento.data)}</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Responsável:</strong> ${fechamento.responsavel}</p>
+                    <p><strong>Centro de Custo:</strong> ${centro ? centro.nome : fechamento.centroCusto}</p>
+                    <p><strong>Data de emissão:</strong> ${new Date().toLocaleString('pt-BR')}</p>
+                </div>
+                
+                <h4>Faturamento</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="text-align: left;">Tipo</th>
+                        <th style="text-align: right;">Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Dinheiro</td>
+                        <td class="text-right">${formatCurrency(fechamento.dinheiro)}</td>
+                    </tr>
+                    <tr>
+                        <td>PIX</td>
+                        <td class="text-right">${formatCurrency(fechamento.pix)}</td>
+                    </tr>
+                    <tr>
+                        <td>Outros Faturamentos</td>
+                        <td class="text-right">${formatCurrency(fechamento.outrosFaturamentos || 0)}</td>
+                    </tr>
+                    ${conveniosHTML}
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td>Total Faturamentos</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalFaturamentos)}</td>
+                    </tr>
+                </table>
+                
+                <h4>Despesas do Dia</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="text-align: left;">Tipo</th>
+                        <th style="text-align: left;">Descrição</th>
+                        <th style="text-align: right;">Valor</th>
+                    </tr>
+                    ${despesasHTML}
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td colspan="2">Total Despesas</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalDespesas)}</td>
+                    </tr>
+                </table>
+                
+                <h4>Taxas Bancárias</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="text-align: left;">Total de Taxas</th>
+                        <th style="text-align: right;">Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Total Taxas Bancárias</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalTaxas)}</td>
+                    </tr>
+                    <tr style="border-top: 2px solid #333; font-weight: bold;">
+                        <td>Total Taxas</td>
+                        <td class="text-right">${formatCurrency(fechamento.totalTaxas)}</td>
+                    </tr>
+                </table>
+                
+                <div style="border-top: 3px solid #333; padding: 15px; text-align: right; font-size: 1.2rem;">
+                    <strong>Total Líquido do Dia: ${formatCurrency(fechamento.totalDiaria)}</strong>
+                </div>
+                
+                <div class="relatorio-footer">
+                    <p>Documento gerado em ${new Date().toLocaleString('pt-BR')}</p>
+                    <p>${database.settings.systemName} - Sistema de Gerenciamento</p>
+                </div>
+            `;
+            
+            const relatorioConteudo = document.getElementById('relatorio-conteudo');
+            if (relatorioConteudo) {
+                relatorioConteudo.innerHTML = relatorioHTML;
+            }
+            
+            const relatorioModal = document.getElementById('relatorio-modal');
+            if (relatorioModal) {
+                relatorioModal.style.display = 'flex';
+            }
+        }
+
+        // ============== FECHAMENTO DIÁRIO ==============
         function loadFechamentoDiarioContent() {
             const page = document.getElementById('fechamento-diario');
             if (!page) return;
@@ -3551,214 +4008,92 @@ function saveDatabase() {
             if (resumoTotalLiquido) resumoTotalLiquido.textContent = formatCurrency(totalLiquido);
         }
         
-        // Modifique a função saveFechamento
-		function saveFechamento() {
-			if (currentUser.role === 'Usuário') {
-				showAlert('Usuários não podem salvar fechamentos.', 'warning');
-				return;
-			}
-			
-			const data = document.getElementById('fechamento-data')?.value;
-			const responsavel = document.getElementById('fechamento-responsavel')?.value;
-			let centroCusto = document.getElementById('fechamento-centro-custo')?.value;
-			
-			if (currentUser.role !== 'Administrador') {
-				centroCusto = currentUser.centroCusto;
-			}
-			
-			if (!data || !responsavel || !centroCusto) {
-				showAlert('Preencha todos os campos obrigatórios.', 'warning');
-				showTab('basico');
-				return;
-			}
-			
-			const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro')?.value) || 0;
-			const pix = parseFloat(document.getElementById('fechamento-pix')?.value) || 0;
-			const outros = parseFloat(document.getElementById('fechamento-outros')?.value) || 0;
-			
-			const totalConvenios = selectedConvenios.reduce((sum, c) => sum + c.valor, 0);
-			const totalTaxas = selectedTaxasBancarias.reduce((sum, t) => sum + t.valor, 0);
-			const totalDespesas = selectedDespesas.reduce((sum, d) => sum + d.valor, 0);
-			
-			const totalFaturamentos = dinheiro + pix + outros + totalConvenios;
-			const totalLiquido = totalFaturamentos - totalDespesas - totalTaxas;
-			
-			const novoFechamento = {
-				id: database.fechamentosDiarios.length + 1,
-				data: data,
-				responsavel: responsavel,
-				centroCusto: centroCusto,
-				dinheiro: dinheiro,
-				pix: pix,
-				outrosFaturamentos: outros,
-				convenios: selectedConvenios.map(c => ({
-					id: c.id,
-					convenioId: c.convenioId,
-					nome: c.nome,
-					valor: c.valor
-				})),
-				taxasBancarias: selectedTaxasBancarias.map(t => ({
-					id: t.id,
-					bancoId: t.bancoId,
-					bancoNome: t.bancoNome,
-					valor: t.valor
-				})),
-				despesas: selectedDespesas.map(d => ({
-					id: d.id,
-					tipo: d.tipo,
-					descricao: d.descricao,
-					valor: d.valor
-				})),
-				totalFaturamentos: totalFaturamentos,
-				totalDespesas: totalDespesas,
-				totalTaxas: totalTaxas,
-				totalDiaria: totalLiquido,
-				status: "Fechado",
-				createdAt: new Date().toISOString(),
-				createdBy: currentUser.id
-			};
-			
-			database.fechamentosDiarios.push(novoFechamento);
-			autoSave(); // <-- SALVAR AUTOMATICAMENTE
-			
-			const formContainer = document.getElementById('fechamento-form-container');
-			if (formContainer) formContainer.style.display = 'none';
-			
-			updateFechamentosTable();
-			
-			if (currentPage === 'dashboard') {
-				atualizarDashboardComFiltros();
-			}
-			
-			showAlert('Fechamento salvo com sucesso!', 'success');
-			
-			if (confirm('Deseja imprimir o relatório deste fechamento?')) {
-				imprimirRelatorioFechamento(novoFechamento);
-			}
-			
-			resetFechamentoForm();
-		}
-        
-		function imprimirRelatorioFechamento(fechamento) {
-			const centro = database.centrosCusto.find(c => c.codigo === fechamento.centroCusto);
-			
-			let conveniosHTML = '';
-			if (fechamento.convenios && fechamento.convenios.length > 0) {
-				fechamento.convenios.forEach(c => {
-					conveniosHTML += `
-						<tr>
-							<td>${c.nome}</td>
-							<td class="text-right">${formatCurrency(c.valor)}</td>
-						</tr>
-					`;
-				});
-			} else {
-				conveniosHTML = '<tr><td colspan="2" class="text-center">Nenhum convênio</td></tr>';
-			}
-			
-			let despesasHTML = '';
-			if (fechamento.despesas && fechamento.despesas.length > 0) {
-				fechamento.despesas.forEach(d => {
-					despesasHTML += `
-						<tr>
-							<td>${d.tipo}</td>
-							<td>${d.descricao}</td>
-							<td class="text-right">${formatCurrency(d.valor)}</td>
-						</tr>
-					`;
-				});
-			} else {
-				despesasHTML = '<tr><td colspan="3" class="text-center">Nenhuma despesa</td></tr>';
-			}
-			
-			const relatorioHTML = `
-				<div class="relatorio-header">
-					<h2>${database.settings.systemName}</h2>
-					<h3>Relatório de Fechamento Diário</h3>
-					<p>Data do fechamento: ${formatDate(fechamento.data)}</p>
-				</div>
-				
-				<div style="margin-bottom: 20px;">
-					<p><strong>Responsável:</strong> ${fechamento.responsavel}</p>
-					<p><strong>Centro de Custo:</strong> ${centro ? centro.nome : fechamento.centroCusto}</p>
-					<p><strong>Data de emissão:</strong> ${new Date().toLocaleString('pt-BR')}</p>
-				</div>
-				
-				<h4>Faturamento</h4>
-				<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-					<tr style="border-bottom: 1px solid #ddd;">
-						<th style="text-align: left;">Tipo</th>
-						<th style="text-align: right;">Valor</th>
-					</tr>
-					<tr>
-						<td>Dinheiro</td>
-						<td class="text-right">${formatCurrency(fechamento.dinheiro)}</td>
-					</tr>
-					<tr>
-						<td>PIX</td>
-						<td class="text-right">${formatCurrency(fechamento.pix)}</td>
-					</tr>
-					<tr>
-						<td>Outros Faturamentos</td>
-						<td class="text-right">${formatCurrency(fechamento.outrosFaturamentos || 0)}</td>
-					</tr>
-					${conveniosHTML}
-					<tr style="border-top: 2px solid #333; font-weight: bold;">
-						<td>Total Faturamentos</td>
-						<td class="text-right">${formatCurrency(fechamento.totalFaturamentos)}</td>
-					</tr>
-				</table>
-				
-				<h4>Despesas do Dia</h4>
-				<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-					<tr style="border-bottom: 1px solid #ddd;">
-						<th style="text-align: left;">Tipo</th>
-						<th style="text-align: left;">Descrição</th>
-						<th style="text-align: right;">Valor</th>
-					</tr>
-					${despesasHTML}
-					<tr style="border-top: 2px solid #333; font-weight: bold;">
-						<td colspan="2">Total Despesas</td>
-						<td class="text-right">${formatCurrency(fechamento.totalDespesas)}</td>
-					</tr>
-				</table>
-				
-				<h4>Taxas Bancárias</h4>
-				<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-					<tr style="border-bottom: 1px solid #ddd;">
-						<th style="text-align: left;">Total de Taxas</th>
-						<th style="text-align: right;">Valor</th>
-					</tr>
-					<tr>
-						<td>Total Taxas Bancárias</td>
-						<td class="text-right">${formatCurrency(fechamento.totalTaxas)}</td>
-					</tr>
-					<tr style="border-top: 2px solid #333; font-weight: bold;">
-						<td>Total Taxas</td>
-						<td class="text-right">${formatCurrency(fechamento.totalTaxas)}</td>
-					</tr>
-				</table>
-				
-				<div style="border-top: 3px solid #333; padding: 15px; text-align: right; font-size: 1.2rem;">
-					<strong>Total Líquido do Dia: ${formatCurrency(fechamento.totalDiaria)}</strong>
-				</div>
-				
-				<div class="relatorio-footer">
-					<p>Documento gerado em ${new Date().toLocaleString('pt-BR')}</p>
-					<p>DataManager Pro - Sistema de Gerenciamento</p>
-				</div>
-			`;
-			
-			const relatorioConteudo = document.getElementById('relatorio-conteudo');
-			if (relatorioConteudo) {
-				relatorioConteudo.innerHTML = relatorioHTML;
-			}
-			
-			const relatorioModal = document.getElementById('relatorio-modal');
-			if (relatorioModal) {
-				relatorioModal.style.display = 'flex';
-			}
-		}
+        function saveFechamento() {
+            if (currentUser.role === 'Usuário') {
+                showAlert('Usuários não podem salvar fechamentos.', 'warning');
+                return;
+            }
+            
+            const data = document.getElementById('fechamento-data')?.value;
+            const responsavel = document.getElementById('fechamento-responsavel')?.value;
+            let centroCusto = document.getElementById('fechamento-centro-custo')?.value;
+            
+            if (currentUser.role !== 'Administrador') {
+                centroCusto = currentUser.centroCusto;
+            }
+            
+            if (!data || !responsavel || !centroCusto) {
+                showAlert('Preencha todos os campos obrigatórios.', 'warning');
+                showTab('basico');
+                return;
+            }
+            
+            const dinheiro = parseFloat(document.getElementById('fechamento-dinheiro')?.value) || 0;
+            const pix = parseFloat(document.getElementById('fechamento-pix')?.value) || 0;
+            const outros = parseFloat(document.getElementById('fechamento-outros')?.value) || 0;
+            
+            const totalConvenios = selectedConvenios.reduce((sum, c) => sum + c.valor, 0);
+            const totalTaxas = selectedTaxasBancarias.reduce((sum, t) => sum + t.valor, 0);
+            const totalDespesas = selectedDespesas.reduce((sum, d) => sum + d.valor, 0);
+            
+            const totalFaturamentos = dinheiro + pix + outros + totalConvenios;
+            const totalLiquido = totalFaturamentos - totalDespesas - totalTaxas;
+            
+            const novoFechamento = {
+                id: database.fechamentosDiarios.length + 1,
+                data: data,
+                responsavel: responsavel,
+                centroCusto: centroCusto,
+                dinheiro: dinheiro,
+                pix: pix,
+                outrosFaturamentos: outros,
+                convenios: selectedConvenios.map(c => ({
+                    id: c.id,
+                    convenioId: c.convenioId,
+                    nome: c.nome,
+                    valor: c.valor
+                })),
+                taxasBancarias: selectedTaxasBancarias.map(t => ({
+                    id: t.id,
+                    bancoId: t.bancoId,
+                    bancoNome: t.bancoNome,
+                    valor: t.valor
+                })),
+                despesas: selectedDespesas.map(d => ({
+                    id: d.id,
+                    tipo: d.tipo,
+                    descricao: d.descricao,
+                    valor: d.valor
+                })),
+                totalFaturamentos: totalFaturamentos,
+                totalDespesas: totalDespesas,
+                totalTaxas: totalTaxas,
+                totalDiaria: totalLiquido,
+                status: "Fechado",
+                createdAt: new Date().toISOString(),
+                createdBy: currentUser.id
+            };
+            
+            database.fechamentosDiarios.push(novoFechamento);
+            autoSave(); // Salvar após adicionar fechamento
+            
+            const formContainer = document.getElementById('fechamento-form-container');
+            if (formContainer) formContainer.style.display = 'none';
+            
+            updateFechamentosTable();
+            
+            if (currentPage === 'dashboard') {
+                atualizarDashboardComFiltros();
+            }
+            
+            showAlert('Fechamento salvo com sucesso!', 'success');
+            
+            if (confirm('Deseja imprimir o relatório deste fechamento?')) {
+                imprimirRelatorioFechamento(novoFechamento);
+            }
+            
+            resetFechamentoForm();
+        }
         
         function updateFechamentosTable() {
             const tbody = document.getElementById('fechamentos-table');
@@ -3916,6 +4251,7 @@ function saveDatabase() {
             };
             
             database.bancos.push(novoBanco);
+            autoSave(); // Salvar após adicionar banco
             
             const modal = document.getElementById('banco-modal');
             if (modal) modal.remove();
@@ -3937,6 +4273,7 @@ function saveDatabase() {
                 };
                 
                 database.tiposDespesa.push(novoTipo);
+                autoSave(); // Salvar após adicionar tipo de despesa
                 
                 const select = document.getElementById('despesa-tipo-select');
                 if (select) {
@@ -4071,49 +4408,48 @@ function saveDatabase() {
             }
         }
         
-        // Função saveConvenio (exemplo)
-		function saveConvenio() {
-			const nome = document.getElementById('convenio-nome')?.value;
-			const documento = document.getElementById('convenio-documento')?.value;
-			const tipo = document.getElementById('convenio-tipo')?.value;
-			const centroCusto = document.getElementById('convenio-centro-custo')?.value;
-			const status = document.getElementById('convenio-status')?.value;
-			
-			if (!nome || !documento || !tipo || !status) {
-				showAlert('Preencha todos os campos obrigatórios.', 'warning');
-				return;
-			}
-			
-			if (!validarDocumento(documento, tipo)) {
-				showAlert('Documento inválido para o tipo selecionado.', 'danger');
-				return;
-			}
-			
-			const novoConvenio = {
-				id: database.convenios.length + 1,
-				nome: nome,
-				documento: documento,
-				tipo: tipo,
-				centroCusto: centroCusto || currentUser.centroCusto,
-				status: status,
-				createdAt: new Date().toISOString(),
-				createdBy: currentUser.id
-			};
-			
-			database.convenios.push(novoConvenio);
-			autoSave(); // <-- SALVAR AUTOMATICAMENTE
-			
-			const convenioModal = document.getElementById('convenio-modal');
-			if (convenioModal) convenioModal.style.display = 'none';
-			
-			updateConveniosTable();
-			
-			if (currentPage === 'fechamento-diario') {
-				loadConveniosForSelection();
-			}
-			
-			showAlert('Convênio cadastrado com sucesso!', 'success');
-		}
+        function saveConvenio() {
+            const nome = document.getElementById('convenio-nome')?.value;
+            const documento = document.getElementById('convenio-documento')?.value;
+            const tipo = document.getElementById('convenio-tipo')?.value;
+            const centroCusto = document.getElementById('convenio-centro-custo')?.value;
+            const status = document.getElementById('convenio-status')?.value;
+            
+            if (!nome || !documento || !tipo || !status) {
+                showAlert('Preencha todos os campos obrigatórios.', 'warning');
+                return;
+            }
+            
+            if (!validarDocumento(documento, tipo)) {
+                showAlert('Documento inválido para o tipo selecionado.', 'danger');
+                return;
+            }
+            
+            const novoConvenio = {
+                id: database.convenios.length + 1,
+                nome: nome,
+                documento: documento,
+                tipo: tipo,
+                centroCusto: centroCusto || currentUser.centroCusto,
+                status: status,
+                createdAt: new Date().toISOString(),
+                createdBy: currentUser.id
+            };
+            
+            database.convenios.push(novoConvenio);
+            autoSave(); // Salvar após adicionar convênio
+            
+            const convenioModal = document.getElementById('convenio-modal');
+            if (convenioModal) convenioModal.style.display = 'none';
+            
+            updateConveniosTable();
+            
+            if (currentPage === 'fechamento-diario') {
+                loadConveniosForSelection();
+            }
+            
+            showAlert('Convênio cadastrado com sucesso!', 'success');
+        }
         
         function validarDocumento(documento, tipo) {
             const docLimpo = documento.replace(/\D/g, '');
@@ -4236,6 +4572,7 @@ function saveDatabase() {
                 if (convenioModal) convenioModal.style.display = 'none';
                 
                 updateConveniosTable();
+                autoSave(); // Salvar após editar convênio
                 
                 showAlert('Convênio atualizado com sucesso!', 'success');
                 
@@ -4252,6 +4589,7 @@ function saveDatabase() {
             if (confirm(`Tem certeza que deseja ${novaAcao} o convênio "${convenio.nome}"?`)) {
                 convenio.status = convenio.status === 'Ativo' ? 'Inativo' : 'Ativo';
                 updateConveniosTable();
+                autoSave(); // Salvar após alterar status
                 showAlert(`Convênio ${novaAcao}do com sucesso!`, 'success');
             }
         }
@@ -4360,61 +4698,60 @@ function saveDatabase() {
             modal.style.display = 'flex';
         }
         
-        // Função para salvar usuário
-		function saveUsuario() {
-			const id = document.getElementById('usuario-id')?.value;
-			const nome = document.getElementById('usuario-nome')?.value;
-			const email = document.getElementById('usuario-email')?.value;
-			const senha = document.getElementById('usuario-senha')?.value;
-			const perfil = document.getElementById('usuario-perfil')?.value;
-			const centroCusto = document.getElementById('usuario-centro-custo')?.value;
-			const status = document.getElementById('usuario-status')?.value;
-			
-			if (!nome || !email || !perfil || !centroCusto) {
-				showAlert('Preencha todos os campos obrigatórios.', 'warning');
-				return;
-			}
-			
-			if (id) {
-				const usuario = database.users.find(u => u.id === parseInt(id));
-				if (usuario) {
-					usuario.name = nome;
-					usuario.email = email;
-					if (senha) usuario.password = senha;
-					usuario.role = perfil;
-					usuario.centroCusto = centroCusto;
-					usuario.status = status;
-					
-					autoSave(); // <-- SALVAR AUTOMATICAMENTE
-					showAlert('Usuário atualizado com sucesso!', 'success');
-				}
-			} else {
-				if (!senha) {
-					showAlert('Informe uma senha para o novo usuário.', 'warning');
-					return;
-				}
-				
-				const novoUsuario = {
-					id: database.users.length + 1,
-					name: nome,
-					email: email,
-					password: senha,
-					role: perfil,
-					centroCusto: centroCusto,
-					lastLogin: new Date().toISOString(),
-					status: status
-				};
-				
-				database.users.push(novoUsuario);
-				autoSave(); // <-- SALVAR AUTOMATICAMENTE
-				showAlert('Usuário cadastrado com sucesso!', 'success');
-			}
-			
-			const usuarioModal = document.getElementById('usuario-modal');
-			if (usuarioModal) usuarioModal.style.display = 'none';
-			
-			updateUsuariosTable();
-		}
+        function saveUsuario() {
+            const id = document.getElementById('usuario-id')?.value;
+            const nome = document.getElementById('usuario-nome')?.value;
+            const email = document.getElementById('usuario-email')?.value;
+            const senha = document.getElementById('usuario-senha')?.value;
+            const perfil = document.getElementById('usuario-perfil')?.value;
+            const centroCusto = document.getElementById('usuario-centro-custo')?.value;
+            const status = document.getElementById('usuario-status')?.value;
+            
+            if (!nome || !email || !perfil || !centroCusto) {
+                showAlert('Preencha todos os campos obrigatórios.', 'warning');
+                return;
+            }
+            
+            if (id) {
+                const usuario = database.users.find(u => u.id === parseInt(id));
+                if (usuario) {
+                    usuario.name = nome;
+                    usuario.email = email;
+                    if (senha) usuario.password = senha;
+                    usuario.role = perfil;
+                    usuario.centroCusto = centroCusto;
+                    usuario.status = status;
+                    
+                    autoSave(); // Salvar após editar usuário
+                    showAlert('Usuário atualizado com sucesso!', 'success');
+                }
+            } else {
+                if (!senha) {
+                    showAlert('Informe uma senha para o novo usuário.', 'warning');
+                    return;
+                }
+                
+                const novoUsuario = {
+                    id: database.users.length + 1,
+                    name: nome,
+                    email: email,
+                    password: senha,
+                    role: perfil,
+                    centroCusto: centroCusto,
+                    lastLogin: new Date().toISOString(),
+                    status: status
+                };
+                
+                database.users.push(novoUsuario);
+                autoSave(); // Salvar após adicionar usuário
+                showAlert('Usuário cadastrado com sucesso!', 'success');
+            }
+            
+            const usuarioModal = document.getElementById('usuario-modal');
+            if (usuarioModal) usuarioModal.style.display = 'none';
+            
+            updateUsuariosTable();
+        }
         
         function updateUsuariosTable() {
             const tbody = document.getElementById('usuarios-table');
@@ -4468,6 +4805,7 @@ function saveDatabase() {
             if (confirm(`Tem certeza que deseja ${novaAcao} o usuário "${usuario.name}"?`)) {
                 usuario.status = usuario.status === 'Ativo' ? 'Inativo' : 'Ativo';
                 updateUsuariosTable();
+                autoSave(); // Salvar após alterar status
                 showAlert(`Usuário ${novaAcao}do com sucesso!`, 'success');
             }
         }
@@ -5068,7 +5406,26 @@ function saveDatabase() {
                         </div>
                     </div>
                     
-                    <button class="btn btn-primary btn-block" id="save-settings">
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="manage-logo-btn" style="width: 100%; margin-bottom: 10px;">
+                            <i class="fas fa-image"></i> Gerenciar Logomarca
+                        </button>
+                    </div>
+                    
+                    <div class="backup-section">
+                        <h4 class="backup-title">Backup e Restauração</h4>
+                        <div class="form-group">
+                            <button class="btn btn-success" id="export-backup-btn" style="width: 100%; margin-bottom: 10px;">
+                                <i class="fas fa-download"></i> Exportar Backup
+                            </button>
+                            <input type="file" id="import-backup-file" accept=".json" style="display: none;">
+                            <button class="btn btn-warning" id="import-backup-btn" style="width: 100%;">
+                                <i class="fas fa-upload"></i> Importar Backup
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block mt-3" id="save-settings">
                         <i class="fas fa-save"></i> Salvar Configurações
                     </button>
                 </div>
@@ -5078,6 +5435,44 @@ function saveDatabase() {
             if (saveSettings) {
                 saveSettings.addEventListener('click', function() {
                     saveSettingsFunc();
+                });
+            }
+            
+            const manageLogoBtn = document.getElementById('manage-logo-btn');
+            if (manageLogoBtn) {
+                manageLogoBtn.addEventListener('click', function() {
+                    showLogoModal();
+                });
+            }
+            
+            // Botões de backup
+            const exportBtn = document.getElementById('export-backup-btn');
+            if (exportBtn) {
+                exportBtn.addEventListener('click', function() {
+                    database.exportBackup();
+                });
+            }
+            
+            const importBtn = document.getElementById('import-backup-btn');
+            const importFile = document.getElementById('import-backup-file');
+            if (importBtn && importFile) {
+                importBtn.addEventListener('click', function() {
+                    importFile.click();
+                });
+                
+                importFile.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        database.importBackup(file)
+                            .then(() => {
+                                showAlert('Backup importado com sucesso! Recarregando...', 'success');
+                                updateLogoDisplay();
+                                setTimeout(() => location.reload(), 2000);
+                            })
+                            .catch(error => {
+                                showAlert('Erro ao importar backup: ' + error.message, 'danger');
+                            });
+                    }
                 });
             }
         }
@@ -5092,6 +5487,8 @@ function saveDatabase() {
             if (sessionTimeout) database.settings.sessionTimeout = sessionTimeout;
             if (emailNotifications !== undefined) database.settings.emailNotifications = emailNotifications;
             if (backupAutomatico !== undefined) database.settings.backupAutomatico = backupAutomatico;
+            
+            autoSave(); // Salvar configurações
             
             if (sessionTimer) {
                 clearTimeout(sessionTimer);
@@ -5112,6 +5509,25 @@ function saveDatabase() {
             };
             return classes[categoria] || 'badge-secondary';
         }
+
+        // ============== ESTADO DA APLICAÇÃO (CONTINUAÇÃO) ==============
+        let currentUser = null;
+        let currentPage = "dashboard";
+        let sessionTimer = null;
+        let isSystemLocked = true;
+        let charts = {};
+        let dashboardFiltros = {
+            dataInicio: '',
+            dataFim: '',
+            centroCusto: '',
+            tipo: 'todos'
+        };
+        
+        // Estado para fechamento diário
+        let selectedConvenios = [];
+        let selectedTaxasBancarias = [];
+        let selectedDespesas = [];
+        let nextLancamentoId = 1;
 
         // Tornar funções globais para uso em eventos onclick
         window.removerConvenio = removerConvenio;
